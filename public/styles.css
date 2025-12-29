@@ -32,7 +32,7 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
-    background-image: url('images/background.jpg');  /* Путь к изображению */
+    background-image: url('../images/background.jpg');  /* Путь к изображению */
     background-size: cover;                    /* Растягиваем изображение на весь экран */
     background-position: center;               /* Центрируем изображение */
     background-attachment: fixed;              /* Фон фиксируется при скролле */
