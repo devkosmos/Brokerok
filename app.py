@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, send_from_directory
 import requests
 import os
 from datetime import datetime
@@ -9,6 +9,13 @@ app = Flask(__name__, static_folder='public', static_url_path='')
 BOT_TOKEN = os.environ.get('BOT_TOKEN', '8412708945:AAEPdeJ9jd1N_Hlo-o7A0rOZjv3t-mq6gjA')
 CHAT_ID = os.environ.get('CHAT_ID', '8039700599')
 
+@app.route('/')
+def index():
+    return send_from_directory('public', 'index.html')
+
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory('public', path)
 # Разрешаем CORS
 @app.after_request
 def after_request(response):
