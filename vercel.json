@@ -1,8 +1,11 @@
 {
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/public/index.html"
-    }
+  "version": 2,
+  "builds": [
+    { "src": "public/index.html", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "^/static/(.*)", "dest": "/public/static/$1" },
+    { "src": "^(.*\\.(js|css|png|jpg|svg|ico))$", "dest": "/public/$1" },
+    { "src": ".*", "dest": "/public/index.html" }
   ]
 }
