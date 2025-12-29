@@ -1637,18 +1637,19 @@ function submitFormData() {
 ⏰ Время связи: ${getTranslatedDetail(formData.contactTime)}
 📝 Дополнительно: ${formData.additional || 'Нет'}
 📍 Локация: ${formData.realtyLocation || 'Не указана'}
+📅 Дата отправки: ${new Date().toLocaleString('ru-RU')}
     `;
     
-    // URL Python сервера (измените на свой)
-    const apiUrl = 'http://localhost:5000/send'; // или ваш домен
+    // URL вашего Vercel проекта (будет вида: проект.vercel.app)
+    const apiUrl = 'https://brokerok-bot.vercel.app/api/send';
     
-    // Показываем загрузку
+    // Показываем индикатор загрузки
     const submitBtn = document.querySelector('#nextBtn3');
     const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Отправка...';
+    submitBtn.textContent = '📤 Отправка...';
     submitBtn.disabled = true;
     
-    // Отправляем на Python сервер
+    // Отправляем на Vercel
     fetch(apiUrl, {
         method: 'POST',
         headers: {
@@ -1662,35 +1663,39 @@ function submitFormData() {
         const data = await response.json();
         
         if (!response.ok) {
-            throw new Error(data.description || 'Ошибка сервера');
+            throw new Error(data.error || 'Ошибка сервера');
         }
         
         return data;
     })
     .then(data => {
-        console.log('Ответ от сервера:', data);
+        console.log('Ответ от Vercel:', data);
         
         if (data.ok) {
             goToStep(4);
-            showNotification('✅ Анкета отправлена! Менеджер свяжется с вами.');
+            showNotification('✅ Анкета отправлена! Менеджер свяжется с вами в течение 15 минут.');
         } else {
-            // Сохраняем локально если ошибка Telegram
-            localStorage.setItem('app_' + Date.now(), application);
+            // Резервный вариант
+            localStorage.setItem('brokerok_app_' + Date.now(), application);
             goToStep(4);
-            showNotification('📝 Анкета сохранена! ' + (data.description || ''));
+            showNotification('📝 Анкета сохранена! ' + (data.error || ''));
         }
     })
     .catch(error => {
         console.error('Ошибка:', error);
         
-        // Резервное сохранение
-        localStorage.setItem('app_backup_' + Date.now(), application);
-        
-        // Показываем ссылку на Telegram как запасной вариант
+        // Резервное сохранение + открытие Telegram
         const telegramUrl = `https://t.me/BrokerokSupportBot?text=${encodeURIComponent(application.substring(0, 2000))}`;
         
+        localStorage.setItem('brokerok_backup_' + Date.now(), application);
+        
         goToStep(4);
-        showNotification('📱 Анкета сохранена. Нажмите OK чтобы открыть Telegram для отправки', 'info', telegramUrl);
+        showNotification('📱 Анкета сохранена. Нажмите OK чтобы открыть Telegram для отправки', 'info');
+        
+        // Автоматически открываем Telegram через 2 секунды
+        setTimeout(() => {
+            window.open(telegramUrl, '_blank');
+        }, 2000);
     })
     .finally(() => {
         // Восстанавливаем кнопку
