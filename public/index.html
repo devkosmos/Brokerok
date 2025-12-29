@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brokerok | Премиум услуги</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Анимированные элементы фона -->
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+
+    <!-- Уведомление -->
+    <div class="notification" id="notification">
+        <div class="notification-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="notification-content">
+            <h4 id="notification-title">Заявка отправлена!</h4>
+            <p id="notification-message">Мы свяжемся с вами в ближайшее время</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Навигация -->
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-main" data-i18n="company_name">BROKEROK</span>
+                    <span class="logo-sub" data-i18n="company_subtitle">ПРЕМИУМ УСЛУГИ</span>
+                </div>
+            </a>
+            
+            <div class="nav-links">
+                <a href="#" class="nav-link active" data-tab="home" data-i18n="nav_home">Главная</a>
+                <a href="#" class="nav-link" data-tab="services" data-i18n="nav_services">Услуги</a>
+                <a href="#" class="nav-link" data-tab="about" data-i18n="nav_about">О компании</a>
+                <a href="#" class="nav-link" data-tab="contacts" data-i18n="nav_contacts">Контакты</a>
+                
+                <!-- Кнопка переключения языка -->
+                <div class="language-switcher">
+                    <button class="language-btn active" data-lang="ru">RU</button>
+                    <button class="language-btn" data-lang="en">EN</button>
+                    <button class="language-btn" data-lang="tr">TR</button>
+                </div>
+                
+                <a href="#" class="cta-button" id="consultationBtn" data-i18n="consultation_btn">Консультация</a>
+            </div>
+        </nav>
+
+        <!-- Главный контент -->
+        <div class="main-content active" id="home-tab">
+            <div class="welcome-section">
+                <h1><span data-i18n="main_title1">Экспертные услуги</span> <span data-i18n="main_title2">в сфере недвижимости, авто и бизнеса</span></h1>
+                <p data-i18n="main_description">Мы предоставляем полный спектр премиальных услуг: покупка и продажа недвижимости, автомобилей, открытие бизнеса и юридическое сопровождение. Более 15 лет на рынке.</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span data-i18n="feature1">Безопасность сделок</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-award"></i>
+                        <span data-i18n="feature2">Премиум сервис</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-user-tie"></i>
+                        <span data-i18n="feature3">Личный менеджер</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-clock"></i>
+                        <span data-i18n="feature4">Экономия времени</span>
+                    </div>
+                </div>
+
+                <!-- Блок с выбором категории услуг -->
+                <div class="category-selector">
+                    <h3><i class="fas fa-th-large"></i> <span data-i18n="category_title">Выберите категорию услуг</span></h3>
+                    <div class="categories-grid">
+                        <div class="category-card" data-category="realty">
+                            <i class="fas fa-home"></i>
+                            <h4 data-i18n="category_realty">Недвижимость</h4>
+                            <p data-i18n="category_realty_desc">Покупка, продажа, аренда, сопровождение сделок</p>
+                        </div>
+                        <div class="category-card" data-category="auto">
+                            <i class="fas fa-car"></i>
+                            <h4 data-i18n="category_auto">Автомобили</h4>
+                            <p data-i18n="category_auto_desc">Покупка, продажа, трейд-ин, оформление</p>
+                        </div>
+                        <div class="category-card" data-category="business">
+                            <i class="fas fa-briefcase"></i>
+                            <h4 data-i18n="category_business">Бизнес-услуги</h4>
+                            <p data-i18n="category_business_desc">Открытие ИП/ООО, бухгалтерия, лицензии</p>
+                        </div>
+                        <div class="category-card" data-category="legal">
+                            <i class="fas fa-gavel"></i>
+                            <h4 data-i18n="category_legal">Юридические услуги</h4>
+                            <p data-i18n="category_legal_desc">Консультации, сопровождение, судебные споры</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Карточка формы -->
+            <div class="form-card animate__animated animate__fadeInRight">
+                <div class="card-header">
+                    <h2 id="form-title" data-i18n="form_title">Заявка на услуги</h2>
+                    <p id="form-subtitle" data-i18n="form_subtitle">Выберите категорию услуг для начала</p>
+                </div>
+                
+                <div class="card-body">
+                    <!-- Прогресс бар -->
+                    <div class="progress-bar">
+                        <div class="progress-step active" id="step1">
+                            <div class="step-circle"></div>
+                            <span class="step-label" data-i18n="step1_label">Услуга</span>
+                        </div>
+                        <div class="progress-step" id="step2">
+                            <div class="step-circle"></div>
+                            <span class="step-label" data-i18n="step2_label">Детали</span>
+                        </div>
+                        <div class="progress-step" id="step3">
+                            <div class="step-circle"></div>
+                            <span class="step-label" data-i18n="step3_label">Бюджет</span>
+                        </div>
+                        <div class="progress-step" id="step4">
+                            <div class="step-circle"></div>
+                            <span class="step-label" data-i18n="step4_label">Готово</span>
+                        </div>
+                    </div>
+
+                    <form id="requestForm">
+                        <!-- Шаг 1: Выбор услуги -->
+                        <div class="form-step active" id="step-1">
+                            <h2 class="step-title"><i class="fas fa-list-alt"></i> <span data-i18n="step1_title">Выберите услугу</span></h2>
+                            
+                            <!-- Недвижимость -->
+                            <div class="service-category active" data-category="realty">
+                                <div class="options-grid">
+                                    <div class="option-card" data-service="purchase">
+                                        <i class="fas fa-home option-icon"></i>
+                                        <h3 class="option-title" data-i18n="service_purchase">Покупка недвижимости</h3>
+                                        <p class="option-description" data-i18n="service_purchase_desc">Подбор и покупка квартир, домов, коммерческой недвижимости</p>
+                                    </div>
+                                    
+                                    <div class="option-card" data-service="sale">
+                                        <i class="fas fa-money-bill-wave option-icon"></i>
+                                        <h3 class="option-title" data-i18n="service_sale">Продажа недвижимости</h3>
+                                        <p class="option-description" data-i18n="service_sale_desc">Оценка, подготовка и продажа вашей недвижимости</p>
+                                    </div>
+                                    
+                                    <div class="option-card" data-service="rent">
+                                        <i class="fas fa-key option-icon"></i>
+                                        <h3 class="option-title" data-i18n="service_rent">Аренда</h3>
+                                        <p class="option-description" data-i18n="service_rent_desc">Аренда жилой и коммерческой недвижимости</p>
+                                    </div>
+                                    
+                                    <div class="option-card" data-service="support">
+                                        <i class="fas fa-handshake option-icon"></i>
+                                        <h3 class="option-title" data-i18n="service_support">Сопровождение сделки</h3>
+                                        <p class="option-description" data-i18n="service_support_desc">Юридическое сопровождение и проверка документов</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Автомобили -->
+                            <div class="service-category" data-category="auto">
+                                <div class="options-grid">
+                                    <div class="option-card" data-service="purchase-auto">
+                                        <i class="fas fa-car option-icon"></i>
+                                        <h3 class="option-title" data-i18n="service_purchase_auto">Покупка автомобиля</h3>
+                                        <p class="option-description" data-i18n="service_purchase_auto_desc">Подбор и покупка новых и подержанных автомобилей</p>
+                                    </div>
+                                    
+                                    <div class="option-card" data-service="sale-auto">
+                                        <i class="fas fa-money-bill-wave option-icon"></i>
+                                        <h3 class="option-title" data-i18n="service_sale_auto">Продажа автомобиля</h3>
+                                        <p class="option-description" data-i18n="service_sale_auto_desc">Оценка, подготовка и продажа вашего автомобиля</p>
+                                    </div>
+                                    
+                                    <div class="option-card" data-service="trade-in">
+                                        <i class="fas fa-exchange-alt option-icon"></i>
+                                        <h3 class="option-title" data-i18n="service_tradein">Трейд-ин</h3>
+                                        <p class="option-description" data-i18n="service_tradein_desc">Обмен вашего автомобиля на новый с доплатой</p>
+                                    </div>
+                                    
+                                    <div class="option-card" data-service="registration">
+                                        <i class="fas fa-file-alt option-icon"></i>
+                                        <h3 class="option-title" data-i18n="service_registration">Оформление документов</h3>
+                                        <p class="option-description" data-i18n="service_registration_desc">Полное оформление документов на автомобиль</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Бизнес-услуги -->
+                            <div class="service-category" data-category="business">
+                                <div class="options-grid">
+                                    <div class="option-card" data-service="open-ip">
+                                        <i class="fas fa-user-tie option-icon"></i>
+                                        <h3 class="option-title" data-i18n="service_open_ip">Открытие ИП</h3>
+                                        <p class="option-description" data-i18n="service_open_ip_desc">Полная регистрация индивидуального предпринимателя</p>
+                                    </div>
+                                    
+                                    <div class="option-card" data-service="open-ooo">
+                                        <i class="fas fa-building option-icon"></i>
+                                        <h3 class="option-title" data-i18n="service_open_ooo">Открытие ООО</h3>
+                                        <p class="option-description" data-i18n="service_open_ooo_desc">Регистрация общества с ограниченной ответственностью</p>
+                                    </div>
+                                    
+                                    <div class="option-card" data-service="accounting">
+                                        <i class="fas fa-calculator option-icon"></i>
+                                        <h3 class="option-title" data-i18n="service_accounting">Бухгалтерские услуги</h3>
+                                        <p class="option-description" data-i18n="service_accounting_desc">Полное бухгалтерское сопровождение бизнеса</p>
+                                    </div>
+                                    
+                                    <div class="option-card" data-service="licensing">
+                                        <i class="fas fa-file-contract option-icon"></i>
+                                        <h3 class="option-title" data-i18n="service_licensing">Лицензирование</h3>
+                                        <p class="option-description" data-i18n="service_licensing_desc">Оформление лицензий для различных видов деятельности</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Юридические услуги -->
+                            <div class="service-category" data-category="legal">
+                                <div class="options-grid">
+                                    <div class="option-card" data-service="consultation">
+                                        <i class="fas fa-comments option-icon"></i>
+                                        <h3 class="option-title" data-i18n="service_consultation">Юридическая консультация</h3>
+                                        <p class="option-description" data-i18n="service_consultation_desc">Консультации по юридическим вопросам</p>
+                                    </div>
+                                    
+                                    <div class="option-card" data-service="deal-support">
+                                        <i class="fas fa-handshake option-icon"></i>
+                                        <h3 class="option-title" data-i18n="service_deal_support">Сопровождение сделок</h3>
+                                        <p class="option-description" data-i18n="service_deal_support_desc">Юридическое сопровождение различных сделок</p>
+                                    </div>
+                                    
+                                    <div class="option-card" data-service="court">
+                                        <i class="fas fa-gavel option-icon"></i>
+                                        <h3 class="option-title" data-i18n="service_court">Судебные споры</h3>
+                                        <p class="option-description" data-i18n="service_court_desc">Представление интересов в суде</p>
+                                    </div>
+                                    
+                                    <div class="option-card" data-service="contracts">
+                                        <i class="fas fa-file-signature option-icon"></i>
+                                        <h3 class="option-title" data-i18n="service_contracts">Составление договоров</h3>
+                                        <p class="option-description" data-i18n="service_contracts_desc">Разработка и проверка договоров</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-navigation">
+                                <button type="button" class="btn btn-primary" id="nextBtn1">
+                                    <span data-i18n="btn_next">Далее</span> <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Шаг 2: Детали услуги -->
+                        <div class="form-step" id="step-2">
+                            <h2 class="step-title"><i class="fas fa-clipboard-list"></i> <span data-i18n="step2_title">Уточните детали</span></h2>
+                            
+                            <!-- Детали для недвижимости -->
+                            <div class="details-category active" data-category="realty">
+                                <div class="question-container">
+                                    <div class="question"><i class="fas fa-city"></i> <span data-i18n="detail_realty_type">Тип недвижимости:</span></div>
+                                    <div class="options-list">
+                                        <div class="option-tag" data-detail="apartment" data-i18n="detail_apartment">Квартира</div>
+                                        <div class="option-tag" data-detail="house" data-i18n="detail_house">Частный дом</div>
+                                        <div class="option-tag" data-detail="cottage" data-i18n="detail_cottage">Коттедж</div>
+                                        <div class="option-tag" data-detail="commercial" data-i18n="detail_commercial">Коммерческая</div>
+                                        <div class="option-tag" data-detail="land" data-i18n="detail_land">Земельный участок</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="question-container">
+                                    <div class="question"><i class="fas fa-bed"></i> <span data-i18n="detail_rooms">Количество комнат:</span></div>
+                                    <div class="options-list">
+                                        <div class="option-tag" data-detail="studio" data-i18n="detail_studio">Студия</div>
+                                        <div class="option-tag" data-detail="1" data-i18n="detail_1room">1-комн.</div>
+                                        <div class="option-tag" data-detail="2" data-i18n="detail_2rooms">2-комн.</div>
+                                        <div class="option-tag" data-detail="3" data-i18n="detail_3rooms">3-комн.</div>
+                                        <div class="option-tag" data-detail="4+" data-i18n="detail_4rooms">4+ комн.</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="question-container">
+                                    <div class="question"><i class="fas fa-map-marker-alt"></i> <span data-i18n="detail_location">Район/локация:</span></div>
+                                    <input type="text" class="text-input" id="realty-location" data-i18n-placeholder="detail_location_placeholder" placeholder="Например: центр города, пригород...">
+                                </div>
+                            </div>
+                            
+                            <!-- Детали для автомобилей -->
+                            <div class="details-category" data-category="auto">
+                                <div class="question-container">
+                                    <div class="question"><i class="fas fa-car"></i> <span data-i18n="detail_car_type">Тип автомобиля:</span></div>
+                                    <div class="options-list">
+                                        <div class="option-tag" data-detail="sedan" data-i18n="detail_sedan">Седан</div>
+                                        <div class="option-tag" data-detail="suv" data-i18n="detail_suv">Внедорожник</div>
+                                        <div class="option-tag" data-detail="hatchback" data-i18n="detail_hatchback">Хэтчбек</div>
+                                        <div class="option-tag" data-detail="coupe" data-i18n="detail_coupe">Купе</div>
+                                        <div class="option-tag" data-detail="minivan" data-i18n="detail_minivan">Минивэн</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="question-container">
+                                    <div class="question"><i class="fas fa-gas-pump"></i> <span data-i18n="detail_fuel">Тип топлива:</span></div>
+                                    <div class="options-list">
+                                        <div class="option-tag" data-detail="petrol" data-i18n="detail_petrol">Бензин</div>
+                                        <div class="option-tag" data-detail="diesel" data-i18n="detail_diesel">Дизель</div>
+                                        <div class="option-tag" data-detail="hybrid" data-i18n="detail_hybrid">Гибрид</div>
+                                        <div class="option-tag" data-detail="electric" data-i18n="detail_electric">Электро</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="question-container">
+                                    <div class="question"><i class="fas fa-cogs"></i> <span data-i18n="detail_transmission">Коробка передач:</span></div>
+                                    <div class="options-list">
+                                        <div class="option-tag" data-detail="manual" data-i18n="detail_manual">Механика</div>
+                                        <div class="option-tag" data-detail="automatic" data-i18n="detail_automatic">Автомат</div>
+                                        <div class="option-tag" data-detail="robot" data-i18n="detail_robot">Робот</div>
+                                        <div class="option-tag" data-detail="cvt" data-i18n="detail_cvt">Вариатор</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="question-container">
+                                    <div class="question"><i class="fas fa-calendar-alt"></i> <span data-i18n="detail_year">Год выпуска:</span></div>
+                                    <div class="year-range-container">
+                                        <div class="year-range-header">
+                                            <div class="year-range-display">
+                                                <div class="year-display-box active" id="minYearBox">
+                                                    <div class="year-display-label" data-i18n="year_from">ОТ</div>
+                                                    <div class="year-display-value" id="displayMinYear">2000</div>
+                                                </div>
+                                                <div class="year-display-box" id="maxYearBox">
+                                                    <div class="year-display-label" data-i18n="year_to">ДО</div>
+                                                    <div class="year-display-value" id="displayMaxYear">2023</div>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-secondary" id="resetYearBtn" style="padding: 10px 20px; font-size: 0.9rem;">
+                                                <i class="fas fa-redo"></i> <span data-i18n="btn_reset">Сбросить</span>
+                                            </button>
+                                        </div>
+                                        
+                                        <div class="range-slider-wrapper">
+                                            <div class="year-slider-track"></div>
+                                            <input type="range" min="1990" max="2023" value="2000" class="year-slider" id="yearSliderMin">
+                                            <input type="range" min="1990" max="2023" value="2023" class="year-slider" id="yearSliderMax">
+                                        </div>
+                                        
+                                        <div class="year-ticks">
+                                            <div class="year-tick" data-year="1990">1990</div>
+                                            <div class="year-tick" data-year="1995">1995</div>
+                                            <div class="year-tick" data-year="2000">2000</div>
+                                            <div class="year-tick active" data-year="2005">2005</div>
+                                            <div class="year-tick" data-year="2010">2010</div>
+                                            <div class="year-tick" data-year="2015">2015</div>
+                                            <div class="year-tick" data-year="2020">2020</div>
+                                            <div class="year-tick" data-year="2023">2023</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Детали для бизнеса -->
+                            <div class="details-category" data-category="business">
+                                <div class="question-container">
+                                    <div class="question"><i class="fas fa-industry"></i> <span data-i18n="detail_business_type">Сфера деятельности:</span></div>
+                                    <div class="options-list">
+                                        <div class="option-tag" data-detail="trade" data-i18n="detail_trade">Торговля</div>
+                                        <div class="option-tag" data-detail="services" data-i18n="detail_services">Услуги</div>
+                                        <div class="option-tag" data-detail="production" data-i18n="detail_production">Производство</div>
+                                        <div class="option-tag" data-detail="it" data-i18n="detail_it">IT-технологии</div>
+                                        <div class="option-tag" data-detail="construction" data-i18n="detail_construction">Строительство</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="question-container">
+                                    <div class="question"><i class="fas fa-users"></i> <span data-i18n="detail_employees">Количество сотрудников:</span></div>
+                                    <div class="options-list">
+                                        <div class="option-tag" data-detail="1-5" data-i18n="detail_1_5">1-5 человек</div>
+                                        <div class="option-tag" data-detail="6-20" data-i18n="detail_6_20">6-20 человек</div>
+                                        <div class="option-tag" data-detail="21-50" data-i18n="detail_21_50">21-50 человек</div>
+                                        <div class="option-tag" data-detail="50+" data-i18n="detail_50plus">Более 50 человек</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="question-container">
+                                    <div class="question"><i class="fas fa-chart-line"></i> <span data-i18n="detail_revenue">Оборот в месяц:</span></div>
+                                    <div class="options-list">
+                                        <div class="option-tag" data-detail="under500k" data-i18n="detail_under500k">До 500 тыс. ₽</div>
+                                        <div class="option-tag" data-detail="500k-2m" data-i18n="detail_500k_2m">500 тыс. - 2 млн ₽</div>
+                                        <div class="option-tag" data-detail="2m-10m" data-i18n="detail_2m_10m">2-10 млн ₽</div>
+                                        <div class="option-tag" data-detail="over10m" data-i18n="detail_over10m">Более 10 млн ₽</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Детали для юридических услуг -->
+                            <div class="details-category" data-category="legal">
+                                <div class="question-container">
+                                    <div class="question"><i class="fas fa-balance-scale"></i> <span data-i18n="detail_law_field">Область права:</span></div>
+                                    <div class="options-list">
+                                        <div class="option-tag" data-detail="civil" data-i18n="detail_civil">Гражданское</div>
+                                        <div class="option-tag" data-detail="criminal" data-i18n="detail_criminal">Уголовное</div>
+                                        <div class="option-tag" data-detail="arbitration" data-i18n="detail_arbitration">Арбитражное</div>
+                                        <div class="option-tag" data-detail="family" data-i18n="detail_family">Семейное</div>
+                                        <div class="option-tag" data-detail="labor" data-i18n="detail_labor">Трудовое</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="question-container">
+                                    <div class="question"><i class="fas fa-briefcase"></i> <span data-i18n="detail_client_type">Тип клиента:</span></div>
+                                    <div class="options-list">
+                                        <div class="option-tag" data-detail="individual" data-i18n="detail_individual">Физическое лицо</div>
+                                        <div class="option-tag" data-detail="business" data-i18n="detail_business">Юридическое лицо</div>
+                                        <div class="option-tag" data-detail="entrepreneur" data-i18n="detail_entrepreneur">Индивидуальный предприниматель</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="question-container">
+                                    <div class="question"><i class="fas fa-hourglass-half"></i> <span data-i18n="detail_urgency">Срочность:</span></div>
+                                    <div class="options-list">
+                                        <div class="option-tag" data-detail="urgent" data-i18n="detail_urgent">Срочно (до 3 дней)</div>
+                                        <div class="option-tag" data-detail="normal" data-i18n="detail_normal">Обычная (1-2 недели)</div>
+                                        <div class="option-tag" data-detail="longterm" data-i18n="detail_longterm">Долгосрочное сопровождение</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="question-container">
+                                <div class="question"><i class="fas fa-comment-alt"></i> <span data-i18n="detail_additional">Дополнительные пожелания:</span></div>
+                                <div class="textarea-container">
+                                    <textarea id="additionalInfo" data-i18n-placeholder="detail_additional_placeholder" placeholder="Опишите дополнительные требования, пожелания..."></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="form-navigation">
+                                <button type="button" class="btn btn-secondary" id="prevBtn2">
+                                    <i class="fas fa-arrow-left"></i> <span data-i18n="btn_back">Назад</span>
+                                </button>
+                                <button type="button" class="btn btn-primary" id="nextBtn2">
+                                    <span data-i18n="btn_next">Далее</span> <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Шаг 3: Бюджет и контакты -->
+                        <div class="form-step" id="step-3">
+                            <h2 class="step-title"><i class="fas fa-ruble-sign"></i> <span data-i18n="step3_title">Бюджет и контакты</span></h2>
+                            
+                            <!-- Слайдер бюджета -->
+                            <div class="price-slider-container">
+                                <div class="price-range">
+                                    <span id="minPriceLabel">100 000 ₽</span>
+                                    <span id="maxPriceLabel">10 000 000 ₽</span>
+                                </div>
+                                
+                                <div class="slider-container">
+                                    <div class="slider-track"></div>
+                                    <div class="slider-range" id="sliderRange"></div>
+                                    <input type="range" min="0" max="50000000" step="100000" value="100000" class="slider" id="minPrice">
+                                    <input type="range" min="0" max="50000000" step="100000" value="10000000" class="slider" id="maxPrice">
+                                </div>
+                                
+                                <div class="price-ticks">
+                                    <span>0 ₽</span>
+                                    <span>12.5 млн ₽</span>
+                                    <span>25 млн ₽</span>
+                                    <span>37.5 млн ₽</span>
+                                    <span>50 млн ₽</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Финансирование -->
+                            <div class="question-container">
+                                <div class="question"><i class="fas fa-hand-holding-usd"></i> <span data-i18n="detail_payment">Способ оплаты:</span></div>
+                                <div class="options-list">
+                                    <div class="option-tag" data-financing="cash" data-i18n="detail_cash">Наличные</div>
+                                    <div class="option-tag" data-financing="credit" data-i18n="detail_credit">Кредит</div>
+                                    <div class="option-tag" data-financing="installment" data-i18n="detail_installment">Рассрочка</div>
+                                    <div class="option-tag" data-financing="mixed" data-i18n="detail_mixed">Смешанная</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Контактные данные -->
+                            <div class="contact-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="clientName"><i class="fas fa-user"></i> <span data-i18n="form_name">Ваше имя</span></label>
+                                        <input type="text" id="clientName" class="text-input" data-i18n-placeholder="form_name_placeholder" placeholder="Иван Иванов">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="clientPhone"><i class="fas fa-phone"></i> <span data-i18n="form_phone">Телефон</span></label>
+                                        <input type="tel" id="clientPhone" class="text-input" data-i18n-placeholder="form_phone_placeholder" placeholder="+7 (999) 123-45-67">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="clientEmail"><i class="fas fa-envelope"></i> <span data-i18n="form_email">Email</span></label>
+                                    <input type="email" id="clientEmail" class="text-input" data-i18n-placeholder="form_email_placeholder" placeholder="example@mail.ru">
+                                </div>
+                                
+                                <div class="question-container">
+                                    <div class="question"><i class="fas fa-clock"></i> <span data-i18n="detail_contact_time">Удобное время для связи:</span></div>
+                                    <div class="options-list">
+                                        <div class="option-tag" data-time="morning" data-i18n="detail_morning">Утро (9:00-12:00)</div>
+                                        <div class="option-tag" data-time="day" data-i18n="detail_day">День (12:00-18:00)</div>
+                                        <div class="option-tag" data-time="evening" data-i18n="detail_evening">Вечер (18:00-21:00)</div>
+                                        <div class="option-tag" data-time="any" data-i18n="detail_any">Любое время</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-navigation">
+                                <button type="button" class="btn btn-secondary" id="prevBtn3">
+                                    <i class="fas fa-arrow-left"></i> <span data-i18n="btn_back">Назад</span>
+                                </button>
+                                <button type="button" class="btn btn-primary" id="nextBtn3">
+                                    <span data-i18n="btn_submit">Отправить заявку</span> <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Шаг 4: Подтверждение -->
+                        <div class="form-step" id="step-4">
+                            <div class="success-message">
+                                <i class="fas fa-check-circle success-icon"></i>
+                                <h2 class="step-title" data-i18n="success_title">Заявка успешно отправлена!</h2>
+                                <p data-i18n="success_message">Ваш персональный менеджер свяжется с вами в удобное для вас время.</p>
+                                
+                                <div class="summary-card">
+                                    <h3 class="summary-title"><i class="fas fa-file-alt"></i> <span data-i18n="summary_title">Сводка вашей заявки</span></h3>
+                                    <div class="summary-item">
+                                        <div class="summary-label" data-i18n="summary_category">Категория:</div>
+                                        <div class="summary-value" id="summaryCategory"></div>
+                                    </div>
+                                    <div class="summary-item">
+                                        <div class="summary-label" data-i18n="summary_service">Услуга:</div>
+                                        <div class="summary-value" id="summaryService"></div>
+                                    </div>
+                                    <div class="summary-item">
+                                        <div class="summary-label" data-i18n="summary_details">Детали:</div>
+                                        <div class="summary-value" id="summaryDetails"></div>
+                                    </div>
+                                    <div class="summary-item">
+                                        <div class="summary-label" data-i18n="summary_price">Бюджет:</div>
+                                        <div class="summary-value" id="summaryPrice"></div>
+                                    </div>
+                                    <div class="summary-item">
+                                        <div class="summary-label" data-i18n="summary_financing">Способ оплаты:</div>
+                                        <div class="summary-value" id="summaryFinancing"></div>
+                                    </div>
+                                    <div class="summary-item">
+                                        <div class="summary-label" data-i18n="summary_contacts">Контактные данные:</div>
+                                        <div class="summary-value" id="summaryContacts"></div>
+                                    </div>
+                                    <div class="summary-item">
+                                        <div class="summary-label" data-i18n="summary_time">Время связи:</div>
+                                        <div class="summary-value" id="summaryTime"></div>
+                                    </div>
+                                    <div class="summary-item" id="summaryAdditionalContainer">
+                                        <div class="summary-label" data-i18n="summary_additional">Дополнительные пожелания:</div>
+                                        <div class="summary-value" id="summaryAdditional"></div>
+                                    </div>
+                                    <div class="summary-item">
+                                        <div class="summary-label" data-i18n="summary_datetime">Дата и время отправки:</div>
+                                        <div class="summary-value" id="summaryDateTime"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-navigation" style="justify-content: center; margin-top: 30px;">
+                                    <button type="button" class="btn btn-primary" id="newRequestBtn">
+                                        <i class="fas fa-plus"></i> <span data-i18n="btn_new_request">Новая заявка</span>
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" id="printBtn">
+                                        <i class="fas fa-print"></i> <span data-i18n="btn_print">Распечатать</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Таб с услугами -->
+        <div class="services-tab" id="services-tab">
+            <h2 class="section-title" data-i18n="services_title">Наши услуги</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon" style="background: linear-gradient(135deg, #0a2540 0%, #1a365d 100%);">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3 data-i18n="service_card_realty">Недвижимость</h3>
+                        <p data-i18n="service_card_realty_desc">Полный спектр услуг в сфере недвижимости: покупка, продажа, аренда, ипотека, юридическое сопровождение.</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_realty_item1">Покупка недвижимости</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_realty_item2">Продажа недвижимости</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_realty_item3">Аренда жилья</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_realty_item4">Ипотечное кредитование</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_realty_item5">Юридическое сопровождение</span></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon" style="background: linear-gradient(135deg, #2d5b8a 0%, #4a7eb3 100%);">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3 data-i18n="service_card_auto">Автомобили</h3>
+                        <p data-i18n="service_card_auto_desc">Покупка и продажа автомобилей, трейд-ин, оформление документов, проверка истории автомобиля.</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_auto_item1">Покупка автомобилей</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_auto_item2">Продажа автомобилей</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_auto_item3">Трейд-ин программа</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_auto_item4">Оформление документов</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_auto_item5">Проверка истории</span></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon" style="background: linear-gradient(135deg, #c8a165 0%, #e6d3b1 100%);">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3 data-i18n="service_card_business">Бизнес-услуги</h3>
+                        <p data-i18n="service_card_business_desc">Регистрация ИП и ООО, бухгалтерское сопровождение, налоговое консультирование, лицензирование.</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_business_item1">Регистрация ИП/ООО</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_business_item2">Бухгалтерские услуги</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_business_item3">Налоговое консультирование</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_business_item4">Лицензирование</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_business_item5">Открытие расчетного счета</span></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon" style="background: linear-gradient(135deg, #1a3c34 0%, #2d5b52 100%);">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3 data-i18n="service_card_legal">Юридические услуги</h3>
+                        <p data-i18n="service_card_legal_desc">Юридические консультации, сопровождение сделок, судебные споры, составление договоров.</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_legal_item1">Юридические консультации</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_legal_item2">Сопровождение сделок</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_legal_item3">Судебные споры</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_legal_item4">Составление договоров</span></li>
+                            <li><i class="fas fa-check"></i> <span data-i18n="service_legal_item5">Регистрация прав</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Таб "О компании" -->
+        <div class="about-tab" id="about-tab">
+            <h2 class="section-title" data-i18n="about_title">О компании</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3 data-i18n="about_subtitle">Brokerok - Ваш надежный партнер</h3>
+                    <p data-i18n="about_description">Мы работаем на рынке премиальных услуг с 2008 года. За это время мы помогли тысячам клиентов реализовать их планы в сфере недвижимости, автомобильного бизнеса и предпринимательства.</p>
+                    
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-number">15+</div>
+                            <div class="stat-label" data-i18n="stat_years">Лет на рынке</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">2500+</div>
+                            <div class="stat-label" data-i18n="stat_clients">Довольных клиентов</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label" data-i18n="stat_success">Успешных сделок</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label" data-i18n="stat_support">Поддержка клиентов</div>
+                        </div>
+                    </div>
+                    
+                    <h3 data-i18n="principles_title">Наши принципы</h3>
+                    <div class="principles">
+                        <div class="principle">
+                            <i class="fas fa-shield-alt"></i>
+                            <h4 data-i18n="principle1_title">Надежность</h4>
+                            <p data-i18n="principle1_desc">Гарантируем безопасность каждой сделки</p>
+                        </div>
+                        <div class="principle">
+                            <i class="fas fa-star"></i>
+                            <h4 data-i18n="principle2_title">Качество</h4>
+                            <p data-i18n="principle2_desc">Высокие стандарты обслуживания</p>
+                        </div>
+                        <div class="principle">
+                            <i class="fas fa-user-clock"></i>
+                            <h4 data-i18n="principle3_title">Индивидуальный подход</h4>
+                            <p data-i18n="principle3_desc">Учет всех пожеланий клиента</p>
+                        </div>
+                        <div class="principle">
+                            <i class="fas fa-lock"></i>
+                            <h4 data-i18n="principle4_title">Конфиденциальность</h4>
+                            <p data-i18n="principle4_desc">Полная защита ваших данных</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Таб "Контакты" -->
+        <div class="contacts-tab" id="contacts-tab">
+            <h2 class="section-title" data-i18n="contacts_title">Контакты</h2>
+            <div class="contacts-content">
+                <div class="contact-info-large">
+                    <div class="contact-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3 data-i18n="contact_address">Адрес офиса</h3>
+                        <p data-i18n="address_text">Москва, ул. Тверская, д. 10, офис 305</p>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-phone"></i>
+                        <h3 data-i18n="contact_phones">Телефоны</h3>
+                        <p>+7 (495) 123-45-67</p>
+                        <p>+7 (495) 987-65-43</p>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3 data-i18n="contact_email">Email</h3>
+                        <p>info@brokerok.ru</p>
+                        <p>sales@brokerok.ru</p>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-clock"></i>
+                        <h3 data-i18n="contact_hours">Режим работы</h3>
+                        <p data-i18n="work_weekdays">Пн-Пт: 9:00-20:00</p>
+                        <p data-i18n="work_saturday">Сб: 10:00-18:00</p>
+                        <p data-i18n="work_sunday">Вс: выходной</p>
+                    </div>
+                </div>
+                
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <i class="fas fa-map"></i>
+                        <p data-i18n="map_placeholder">Карта расположения офиса</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p data-i18n="footer_text">© 2023 Brokerok. Все права защищены. Премиум услуги в сфере недвижимости, автомобилей и бизнеса.</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+7 (495) 123-45-67</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>info@brokerok.ru</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span data-i18n="footer_address">Москва, ул. Тверская, д. 10</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Модальное окно выбора мессенджера -->
+    <div class="messenger-modal" id="messengerModal">
+        <button class="close-modal" id="closeModalBtn">&times;</button>
+        <div class="messenger-modal-content">
+            <div class="messenger-modal-header">
+                <h3 data-i18n="messenger_title">Выберите удобный способ связи</h3>
+                <p data-i18n="messenger_subtitle">Связаться с компанией</p>
+                <span class="company-name" data-i18n="company_name">Brokerok</span>
+            </div>
+            
+            <div class="messenger-modal-body">
+                <div class="messenger-options">
+                    <div class="messenger-option" data-messenger="whatsapp">
+                        <div class="messenger-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="messenger-name" data-i18n="messenger_whatsapp">WhatsApp</div>
+                        <div class="messenger-description" data-i18n="messenger_whatsapp_desc">Мгновенная связь через WhatsApp</div>
+                    </div>
+                    
+                    <div class="messenger-option" data-messenger="telegram">
+                        <div class="messenger-icon">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <div class="messenger-name" data-i18n="messenger_telegram">Telegram</div>
+                        <div class="messenger-description" data-i18n="messenger_telegram_desc">Отправка анкеты в Telegram</div>
+                    </div>
+                </div>
+                
+                <!-- Форма для WhatsApp -->
+                <div class="messenger-form" id="whatsappForm">
+                    <div class="form-group">
+                        <label for="whatsappName"><i class="fas fa-user"></i> <span data-i18n="form_name">Ваше имя</span></label>
+                        <input type="text" id="whatsappName" data-i18n-placeholder="form_name_placeholder" placeholder="Введите ваше имя">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="whatsappPhone"><i class="fas fa-phone"></i> <span data-i18n="form_phone">Номер телефона</span></label>
+                        <div class="phone-input">
+                            <select id="whatsappCode">
+                                <option value="+7">+7 (RU)</option>
+                                <option value="+1">+1 (US)</option>
+                                <option value="+44">+44 (UK)</option>
+                                <option value="+49">+49 (DE)</option>
+                            </select>
+                            <input type="tel" id="whatsappPhone" data-i18n-placeholder="form_phone_placeholder" placeholder="999 123-45-67">
+                        </div>
+                    </div>
+                    
+                    <div class="messenger-actions">
+                        <button class="messenger-btn messenger-btn-secondary" id="backToChoiceBtn">
+                            <i class="fas fa-arrow-left"></i> <span data-i18n="btn_back">Назад</span>
+                        </button>
+                        <button class="messenger-btn messenger-btn-primary" id="sendWhatsAppBtn">
+                            <i class="fab fa-whatsapp"></i> <span data-i18n="btn_open_whatsapp">Открыть WhatsApp</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Форма для Telegram -->
+                <div class="messenger-form" id="telegramForm">
+                    <div class="form-group">
+                        <label for="telegramName"><i class="fas fa-user"></i> <span data-i18n="form_name">Ваше имя</span></label>
+                        <input type="text" id="telegramName" data-i18n-placeholder="form_name_placeholder" placeholder="Введите ваше имя">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telegramUsername"><i class="fab fa-telegram"></i> <span data-i18n="form_telegram">Telegram username</span></label>
+                        <input type="text" id="telegramUsername" data-i18n-placeholder="form_telegram_placeholder" placeholder="@username">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telegramMessage"><i class="fas fa-comment"></i> <span data-i18n="form_message">Сообщение</span></label>
+                        <textarea id="telegramMessage" rows="3" data-i18n-placeholder="form_message_placeholder" placeholder="Ваше сообщение или вопрос..."></textarea>
+                    </div>
+                    
+                    <div class="messenger-actions">
+                        <button class="messenger-btn messenger-btn-secondary" id="backToChoiceBtnTg">
+                            <i class="fas fa-arrow-left"></i> <span data-i18n="btn_back">Назад</span>
+                        </button>
+                        <button class="messenger-btn messenger-btn-primary" id="sendTelegramBtn">
+                            <i class="fab fa-telegram"></i> <span data-i18n="btn_send_telegram">Отправить в Telegram</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
