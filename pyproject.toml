@@ -1,9 +1,0 @@
-[build-system]
-requires = ["setuptools", "wheel"]
-
-[project]
-name = "brokerok-bot"
-version = "1.0.0"
-
-[project.scripts]
-app = "api.index:app"
