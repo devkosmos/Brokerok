@@ -1,3 +1,25 @@
+const tg = window.Telegram.WebApp;
+
+// обязательно
+tg.ready();
+
+// отключает странный зум
+tg.expand();
+
+function setTelegramVh() {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--tg-vh', `${vh * 100}px`);
+}
+
+const isTelegram = !!window.Telegram?.WebApp;
+
+if (isTelegram) {
+  document.body.classList.add('telegram-app');
+}
+
+setTelegramVh();
+window.addEventListener('resize', setTelegramVh);
+
 document.addEventListener('DOMContentLoaded', function() {
     // Элементы интерфейса
     const notification = document.getElementById('notification');

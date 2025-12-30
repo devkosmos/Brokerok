@@ -37,6 +37,8 @@ body {
     background-position: center;               /* Центрируем изображение */
     background-attachment: fixed;              /* Фон фиксируется при скролле */
     background-repeat: no-repeat;   
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-top: env(safe-area-inset-top);
 }
 
 /* Фоновое изображение с градие.нтом */
