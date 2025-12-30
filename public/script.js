@@ -1,11 +1,6 @@
-const tg = window.Telegram.WebApp;
+const tg = window.Telegram?.WebApp;
+const isTelegram = !!tg;
 
-tg.ready();
-document.documentElement.style.width = '100%';
-document.body.style.width = '100%';
-document.body.style.maxWidth = '100%';
-
-tg.expand();
 
 
 
@@ -14,10 +9,10 @@ function setTelegramVh() {
   document.documentElement.style.setProperty('--tg-vh', `${vh * 100}px`);
 }
 
-const isTelegram = !!window.Telegram?.WebApp;
-
 if (isTelegram) {
-  document.body.classList.add('telegram-app');
+    document.documentElement.classList.add('telegram-app');
+    // Рекомендуется развернуть приложение на весь экран
+    tg?.expand();
 }
 
 
