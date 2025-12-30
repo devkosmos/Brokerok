@@ -1,10 +1,20 @@
 const tg = window.Telegram.WebApp;
 
-// обязательно
 tg.ready();
-
-// отключает странный зум
 tg.expand();
+
+document.body.style.background = '#000';
+document.body.innerHTML = `
+  <div style="
+    color:white;
+    font-size:20px;
+    padding:20px;
+  ">
+    Mini App работает<br>
+    height: ${window.innerHeight}px
+  </div>
+`;
+
 
 function setTelegramVh() {
   const vh = window.innerHeight * 0.01;
@@ -16,6 +26,7 @@ const isTelegram = !!window.Telegram?.WebApp;
 if (isTelegram) {
   document.body.classList.add('telegram-app');
 }
+
 
 setTelegramVh();
 window.addEventListener('resize', setTelegramVh);
