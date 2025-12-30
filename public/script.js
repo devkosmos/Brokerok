@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'nav_about': 'О компании',
             'nav_contacts': 'Контакты',
             'consultation_btn': 'Консультация',
+            'not_specified': 'Не указано',
             
             // Главная страница
             'main_title1': 'Экспертные услуги',
@@ -379,6 +380,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'nav_about': 'About',
             'nav_contacts': 'Contacts',
             'consultation_btn': 'Consultation',
+            'not_specified': 'Not specified',
             
             // Главная страница
             'main_title1': 'Expert services',
@@ -656,6 +658,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'nav_about': 'Hakkımızda',
             'nav_contacts': 'İletişim',
             'consultation_btn': 'Danışma',
+            'not_specified': 'Belirtilmedi',
             
             // Главная страница
             'main_title1': 'Uzman hizmetler',
@@ -909,7 +912,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'footer_address': 'Moskova, Tverskaya cad., 10',
             
             // Модальное окно мессенджера
-            'messenger_title': 'Uygun iletişim yöntemini seçin',
+            'messenger_title': 'Uygun iletişим yöntemini seçin',
             'messenger_subtitle': 'Şirketle iletişime geçin',
             'messenger_whatsapp': 'WhatsApp',
             'messenger_whatsapp_desc': 'WhatsApp üzerinden anında iletişim',
@@ -1232,30 +1235,6 @@ document.addEventListener('DOMContentLoaded', function() {
             'evening': 'Akşam (18:00-21:00)',
             'any': 'Herhangi bir zaman'
         }
-    };
-    
-    // Добавим serviceNames для отправки в Telegram
-    const serviceNames = {
-        // Недвижимость
-        'purchase': 'Покупка недвижимости',
-        'sale': 'Продажа недвижимости',
-        'rent': 'Аренда недвижимости',
-        'support': 'Сопровождение сделки',
-        // Автомобили
-        'purchase-auto': 'Покупка автомобиля',
-        'sale-auto': 'Продажа автомобиля',
-        'trade-in': 'Трейд-ин',
-        'registration': 'Оформление документов',
-        // Бизнес
-        'open-ip': 'Открытие ИП',
-        'open-ooo': 'Открытие ООО',
-        'accounting': 'Бухгалтерские услуги',
-        'licensing': 'Лицензирование',
-        // Юридические
-        'consultation': 'Юридическая консультация',
-        'deal-support': 'Сопровождение сделок',
-        'court': 'Судебные споры',
-        'contracts': 'Составление договоров'
     };
     
     // Функция форматирования цены
@@ -1618,91 +1597,89 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Отправка данных формы
-// Отправка данных формы
-function submitFormData() {
-    // Формируем анкету
-    const application = `
-НОВАЯ ЗАЯВКА BROKEROK
-
-👤 Клиент: ${formData.clientName}
-📞 Телефон: ${formData.clientPhone}
-📧 Email: ${formData.clientEmail}
-
-🏠 Категория: ${getTranslatedCategory(formData.category)}
-💼 Услуга: ${serviceNames[formData.service]}
-💰 Бюджет: ${formatPrice(formData.minPrice)} - ${formatPrice(formData.maxPrice)}
-📅 Год: ${formData.yearRange}
-📋 Детали: ${formData.details.map(d => getTranslatedDetail(d)).join(', ')}
-💳 Способ оплаты: ${getTranslatedDetail(formData.financing)}
-⏰ Время связи: ${getTranslatedDetail(formData.contactTime)}
-📝 Дополнительно: ${formData.additional || 'Нет'}
-📍 Локация: ${formData.realtyLocation || 'Не указана'}
-📅 Дата отправки: ${new Date().toLocaleString('ru-RU')}
-    `;
-    
-    // URL вашего Vercel проекта (будет вида: проект.vercel.app)
-    const apiUrl = 'https://brokerok-bot.vercel.app/api/send';
-    
-    // Показываем индикатор загрузки
-    const submitBtn = document.querySelector('#nextBtn3');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = '📤 Отправка...';
-    submitBtn.disabled = true;
-    
-    // Отправляем на Vercel
-    fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            message: application
-        })
-    })
-    .then(async response => {
-        const data = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(data.error || 'Ошибка сервера');
+    async function submitFormData() {
+        // 1. Проверяем, что все данные есть
+        if (!formData.service || !formData.clientName || !formData.clientPhone) {
+            showNotification('❌ Заполните обязательные поля!', 'error');
+            return;
         }
         
-        return data;
-    })
-    .then(data => {
-        console.log('Ответ от Vercel:', data);
+        // 2. Формируем красивую анкету
+        const applicationText = `📋 <b>НОВАЯ ЗАЯВКА BROKEROK</b>
         
-        if (data.ok) {
+👤 <b>КЛИЕНТ:</b>
+• Имя: ${formData.clientName || 'Не указано'}
+• Телефон: ${formData.clientPhone || 'Не указано'}
+• Email: ${formData.clientEmail || 'Не указано'}
+        
+🏠 <b>УСЛУГА:</b>
+• Категория: ${getTranslatedCategory(formData.category) || 'Не указано'}
+• Конкретная услуга: ${getTranslatedService(formData.service) || 'Не указано'}
+• Бюджет: ${formatPrice(formData.minPrice)} - ${formatPrice(formData.maxPrice)}
+        
+📋 <b>ДЕТАЛИ:</b>
+${formData.details.map(d => `• ${getTranslatedDetail(d) || d}`).join('\n') || '• Не указаны'}
+        
+💳 <b>СПОСОБ ОПЛАТЫ:</b> ${getTranslatedDetail(formData.financing) || 'Не указан'}
+🕐 <b>УДОБНОЕ ВРЕМЯ:</b> ${getTranslatedDetail(formData.contactTime) || 'Не указано'}
+        
+${formData.additional ? `📝 <b>ДОП. ПОЖЕЛАНИЯ:</b>\n${formData.additional}` : ''}
+        
+📅 <b>Дата отправки:</b> ${new Date().toLocaleString('ru-RU')}
+        
+🚀 <b>СРОЧНО СВЯЗАТЬСЯ С КЛИЕНТОМ!</b>`;
+        
+        // 3. Ваши данные Telegram (ЗАМЕНИТЕ НА СВОИ!)
+        const botToken = '8412708945:AAEPdeJ9jd1N_Hlo-o7A0rOZjv3t-mq6gjA'; // Ваш токен от @BotFather
+        const chatId = '8039700599'; // Ваш ID или ID группы
+        
+        try {
+            // 4. Отправляем в Telegram
+            const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: applicationText,
+                    parse_mode: 'HTML'
+                })
+            });
+            
+            const data = await response.json();
+            
+            // 5. Проверяем результат
+            if (data.ok) {
+                // УСПЕХ!
+                goToStep(4);
+                showNotification('Ваша анкета отправлена! Ожидайте.');
+                
+                // // Можно дополнительно отправить в WhatsApp
+                // const whatsappText = applicationText.replace(/<[^>]*>/g, ''); // Убираем HTML теги
+                // setTimeout(() => {
+                //     window.open(`https://wa.me/905355266776?text=${encodeURIComponent(whatsappText)}`, '_blank');
+                // }, 1000);
+                
+            } else {
+                // ОШИБКА
+                showNotification('❌ Ошибка отправки: ' + (data.description || 'Неизвестная ошибка'), 'error');
+                console.error('Telegram Error:', data);
+            }
+            
+        } catch (error) {
+            // ОШИБКА СЕТИ
+            showNotification('❌ Ошибка сети. Попробуйте еще раз', 'error');
+            console.error('Network Error:', error);
+            
+            // Резервный вариант - открыть WhatsApp
+            const whatsappText = applicationText.replace(/<[^>]*>/g, '');
+            window.open(`https://wa.me/905355266776?text=${encodeURIComponent(whatsappText)}`, '_blank');
+            
             goToStep(4);
-            showNotification('✅ Анкета отправлена! Менеджер свяжется с вами в течение 15 минут.');
-        } else {
-            // Резервный вариант
-            localStorage.setItem('brokerok_app_' + Date.now(), application);
-            goToStep(4);
-            showNotification('📝 Анкета сохранена! ' + (data.error || ''));
         }
-    })
-    .catch(error => {
-        console.error('Ошибка:', error);
-        
-        // Резервное сохранение + открытие Telegram
-        const telegramUrl = `https://t.me/BrokerokSupportBot?text=${encodeURIComponent(application.substring(0, 2000))}`;
-        
-        localStorage.setItem('brokerok_backup_' + Date.now(), application);
-        
-        goToStep(4);
-        showNotification('📱 Анкета сохранена. Нажмите OK чтобы открыть Telegram для отправки', 'info');
-        
-        // Автоматически открываем Telegram через 2 секунды
-        setTimeout(() => {
-            window.open(telegramUrl, '_blank');
-        }, 2000);
-    })
-    .finally(() => {
-        // Восстанавливаем кнопку
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    });
-}
+    }
+    
     // Переключение между вкладками
     function switchTab(tabName) {
         // Обновляем активную навигацию
