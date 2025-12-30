@@ -1,19 +1,12 @@
 const tg = window.Telegram.WebApp;
 
 tg.ready();
+document.documentElement.style.width = '100%';
+document.body.style.width = '100%';
+document.body.style.maxWidth = '100%';
+
 tg.expand();
 
-document.body.style.background = '#000';
-document.body.innerHTML = `
-  <div style="
-    color:white;
-    font-size:20px;
-    padding:20px;
-  ">
-    Mini App работает<br>
-    height: ${window.innerHeight}px
-  </div>
-`;
 
 
 function setTelegramVh() {
