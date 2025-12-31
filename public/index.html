@@ -20,7 +20,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <style>
+        :root {
+  --tg-vh: 100vh;
+}
 
+.container {
+  min-height: var(--tg-vh);
+}
+
+.telegram-app {
+  overflow-x: hidden;
+}
+
+.telegram-app .container {
+  max-width: 100%;
+}
+
+
+    </style>
     <!-- Анимированные элементы фона -->
     <div class="floating-elements">
         <div class="floating-element"></div>

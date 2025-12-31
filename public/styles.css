@@ -37,8 +37,6 @@ body {
     background-position: center;               /* Центрируем изображение */
     background-attachment: fixed;              /* Фон фиксируется при скролле */
     background-repeat: no-repeat;   
-    padding-bottom: env(safe-area-inset-bottom);
-    padding-top: env(safe-area-inset-top);
 }
 
 /* Фоновое изображение с градие.нтом */
@@ -1463,74 +1461,6 @@ footer {
     position: relative;
     height: 60px;
     margin: 20px 10px;
-}
-
-/* Стили, специфичные для Telegram MiniApp */
-body.telegram-app {
-    background-color: #f8f9fa; /* Заменяет сложный градиентный фон */
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-body.telegram-app::before,
-body.telegram-app .floating-elements {
-    display: none; /* Отключаем сложные фоны и анимации для лучшей производительности */
-}
-
-.telegram-app .container {
-    width: 100%;
-    max-width: 100%;
-    padding: 16px; /* Увеличиваем отступы для удобного тапа */
-    margin: 0 auto;
-    box-sizing: border-box;
-}
-
-.telegram-app .navbar {
-    flex-direction: column;
-    align-items: stretch;
-    padding-top: 10px;
-}
-
-.telegram-app .nav-links {
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 15px;
-}
-
-/* Критически важно: перестраиваем все гриды на одну колонку */
-.telegram-app .main-content.active,
-.telegram-app .categories-grid,
-.telegram-app .options-grid,
-.telegram-app .services-grid,
-.telegram-app .contact-info-large {
-    grid-template-columns: 1fr !important;
-    gap: 20px;
-}
-
-.telegram-app .form-card {
-    width: 100%;
-    max-width: 100%;
-    margin-top: 20px;
-    box-shadow: none; /* Убираем тень, чтобы не конфликтовать с интерфейсом Telegram */
-    border: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-/* Увеличиваем область клика для всех интерактивных элементов */
-.telegram-app .option-tag,
-.telegram-app .nav-link,
-.telegram-app .btn {
-    min-height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 14px 20px;
-}
-
-.telegram-app input,
-.telegram-app textarea,
-.telegram-app select {
-    font-size: 16px; /* Предотвращает автоматический зум в iOS */
-    padding: 16px;
 }
 
 .year-slider-track {
