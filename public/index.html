@@ -425,7 +425,7 @@
             color: #666;
         }
 
-        /* Кнопки навигации */
+        /* Кнопки навигации - ФИКС */
         .button-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -452,11 +452,21 @@
 
         .button-back {
             border-color: #333;
+            background: transparent;
         }
 
         .button-back:hover {
             border-color: #666;
             background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* ФИКС: Кнопка Назад всегда кликабельна */
+        .button-back:disabled {
+            opacity: 1 !important;
+            cursor: pointer !important;
+            border-color: #333 !important;
+            background: transparent !important;
+            color: #fff !important;
         }
 
         .button-next {
@@ -614,8 +624,8 @@
             </div>
             
             <div class="language-switcher">
-                <button class="lang-btn" id="langRu" onclick="switchLanguage('ru')">RU</button>
-                <button class="lang-btn active" id="langEn" onclick="switchLanguage('en')">EN</button>
+                <button class="lang-btn active" id="langRu" onclick="switchLanguage('ru')">RU</button>
+                <button class="lang-btn" id="langEn" onclick="switchLanguage('en')">EN</button>
             </div>
         </div>
 
@@ -629,6 +639,7 @@
             <div class="progress-dot" id="dot6"></div>
             <div class="progress-dot" id="dot7"></div>
             <div class="progress-dot" id="dot8"></div>
+            <div class="progress-dot" id="dot9"></div>
         </div>
 
         <!-- ЭКРАН 0: Начальный экран -->
@@ -1037,8 +1048,8 @@
         let selectedTiming = null;
         let userComment = '';
         let isSubmitting = false;
-        let currentLanguage = 'ru'; // Исправлено: теперь русский по умолчанию
-        let currentRegion = '+7'; // По умолчанию Россия
+        let currentLanguage = 'ru';
+        let currentRegion = '+7';
 
         // Тексты для перевода
         const translations = {
@@ -1254,7 +1265,7 @@
             phoneInput.placeholder = placeholders[currentRegion] || 'Phone number';
         }
 
-        // Навигация
+        // Навигация - ФИКСИРОВАНА
         function goToStep0() {
             showScreen('screen0');
             updateProgress(0);
