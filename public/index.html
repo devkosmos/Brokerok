@@ -261,15 +261,15 @@
             color: #fff;
         }
 
-        /* Сетка ниш */
-        .niche-grid {
+        /* Сетка опций */
+        .options-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 12px;
             margin-bottom: 24px;
         }
 
-        .niche-option {
+        .option-card {
             background: transparent;
             border: 1.5px solid #333;
             border-radius: 12px;
@@ -283,37 +283,37 @@
             align-items: center;
         }
 
-        .niche-option:hover {
+        .option-card:hover {
             border-color: #10B981;
             background: rgba(16, 185, 129, 0.05);
         }
 
-        .niche-option.selected {
+        .option-card.selected {
             border-color: #10B981;
             background: rgba(16, 185, 129, 0.1);
             color: #10B981;
         }
 
-        .niche-icon {
+        .option-icon {
             font-size: 20px;
             margin-right: 14px;
             width: 28px;
             text-align: center;
         }
 
-        .niche-text {
+        .option-text {
             flex: 1;
         }
 
-        /* Сетка выручки */
-        .revenue-grid {
+        /* Сетка планировок */
+        .layout-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
             gap: 10px;
             margin-bottom: 24px;
         }
 
-        .revenue-option {
+        .layout-option {
             background: transparent;
             border: 1.5px solid #333;
             border-radius: 10px;
@@ -326,15 +326,103 @@
             transition: all 0.3s;
         }
 
-        .revenue-option:hover {
+        .layout-option:hover {
             border-color: #10B981;
             background: rgba(16, 185, 129, 0.05);
         }
 
-        .revenue-option.selected {
+        .layout-option.selected {
             border-color: #10B981;
             background: rgba(16, 185, 129, 0.1);
             color: #10B981;
+        }
+
+        /* Сетка бюджета */
+        .budget-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .budget-option {
+            background: transparent;
+            border: 1.5px solid #333;
+            border-radius: 10px;
+            padding: 14px 8px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .budget-option:hover {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .budget-option.selected {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+        }
+
+        /* Сетка сроков */
+        .timing-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .timing-option {
+            background: transparent;
+            border: 1.5px solid #333;
+            border-radius: 12px;
+            padding: 16px 18px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .timing-option:hover {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .timing-option.selected {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+        }
+
+        /* Комментарий */
+        .comment-input {
+            width: 100%;
+            padding: 16px;
+            background: transparent;
+            border: 1.5px solid #333;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        .comment-input:focus {
+            outline: none;
+            border-color: #10B981;
+        }
+
+        .comment-input::placeholder {
+            color: #666;
         }
 
         /* Кнопки навигации */
@@ -494,12 +582,12 @@
                 font-size: 14px;
             }
             
-            .revenue-option {
+            .layout-option, .budget-option {
                 padding: 12px 6px;
                 font-size: 12px;
             }
             
-            .niche-option {
+            .option-card, .timing-option {
                 padding: 14px 16px;
                 font-size: 13px;
             }
@@ -526,8 +614,8 @@
             </div>
             
             <div class="language-switcher">
-                <button class="lang-btn active" id="langRu" onclick="switchLanguage('ru')">RU</button>
-                <button class="lang-btn" id="langEn" onclick="switchLanguage('en')">EN</button>
+                <button class="lang-btn" id="langRu" onclick="switchLanguage('ru')">RU</button>
+                <button class="lang-btn active" id="langEn" onclick="switchLanguage('en')">EN</button>
             </div>
         </div>
 
@@ -537,6 +625,10 @@
             <div class="progress-dot" id="dot2"></div>
             <div class="progress-dot" id="dot3"></div>
             <div class="progress-dot" id="dot4"></div>
+            <div class="progress-dot" id="dot5"></div>
+            <div class="progress-dot" id="dot6"></div>
+            <div class="progress-dot" id="dot7"></div>
+            <div class="progress-dot" id="dot8"></div>
         </div>
 
         <!-- ЭКРАН 0: Начальный экран -->
@@ -545,219 +637,379 @@
                 <!-- Блок "Получите стратегию продвижения" -->
                 <div class="strategy-block">
                     <div class="strategy-title" id="strategyTitle">
-                        <i class="fas fa-rocket"></i> Get Promotion Strategy
+                        <i class="fas fa-rocket"></i> Получите стратегию продвижения
                     </div>
                     <div class="strategy-text" id="strategyText">
-                        Submit a request and find out what set of actions in your business you can apply 
-                        <span class="highlight-text">an effective business model</span> and launch 
-                        <span class="highlight-text">a profitable bundle in 48 hours</span>. 
-                        Our experts analyze your case individually and provide a step-by-step action plan 
-                        that works even without technical skills.
+                        Оставьте заявку и узнайте, каким набором действий в своём бизнесе вы сможете применить 
+                        <span class="highlight-text">эффективную бизнес-модель</span> и запустить 
+                        <span class="highlight-text">прибыльную связку за 48 часов</span>. 
+                        Наши эксперты анализируют ваш случай индивидуально и предоставляют пошаговый план действий 
+                        который работает даже без технических навыков.
                     </div>
                     
                     <!-- Кнопка в блоке стратегии -->
                     <div class="strategy-button" onclick="goToStep1()">
-                        <i class="fas fa-file-alt"></i> <span id="strategyButtonText">Submit Application</span>
+                        <i class="fas fa-file-alt"></i> <span id="strategyButtonText">Оставить заявку</span>
                     </div>
                 </div>
 
                 <!-- Основной контент -->
-                <h1 class="title" id="mainTitle">Ready to take your business to the next level?</h1>
+                <h1 class="title" id="mainTitle">Готовы вывести бизнес на новый уровень?</h1>
                 
                 <p class="description" id="mainDescription">
-                    Our team of experts will help you achieve financial goals 
-                    using proven strategies and individual approach
+                    Наша команда экспертов поможет вам достичь финансовых целей 
+                    с помощью проверенных стратегий и индивидуального подхода
                 </p>
 
                 <!-- Блок "Связаться с клиентом" -->
                 <div class="contact-block">
                     <div class="contact-title" id="contactTitle">
-                        <i class="fas fa-headset"></i> Contact Manager
+                        <i class="fas fa-headset"></i> Связаться с менеджером
                     </div>
                     <div class="contact-text" id="contactText">
-                        Have questions or need urgent consultation? 
-                        Write to our manager in Telegram for a quick response
+                        Есть вопросы или нужна срочная консультация? 
+                        Напишите нашему менеджеру в Telegram для быстрого ответа
                     </div>
                     <a href="https://t.me/brokerok_manager" target="_blank" class="contact-button">
-                        <i class="fab fa-telegram-plane"></i> <span id="contactButtonText">Write in Telegram</span>
+                        <i class="fab fa-telegram-plane"></i> <span id="contactButtonText">Написать в Telegram</span>
                     </a>
                 </div>
             </div>
         </div>
 
-        <!-- ЭКРАН 1: Выбор услуги -->
+        <!-- ЭКРАН 1: Выбор категории услуги -->
         <div class="screen hidden" id="screen1">
             <div class="content-card">
-                <h1 class="title" id="serviceTitle">What is your business area?</h1>
+                <h1 class="title" id="categoryTitle">Выберите категорию услуги</h1>
                 
-                <p class="description" id="serviceDescription">
-                    Select the service category you need
+                <p class="description" id="categoryDescription">
+                    Выберите категорию услуги, которая вам нужна
                 </p>
 
-                <div class="niche-grid">
-                    <div class="niche-option" onclick="selectNiche('Real Estate', this)">
-                        <div class="niche-icon"><i class="fas fa-building"></i></div>
-                        <div class="niche-text" id="nicheRealty">Real Estate</div>
+                <div class="options-grid">
+                    <div class="option-card" onclick="selectCategory('Недвижимость', this)">
+                        <div class="option-icon"><i class="fas fa-building"></i></div>
+                        <div class="option-text" id="categoryRealEstate">Недвижимость</div>
                     </div>
 
-                    <div class="niche-option" onclick="selectNiche('Auto', this)">
-                        <div class="niche-icon"><i class="fas fa-car"></i></div>
-                        <div class="niche-text" id="nicheAuto">Auto</div>
+                    <div class="option-card" onclick="selectCategory('Авто', this)">
+                        <div class="option-icon"><i class="fas fa-car"></i></div>
+                        <div class="option-text" id="categoryAuto">Авто</div>
                     </div>
 
-                    <div class="niche-option" onclick="selectNiche('Company Registration', this)">
-                        <div class="niche-icon"><i class="fas fa-landmark"></i></div>
-                        <div class="niche-text" id="nicheCompany">Company Registration</div>
+                    <div class="option-card" onclick="selectCategory('Открытие компании', this)">
+                        <div class="option-icon"><i class="fas fa-landmark"></i></div>
+                        <div class="option-text" id="categoryCompany">Открытие компании</div>
                     </div>
 
-                    <div class="niche-option" onclick="selectNiche('Legal Support', this)">
-                        <div class="niche-icon"><i class="fas fa-balance-scale"></i></div>
-                        <div class="niche-text" id="nicheLawyer">Deal Support with Lawyer</div>
+                    <div class="option-card" onclick="selectCategory('Сопровождение сделки с экспертом', this)">
+                        <div class="option-icon"><i class="fas fa-balance-scale"></i></div>
+                        <div class="option-text" id="categoryExpert">Сопровождение сделки с экспертом</div>
                     </div>
 
-                    <div class="niche-option" onclick="selectNiche('Consultation', this)">
-                        <div class="niche-icon"><i class="fas fa-briefcase"></i></div>
-                        <div class="niche-text" id="nicheConsultation">Consultation</div>
-                    </div>
-
-                    <div class="niche-option" onclick="selectNiche('Other', this)">
-                        <div class="niche-icon"><i class="fas fa-ellipsis-h"></i></div>
-                        <div class="niche-text" id="nicheOther">Other</div>
+                    <div class="option-card" onclick="selectCategory('Консультация', this)">
+                        <div class="option-icon"><i class="fas fa-briefcase"></i></div>
+                        <div class="option-text" id="categoryConsultation">Консультация</div>
                     </div>
                 </div>
 
                 <div class="button-container">
                     <button class="button button-back" onclick="goToStep0()">
-                        <i class="fas fa-arrow-left"></i> <span id="backButton">BACK</span>
+                        <i class="fas fa-arrow-left"></i> <span id="backButton">НАЗАД</span>
                     </button>
                     <button class="button button-next" id="next1" onclick="goToStep2()" disabled>
-                        <span id="nextButton">NEXT</span> <i class="fas fa-arrow-right"></i>
+                        <span id="nextButton">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- ЭКРАН 2: Желаемая выручка через 3 месяца -->
+        <!-- ЭКРАН 2: Выбор типа недвижимости (только для категории Недвижимость) -->
         <div class="screen hidden" id="screen2">
             <div class="content-card">
-                <h1 class="title" id="futureRevenueTitle">Desired revenue in 3 months</h1>
+                <h1 class="title" id="propertyTypeTitle">Тип недвижимости</h1>
                 
-                <p class="description" id="futureRevenueDescription">
-                    Select the expected income level so we can offer the optimal strategy
+                <p class="description" id="propertyTypeDescription">
+                    Выберите тип недвижимости
                 </p>
 
-                <div class="revenue-grid">
-                    <div class="revenue-option" onclick="selectFutureRevenue('$0–$1k', this)">$0–$1k</div>
-                    <div class="revenue-option" onclick="selectFutureRevenue('$1k–$3k', this)">$1k–$3k</div>
-                    <div class="revenue-option" onclick="selectFutureRevenue('$3k–$5k', this)">$3k–$5k</div>
-                    <div class="revenue-option" onclick="selectFutureRevenue('$5k–$10k', this)">$5k–$10k</div>
-                    <div class="revenue-option" onclick="selectFutureRevenue('$10k–$50k', this)">$10k–$50k</div>
-                    <div class="revenue-option" onclick="selectFutureRevenue('$50k–$100k', this)">$50k–$100k</div>
-                    <div class="revenue-option" onclick="selectFutureRevenue('$100k–$500k', this)">$100k–$500k</div>
-                    <div class="revenue-option" onclick="selectFutureRevenue('$500k–$1m', this)">$500k–$1m</div>
-                    <div class="revenue-option" onclick="selectFutureRevenue('$1m–$5m', this)">$1m–$5m</div>
-                    <div class="revenue-option" onclick="selectFutureRevenue('$5m–$10m', this)">$5m–$10m</div>
-                    <div class="revenue-option" onclick="selectFutureRevenue('$10m–$50m', this)">$10m–$50m</div>
-                    <div class="revenue-option" onclick="selectFutureRevenue('$50m+', this)">$50m+</div>
+                <div class="options-grid">
+                    <div class="option-card" onclick="selectPropertyType('Гражданство', this)">
+                        <div class="option-icon"><i class="fas fa-passport"></i></div>
+                        <div class="option-text" id="typeCitizenship">Гражданство</div>
+                    </div>
+
+                    <div class="option-card" onclick="selectPropertyType('ВНЖ', this)">
+                        <div class="option-icon"><i class="fas fa-id-card"></i></div>
+                        <div class="option-text" id="typeResidence">ВНЖ</div>
+                    </div>
+
+                    <div class="option-card" onclick="selectPropertyType('Сдача в аренду', this)">
+                        <div class="option-icon"><i class="fas fa-key"></i></div>
+                        <div class="option-text" id="typeRental">Сдача в аренду</div>
+                    </div>
+
+                    <div class="option-card" onclick="selectPropertyType('Инвестиция', this)">
+                        <div class="option-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="option-text" id="typeInvestment">Инвестиция</div>
+                    </div>
                 </div>
 
                 <div class="button-container">
                     <button class="button button-back" onclick="goToStep1()">
-                        <i class="fas fa-arrow-left"></i> <span id="backButton2">BACK</span>
+                        <i class="fas fa-arrow-left"></i> <span id="backButton2">НАЗАД</span>
                     </button>
                     <button class="button button-next" id="next2" onclick="goToStep3()" disabled>
-                        <span id="nextButton2">NEXT</span> <i class="fas fa-arrow-right"></i>
+                        <span id="nextButton2">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- ЭКРАН 3: Текущая выручка -->
+        <!-- ЭКРАН 3: Выбор вида недвижимости -->
         <div class="screen hidden" id="screen3">
             <div class="content-card">
-                <h1 class="title" id="currentRevenueTitle">Current revenue</h1>
+                <h1 class="title" id="propertyKindTitle">Вид недвижимости</h1>
                 
-                <p class="description" id="currentRevenueDescription">
-                    Specify your current income level for more accurate strategy selection
+                <p class="description" id="propertyKindDescription">
+                    Выберите вид недвижимости
                 </p>
 
-                <div class="revenue-grid">
-                    <div class="revenue-option" onclick="selectCurrentRevenue('$0', this)">$0</div>
-                    <div class="revenue-option" onclick="selectCurrentRevenue('$0–$1k', this)">$0–$1k</div>
-                    <div class="revenue-option" onclick="selectCurrentRevenue('$1k–$3k', this)">$1k–$3k</div>
-                    <div class="revenue-option" onclick="selectCurrentRevenue('$3k–$5k', this)">$3k–$5k</div>
-                    <div class="revenue-option" onclick="selectCurrentRevenue('$5k–$10k', this)">$5k–$10k</div>
-                    <div class="revenue-option" onclick="selectCurrentRevenue('$10k–$50k', this)">$10k–$50k</div>
-                    <div class="revenue-option" onclick="selectCurrentRevenue('$50k–$100k', this)">$50k–$100k</div>
-                    <div class="revenue-option" onclick="selectCurrentRevenue('$100k–$500k', this)">$100k–$500k</div>
-                    <div class="revenue-option" onclick="selectCurrentRevenue('$500k–$1m', this)">$500k–$1m</div>
-                    <div class="revenue-option" onclick="selectCurrentRevenue('$1m–$5m', this)">$1m–$5m</div>
-                    <div class="revenue-option" onclick="selectCurrentRevenue('$5m–$10m', this)">$5m–$10m</div>
-                    <div class="revenue-option" onclick="selectCurrentRevenue('$10m+', this)">$10m+</div>
+                <div class="options-grid">
+                    <div class="option-card" onclick="selectPropertyKind('Квартира', this)">
+                        <div class="option-icon"><i class="fas fa-building"></i></div>
+                        <div class="option-text" id="kindApartment">Квартира</div>
+                    </div>
+
+                    <div class="option-card" onclick="selectPropertyKind('Коммерческое помещение', this)">
+                        <div class="option-icon"><i class="fas fa-store"></i></div>
+                        <div class="option-text" id="kindCommercial">Коммерческое помещение</div>
+                    </div>
+
+                    <div class="option-card" onclick="selectPropertyKind('Вилла (дом)', this)">
+                        <div class="option-icon"><i class="fas fa-home"></i></div>
+                        <div class="option-text" id="kindVilla">Вилла (дом)</div>
+                    </div>
+
+                    <div class="option-card" onclick="selectPropertyKind('Участок', this)">
+                        <div class="option-icon"><i class="fas fa-mountain"></i></div>
+                        <div class="option-text" id="kindLand">Участок</div>
+                    </div>
+
+                    <div class="option-card" onclick="selectPropertyKind('Отель', this)">
+                        <div class="option-icon"><i class="fas fa-hotel"></i></div>
+                        <div class="option-text" id="kindHotel">Отель</div>
+                    </div>
                 </div>
 
                 <div class="button-container">
                     <button class="button button-back" onclick="goToStep2()">
-                        <i class="fas fa-arrow-left"></i> <span id="backButton3">BACK</span>
+                        <i class="fas fa-arrow-left"></i> <span id="backButton3">НАЗАД</span>
                     </button>
                     <button class="button button-next" id="next3" onclick="goToStep4()" disabled>
-                        <span id="nextButton3">NEXT</span> <i class="fas fa-arrow-right"></i>
+                        <span id="nextButton3">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- ЭКРАН 4: Контактная информация -->
+        <!-- ЭКРАН 4: Выбор планировки (только для квартир) -->
         <div class="screen hidden" id="screen4">
             <div class="content-card">
-                <h1 class="title" id="contactInfoTitle">Contact Information</h1>
+                <h1 class="title" id="layoutTitle">Планировка</h1>
+                
+                <p class="description" id="layoutDescription">
+                    Выберите планировку квартиры
+                </p>
+
+                <div class="layout-grid">
+                    <div class="layout-option" onclick="selectLayout('1+1', this)">1+1</div>
+                    <div class="layout-option" onclick="selectLayout('2+1', this)">2+1</div>
+                    <div class="layout-option" onclick="selectLayout('3+1', this)">3+1</div>
+                    <div class="layout-option" onclick="selectLayout('4+1', this)">4+1</div>
+                    <div class="layout-option" onclick="selectLayout('5+1', this)">5+1</div>
+                </div>
+
+                <div class="button-container">
+                    <button class="button button-back" onclick="goToStep3()">
+                        <i class="fas fa-arrow-left"></i> <span id="backButton4">НАЗАД</span>
+                    </button>
+                    <button class="button button-next" id="next4" onclick="goToStep5()" disabled>
+                        <span id="nextButton4">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 5: Выбор локации -->
+        <div class="screen hidden" id="screen5">
+            <div class="content-card">
+                <h1 class="title" id="locationTitle">Локация</h1>
+                
+                <p class="description" id="locationDescription">
+                    Выберите локацию недвижимости
+                </p>
+
+                <div class="options-grid">
+                    <div class="option-card" onclick="selectLocation('Алания', this)">
+                        <div class="option-icon"><i class="fas fa-umbrella-beach"></i></div>
+                        <div class="option-text" id="locationAlanya">Алания</div>
+                    </div>
+
+                    <div class="option-card" onclick="selectLocation('Стамбул', this)">
+                        <div class="option-icon"><i class="fas fa-city"></i></div>
+                        <div class="option-text" id="locationIstanbul">Стамбул</div>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <button class="button button-back" onclick="goToStep4()">
+                        <i class="fas fa-arrow-left"></i> <span id="backButton5">НАЗАД</span>
+                    </button>
+                    <button class="button button-next" id="next5" onclick="goToStep6()" disabled>
+                        <span id="nextButton5">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 6: Выбор бюджета -->
+        <div class="screen hidden" id="screen6">
+            <div class="content-card">
+                <h1 class="title" id="budgetTitle">Бюджет</h1>
+                
+                <p class="description" id="budgetDescription">
+                    Выберите бюджет
+                </p>
+
+                <div class="budget-grid">
+                    <div class="budget-option" onclick="selectBudget('70.000-100.000', this)">70.000-100.000</div>
+                    <div class="budget-option" onclick="selectBudget('100.000-150.000', this)">100.000-150.000</div>
+                    <div class="budget-option" onclick="selectBudget('150.000-200.000', this)">150.000-200.000</div>
+                    <div class="budget-option" onclick="selectBudget('200.000+', this)">200.000+</div>
+                </div>
+
+                <div class="button-container">
+                    <button class="button button-back" onclick="goToStep5()">
+                        <i class="fas fa-arrow-left"></i> <span id="backButton6">НАЗАД</span>
+                    </button>
+                    <button class="button button-next" id="next6" onclick="goToStep7()" disabled>
+                        <span id="nextButton6">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 7: Выбор сроков сделки -->
+        <div class="screen hidden" id="screen7">
+            <div class="content-card">
+                <h1 class="title" id="timingTitle">Сроки сделки</h1>
+                
+                <p class="description" id="timingDescription">
+                    Выберите сроки сделки
+                </p>
+
+                <div class="timing-grid">
+                    <div class="timing-option" onclick="selectTiming('Быстро (7-14 дней)', this)">
+                        <div class="option-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="option-text" id="timingFast">Быстро (7-14 дней)</div>
+                    </div>
+
+                    <div class="timing-option" onclick="selectTiming('Средний (до 1 месяца)', this)">
+                        <div class="option-icon"><i class="fas fa-clock"></i></div>
+                        <div class="option-text" id="timingMedium">Средний (до 1 месяца)</div>
+                    </div>
+
+                    <div class="timing-option" onclick="selectTiming('Долгий (без процентная рассрочка, кредит)', this)">
+                        <div class="option-icon"><i class="fas fa-calendar-alt"></i></div>
+                        <div class="option-text" id="timingLong">Долгий (без процентная рассрочка, кредит)</div>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <button class="button button-back" onclick="goToStep6()">
+                        <i class="fas fa-arrow-left"></i> <span id="backButton7">НАЗАД</span>
+                    </button>
+                    <button class="button button-next" id="next7" onclick="goToStep8()" disabled>
+                        <span id="nextButton7">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 8: Комментарий -->
+        <div class="screen hidden" id="screen8">
+            <div class="content-card">
+                <h1 class="title" id="commentTitle">Комментарий</h1>
+                
+                <p class="description" id="commentDescription">
+                    Оставьте комментарий или сообщение к вашей заявке
+                </p>
+
+                <textarea class="comment-input" id="userComment" placeholder="Ваш комментарий..."></textarea>
+
+                <div class="button-container">
+                    <button class="button button-back" onclick="goToStep7()">
+                        <i class="fas fa-arrow-left"></i> <span id="backButton8">НАЗАД</span>
+                    </button>
+                    <button class="button button-next" id="next8" onclick="goToStep9()">
+                        <span id="nextButton8">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 9: Контактная информация -->
+        <div class="screen hidden" id="screen9">
+            <div class="content-card">
+                <h1 class="title" id="contactInfoTitle">Контактная информация</h1>
                 
                 <p class="description" id="contactInfoDescription">
-                    Leave your contacts for communication. Our specialist will contact you within 24 hours
+                    Оставьте свои контакты для связи. Наш специалист свяжется с вами в течение 24 часов
                 </p>
 
                 <!-- Статус отправки -->
                 <div id="statusMessage" class="status-message"></div>
 
                 <div class="form-group">
-                    <label class="form-label" id="nameLabel">Your Name</label>
-                    <input type="text" class="form-input" id="userName" placeholder="John Smith">
+                    <label class="form-label" id="nameLabel">Ваше имя</label>
+                    <input type="text" class="form-input" id="userName" placeholder="Иван Иванов">
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" id="phoneLabel">Phone Number</label>
+                    <label class="form-label" id="phoneLabel">Телефон</label>
                     
                     <!-- Выбор региона -->
                     <div class="phone-region-selector">
                         <div class="region-flag" id="regionFlag">🇷🇺</div>
                         <select class="region-select" id="regionSelect" onchange="updatePhonePrefix()">
-                            <option value="+7" data-flag="🇷🇺">Russia (+7)</option>
-                            <option value="+1" data-flag="🇺🇸">USA (+1)</option>
-                            <option value="+44" data-flag="🇬🇧">UK (+44)</option>
-                            <option value="+49" data-flag="🇩🇪">Germany (+49)</option>
-                            <option value="+33" data-flag="🇫🇷">France (+33)</option>
-                            <option value="+86" data-flag="🇨🇳">China (+86)</option>
-                            <option value="+971" data-flag="🇦🇪">UAE (+971)</option>
-                            <option value="+91" data-flag="🇮🇳">India (+91)</option>
-                            <option value="+81" data-flag="🇯🇵">Japan (+81)</option>
-                            <option value="+82" data-flag="🇰🇷">Korea (+82)</option>
+                            <option value="+7" data-flag="🇷🇺">Россия (+7)</option>
+                            <option value="+90" data-flag="🇹🇷">Турция (+90)</option>
+                            <option value="+1" data-flag="🇺🇸">США (+1)</option>
+                            <option value="+44" data-flag="🇬🇧">Великобритания (+44)</option>
+                            <option value="+49" data-flag="🇩🇪">Германия (+49)</option>
+                            <option value="+971" data-flag="🇦🇪">ОАЭ (+971)</option>
+                            <option value="+996" data-flag="🇰🇬">Кыргызстан (+996)</option>
+                            <option value="+998" data-flag="🇺🇿">Узбекистан (+998)</option>
+                            <option value="+7" data-flag="🇰🇿">Казахстан (+7)</option>
+                            <option value="+375" data-flag="🇧🇾">Беларусь (+375)</option>
                         </select>
                     </div>
                     
-                    <input type="tel" class="form-input" id="userPhone" placeholder="Phone number">
+                    <input type="tel" class="form-input" id="userPhone" placeholder="Номер телефона">
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" id="emailLabel">Email (optional)</label>
+                    <label class="form-label" id="emailLabel">Email (необязательно)</label>
                     <input type="email" class="form-input" id="userEmail" placeholder="email@example.com">
                 </div>
 
                 <div class="button-container">
-                    <button class="button button-back" onclick="goToStep3()">
-                        <i class="fas fa-arrow-left"></i> <span id="backButton4">BACK</span>
+                    <button class="button button-back" onclick="goToStep8()">
+                        <i class="fas fa-arrow-left"></i> <span id="backButton9">НАЗАД</span>
                     </button>
                     <button class="button button-next" onclick="submitApplication()" id="submitButton">
-                        <i class="fas fa-paper-plane"></i> <span id="submitButtonText">SUBMIT APPLICATION</span>
+                        <i class="fas fa-paper-plane"></i> <span id="submitButtonText">ОТПРАВИТЬ ЗАЯВКУ</span>
                     </button>
                 </div>
             </div>
@@ -765,9 +1017,9 @@
 
         <!-- Футер -->
         <div class="footer">
-            <span id="footerText">© 2023-2026 Brokerok | All services provided by professional specialists</span><br>
-            <a href="https://t.me/brokerok_support" target="_blank" id="supportLink">Support</a> | 
-            <a href="https://t.me/brokerok_manager" target="_blank" id="managerLink">Manager</a>
+            <span id="footerText">© 2023-2026 Brokerok | Все услуги оказываются профессиональными специалистами</span><br>
+            <a href="https://t.me/brokerok_support" target="_blank" id="supportLink">Поддержка</a> | 
+            <a href="https://t.me/brokerok_manager" target="_blank" id="managerLink">Менеджер</a>
         </div>
     </div>
 
@@ -776,11 +1028,16 @@
         const botToken = '8412708945:AAEPdeJ9jd1N_Hlo-o7A0rOZjv3t-mq6gjA';
         const chatId = '8039700599';
 
-        let selectedNiche = null;
-        let selectedFutureRevenue = null;
-        let selectedCurrentRevenue = null;
+        let selectedCategory = null;
+        let selectedPropertyType = null;
+        let selectedPropertyKind = null;
+        let selectedLayout = null;
+        let selectedLocation = null;
+        let selectedBudget = null;
+        let selectedTiming = null;
+        let userComment = '';
         let isSubmitting = false;
-        let currentLanguage = 'en'; // По умолчанию английский
+        let currentLanguage = 'ru'; // Исправлено: теперь русский по умолчанию
         let currentRegion = '+7'; // По умолчанию Россия
 
         // Тексты для перевода
@@ -788,27 +1045,50 @@
             ru: {
                 headerSubtitle: "Профессиональные услуги",
                 strategyTitle: "Получите стратегию продвижения",
-                strategyText: "Оставьте заявку и узнайте, каким набором действий в своём бизнесе вы сможете применить эффективную бизнес-модель и запустить прибыльную связку за 48 часов. Наши эксперты анализируют ваш случай индивидуально и предоставляют пошаговый план действий, который работает даже без технических навыков.",
+                strategyText: "Оставьте заявку и узнайте, каким набором действий в своём бизнесе вы сможете применить эффективную бизнес-модель и запустить прибыльную связку за 48 часов. Наши эксперты анализируют ваш случай индивидуально и предоставляют пошаговый план действий который работает даже без технических навыков.",
                 strategyButtonText: "Оставить заявку",
                 mainTitle: "Готовы вывести бизнес на новый уровень?",
                 mainDescription: "Наша команда экспертов поможет вам достичь финансовых целей с помощью проверенных стратегий и индивидуального подхода",
                 contactTitle: "Связаться с менеджером",
                 contactText: "Есть вопросы или нужна срочная консультация? Напишите нашему менеджеру в Telegram для быстрого ответа",
                 contactButtonText: "Написать в Telegram",
-                serviceTitle: "В какой сфере ваш бизнес?",
-                serviceDescription: "Выберите категорию услуги, которая вам нужна",
-                nicheRealty: "Недвижимость",
-                nicheAuto: "Авто",
-                nicheCompany: "Открытие компании",
-                nicheLawyer: "Сопровождение сделки с адвокатом",
-                nicheConsultation: "Консультация",
-                nicheOther: "Другое",
+                categoryTitle: "Выберите категорию услуги",
+                categoryDescription: "Выберите категорию услуги, которая вам нужна",
+                categoryRealEstate: "Недвижимость",
+                categoryAuto: "Авто",
+                categoryCompany: "Открытие компании",
+                categoryExpert: "Сопровождение сделки с экспертом",
+                categoryConsultation: "Консультация",
+                propertyTypeTitle: "Тип недвижимости",
+                propertyTypeDescription: "Выберите тип недвижимости",
+                typeCitizenship: "Гражданство",
+                typeResidence: "ВНЖ",
+                typeRental: "Сдача в аренду",
+                typeInvestment: "Инвестиция",
+                propertyKindTitle: "Вид недвижимости",
+                propertyKindDescription: "Выберите вид недвижимости",
+                kindApartment: "Квартира",
+                kindCommercial: "Коммерческое помещение",
+                kindVilla: "Вилла (дом)",
+                kindLand: "Участок",
+                kindHotel: "Отель",
+                layoutTitle: "Планировка",
+                layoutDescription: "Выберите планировку квартиры",
+                locationTitle: "Локация",
+                locationDescription: "Выберите локацию недвижимости",
+                locationAlanya: "Алания",
+                locationIstanbul: "Стамбул",
+                budgetTitle: "Бюджет",
+                budgetDescription: "Выберите бюджет",
+                timingTitle: "Сроки сделки",
+                timingDescription: "Выберите сроки сделки",
+                timingFast: "Быстро (7-14 дней)",
+                timingMedium: "Средний (до 1 месяца)",
+                timingLong: "Долгий (без процентная рассрочка, кредит)",
+                commentTitle: "Комментарий",
+                commentDescription: "Оставьте комментарий или сообщение к вашей заявке",
                 backButton: "НАЗАД",
                 nextButton: "ДАЛЕЕ",
-                futureRevenueTitle: "Желаемая выручка через 3 месяца",
-                futureRevenueDescription: "Выберите ожидаемый уровень дохода, чтобы мы могли предложить оптимальную стратегию",
-                currentRevenueTitle: "Текущая выручка",
-                currentRevenueDescription: "Укажите ваш текущий уровень дохода для более точного подбора стратегии",
                 contactInfoTitle: "Контактная информация",
                 contactInfoDescription: "Оставьте свои контакты для связи. Наш специалист свяжется с вами в течение 24 часов",
                 nameLabel: "Ваше имя",
@@ -818,9 +1098,13 @@
                 footerText: "© 2023-2026 Brokerok | Все услуги оказываются профессиональными специалистами",
                 supportLink: "Поддержка",
                 managerLink: "Менеджер",
-                validationSelectService: "Пожалуйста, выберите услугу",
-                validationSelectRevenue: "Пожалуйста, выберите желаемую выручку",
-                validationSelectCurrentRevenue: "Пожалуйста, выберите текущую выручку",
+                validationSelectCategory: "Пожалуйста, выберите категорию услуги",
+                validationSelectPropertyType: "Пожалуйста, выберите тип недвижимости",
+                validationSelectPropertyKind: "Пожалуйста, выберите вид недвижимости",
+                validationSelectLayout: "Пожалуйста, выберите планировку",
+                validationSelectLocation: "Пожалуйста, выберите локацию",
+                validationSelectBudget: "Пожалуйста, выберите бюджет",
+                validationSelectTiming: "Пожалуйста, выберите сроки сделки",
                 validationNamePhone: "Пожалуйста, заполните имя и телефон",
                 validationPhoneFormat: "Пожалуйста, введите корректный номер телефона",
                 successMessage: "✅ Заявка успешно отправлена! Наш специалист свяжется с вами в течение 24 часов.",
@@ -837,20 +1121,43 @@
                 contactTitle: "Contact Manager",
                 contactText: "Have questions or need urgent consultation? Write to our manager in Telegram for a quick response",
                 contactButtonText: "Write in Telegram",
-                serviceTitle: "What is your business area?",
-                serviceDescription: "Select the service category you need",
-                nicheRealty: "Real Estate",
-                nicheAuto: "Auto",
-                nicheCompany: "Company Registration",
-                nicheLawyer: "Deal Support with Lawyer",
-                nicheConsultation: "Consultation",
-                nicheOther: "Other",
+                categoryTitle: "Select Service Category",
+                categoryDescription: "Choose the category of service you need",
+                categoryRealEstate: "Real Estate",
+                categoryAuto: "Auto",
+                categoryCompany: "Company Registration",
+                categoryExpert: "Deal Support with Expert",
+                categoryConsultation: "Consultation",
+                propertyTypeTitle: "Property Type",
+                propertyTypeDescription: "Select property type",
+                typeCitizenship: "Citizenship",
+                typeResidence: "Residence Permit",
+                typeRental: "Rental",
+                typeInvestment: "Investment",
+                propertyKindTitle: "Property Kind",
+                propertyKindDescription: "Select property kind",
+                kindApartment: "Apartment",
+                kindCommercial: "Commercial Premises",
+                kindVilla: "Villa (House)",
+                kindLand: "Land Plot",
+                kindHotel: "Hotel",
+                layoutTitle: "Layout",
+                layoutDescription: "Select apartment layout",
+                locationTitle: "Location",
+                locationDescription: "Select property location",
+                locationAlanya: "Alanya",
+                locationIstanbul: "Istanbul",
+                budgetTitle: "Budget",
+                budgetDescription: "Select budget",
+                timingTitle: "Deal Timing",
+                timingDescription: "Select deal timing",
+                timingFast: "Fast (7-14 days)",
+                timingMedium: "Medium (up to 1 month)",
+                timingLong: "Long (interest-free installment, credit)",
+                commentTitle: "Comment",
+                commentDescription: "Leave a comment or message for your application",
                 backButton: "BACK",
                 nextButton: "NEXT",
-                futureRevenueTitle: "Desired revenue in 3 months",
-                futureRevenueDescription: "Select the expected income level so we can offer the optimal strategy",
-                currentRevenueTitle: "Current revenue",
-                currentRevenueDescription: "Specify your current income level for more accurate strategy selection",
                 contactInfoTitle: "Contact Information",
                 contactInfoDescription: "Leave your contacts for communication. Our specialist will contact you within 24 hours",
                 nameLabel: "Your Name",
@@ -860,9 +1167,13 @@
                 footerText: "© 2023-2026 Brokerok | All services provided by professional specialists",
                 supportLink: "Support",
                 managerLink: "Manager",
-                validationSelectService: "Please select a service",
-                validationSelectRevenue: "Please select desired revenue",
-                validationSelectCurrentRevenue: "Please select current revenue",
+                validationSelectCategory: "Please select a service category",
+                validationSelectPropertyType: "Please select a property type",
+                validationSelectPropertyKind: "Please select a property kind",
+                validationSelectLayout: "Please select a layout",
+                validationSelectLocation: "Please select a location",
+                validationSelectBudget: "Please select a budget",
+                validationSelectTiming: "Please select deal timing",
                 validationNamePhone: "Please fill in name and phone",
                 validationPhoneFormat: "Please enter a valid phone number",
                 successMessage: "✅ Application successfully submitted! Our specialist will contact you within 24 hours.",
@@ -897,13 +1208,18 @@
             
             // Обновляем плейсхолдеры
             document.getElementById('userName').placeholder = currentLanguage === 'ru' ? 'Иван Иванов' : 'John Smith';
+            document.getElementById('userComment').placeholder = currentLanguage === 'ru' ? 'Ваш комментарий...' : 'Your comment...';
             document.getElementById('userEmail').placeholder = 'email@example.com';
             
             // Обновляем сообщения валидации
             window.validationMessages = {
-                selectService: texts.validationSelectService,
-                selectRevenue: texts.validationSelectRevenue,
-                selectCurrentRevenue: texts.validationSelectCurrentRevenue,
+                selectCategory: texts.validationSelectCategory,
+                selectPropertyType: texts.validationSelectPropertyType,
+                selectPropertyKind: texts.validationSelectPropertyKind,
+                selectLayout: texts.validationSelectLayout,
+                selectLocation: texts.validationSelectLocation,
+                selectBudget: texts.validationSelectBudget,
+                selectTiming: texts.validationSelectTiming,
                 namePhone: texts.validationNamePhone,
                 phoneFormat: texts.validationPhoneFormat
             };
@@ -925,15 +1241,14 @@
             const phoneInput = document.getElementById('userPhone');
             const placeholders = {
                 '+7': '+7 (999) 123-45-67',
+                '+90': '+90 (555) 123-4567',
                 '+1': '+1 (555) 123-4567',
                 '+44': '+44 7911 123456',
                 '+49': '+49 151 12345678',
-                '+33': '+33 6 12 34 56 78',
-                '+86': '+86 138 0011 2233',
                 '+971': '+971 50 123 4567',
-                '+91': '+91 98765 43210',
-                '+81': '+81 90 1234 5678',
-                '+82': '+82 10 1234 5678'
+                '+996': '+996 555 123456',
+                '+998': '+998 91 123-45-67',
+                '+375': '+375 29 1234567'
             };
             
             phoneInput.placeholder = placeholders[currentRegion] || 'Phone number';
@@ -951,60 +1266,172 @@
         }
 
         function goToStep2() {
-            if (!selectedNiche) {
-                showStatus(translations[currentLanguage].validationSelectService, 'error');
+            if (!selectedCategory) {
+                showStatus(translations[currentLanguage].validationSelectCategory, 'error');
                 return;
             }
-            showScreen('screen2');
-            updateProgress(2);
+            
+            // Если выбрана категория "Недвижимость", показываем экран с выбором типа
+            if (selectedCategory === 'Недвижимость' || selectedCategory === 'Real Estate') {
+                showScreen('screen2');
+                updateProgress(2);
+            } else {
+                // Для других категорий пропускаем шаги 2-8 и сразу переходим к контактам
+                selectedPropertyType = null;
+                selectedPropertyKind = null;
+                selectedLayout = null;
+                selectedLocation = null;
+                selectedBudget = null;
+                selectedTiming = null;
+                userComment = '';
+                goToStep9();
+            }
         }
 
         function goToStep3() {
-            if (!selectedFutureRevenue) {
-                showStatus(translations[currentLanguage].validationSelectRevenue, 'error');
+            if (!selectedPropertyType) {
+                showStatus(translations[currentLanguage].validationSelectPropertyType, 'error');
                 return;
             }
+            
             showScreen('screen3');
             updateProgress(3);
         }
 
         function goToStep4() {
-            if (!selectedCurrentRevenue) {
-                showStatus(translations[currentLanguage].validationSelectCurrentRevenue, 'error');
+            if (!selectedPropertyKind) {
+                showStatus(translations[currentLanguage].validationSelectPropertyKind, 'error');
                 return;
             }
-            showScreen('screen4');
-            updateProgress(4);
+            
+            // Если выбран вид "Квартира", показываем экран с выбором планировки
+            if (selectedPropertyKind === 'Квартира' || selectedPropertyKind === 'Apartment') {
+                showScreen('screen4');
+                updateProgress(4);
+            } else {
+                // Для других видов пропускаем шаг планировки
+                selectedLayout = null;
+                goToStep5();
+            }
         }
 
-        // Выбор ниши
-        function selectNiche(niche, element) {
-            document.querySelectorAll('.niche-option').forEach(opt => {
+        function goToStep5() {
+            // Пропускаем проверку layout для не-квартир
+            if ((selectedPropertyKind === 'Квартира' || selectedPropertyKind === 'Apartment') && !selectedLayout) {
+                showStatus(translations[currentLanguage].validationSelectLayout, 'error');
+                return;
+            }
+            
+            showScreen('screen5');
+            updateProgress(5);
+        }
+
+        function goToStep6() {
+            if (!selectedLocation) {
+                showStatus(translations[currentLanguage].validationSelectLocation, 'error');
+                return;
+            }
+            
+            showScreen('screen6');
+            updateProgress(6);
+        }
+
+        function goToStep7() {
+            if (!selectedBudget) {
+                showStatus(translations[currentLanguage].validationSelectBudget, 'error');
+                return;
+            }
+            
+            showScreen('screen7');
+            updateProgress(7);
+        }
+
+        function goToStep8() {
+            if (!selectedTiming) {
+                showStatus(translations[currentLanguage].validationSelectTiming, 'error');
+                return;
+            }
+            
+            showScreen('screen8');
+            updateProgress(8);
+        }
+
+        function goToStep9() {
+            // Сохраняем комментарий
+            userComment = document.getElementById('userComment').value.trim();
+            
+            showScreen('screen9');
+            updateProgress(9);
+        }
+
+        // Выбор категории
+        function selectCategory(category, element) {
+            document.querySelectorAll('#screen1 .option-card').forEach(opt => {
                 opt.classList.remove('selected');
             });
             element.classList.add('selected');
-            selectedNiche = niche;
+            selectedCategory = category;
             document.getElementById('next1').disabled = false;
         }
 
-        // Выбор будущей выручки
-        function selectFutureRevenue(revenue, element) {
-            document.querySelectorAll('#screen2 .revenue-option').forEach(opt => {
+        // Выбор типа недвижимости
+        function selectPropertyType(type, element) {
+            document.querySelectorAll('#screen2 .option-card').forEach(opt => {
                 opt.classList.remove('selected');
             });
             element.classList.add('selected');
-            selectedFutureRevenue = revenue;
+            selectedPropertyType = type;
             document.getElementById('next2').disabled = false;
         }
 
-        // Выбор текущей выручки
-        function selectCurrentRevenue(revenue, element) {
-            document.querySelectorAll('#screen3 .revenue-option').forEach(opt => {
+        // Выбор вида недвижимости
+        function selectPropertyKind(kind, element) {
+            document.querySelectorAll('#screen3 .option-card').forEach(opt => {
                 opt.classList.remove('selected');
             });
             element.classList.add('selected');
-            selectedCurrentRevenue = revenue;
+            selectedPropertyKind = kind;
             document.getElementById('next3').disabled = false;
+        }
+
+        // Выбор планировки
+        function selectLayout(layout, element) {
+            document.querySelectorAll('#screen4 .layout-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedLayout = layout;
+            document.getElementById('next4').disabled = false;
+        }
+
+        // Выбор локации
+        function selectLocation(location, element) {
+            document.querySelectorAll('#screen5 .option-card').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedLocation = location;
+            document.getElementById('next5').disabled = false;
+        }
+
+        // Выбор бюджета
+        function selectBudget(budget, element) {
+            document.querySelectorAll('#screen6 .budget-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedBudget = budget;
+            document.getElementById('next6').disabled = false;
+        }
+
+        // Выбор сроков
+        function selectTiming(timing, element) {
+            document.querySelectorAll('#screen7 .timing-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedTiming = timing;
+            document.getElementById('next7').disabled = false;
         }
 
         // Показать экран
@@ -1018,7 +1445,7 @@
 
         // Обновить прогресс
         function updateProgress(step) {
-            for (let i = 1; i <= 4; i++) {
+            for (let i = 1; i <= 9; i++) {
                 const dot = document.getElementById(`dot${i}`);
                 if (i <= step) {
                     dot.classList.add('active');
@@ -1047,7 +1474,7 @@
             document.getElementById('statusMessage').style.display = 'none';
         }
 
-        // Валидация телефона в зависимости от региона
+        // Валидация телефона
         function validatePhone(phone, region) {
             // Убираем все нецифровые символы
             const digits = phone.replace(/\D/g, '');
@@ -1057,31 +1484,7 @@
                 return false;
             }
             
-            // Проверяем в зависимости от региона
-            switch(region) {
-                case '+7': // Россия
-                    return digits.length >= 10;
-                case '+1': // США/Канада
-                    return digits.length === 10;
-                case '+44': // Великобритания
-                    return digits.length >= 9 && digits.length <= 11;
-                case '+49': // Германия
-                    return digits.length >= 10 && digits.length <= 12;
-                case '+33': // Франция
-                    return digits.length === 9;
-                case '+86': // Китай
-                    return digits.length === 11;
-                case '+971': // ОАЭ
-                    return digits.length === 9;
-                case '+91': // Индия
-                    return digits.length === 10;
-                case '+81': // Япония
-                    return digits.length === 10 || digits.length === 11;
-                case '+82': // Корея
-                    return digits.length === 9 || digits.length === 10;
-                default:
-                    return digits.length >= 7 && digits.length <= 15;
-            }
+            return true;
         }
 
         // Отправка заявки в Telegram
@@ -1098,7 +1501,7 @@
                 return;
             }
 
-            // Простая проверка телефона (только цифры)
+            // Простая проверка телефона
             if (!validatePhone(userPhone, currentRegion)) {
                 showStatus(translations[currentLanguage].validationPhoneFormat, 'error');
                 return;
@@ -1107,14 +1510,27 @@
             // Форматируем телефон для отображения
             const formattedPhone = currentRegion + ' ' + userPhone.replace(/\D/g, '');
 
+            // Форматируем бюджет в зависимости от локации
+            let formattedBudget = selectedBudget;
+            if (selectedLocation === 'Алания' || selectedLocation === 'Alanya') {
+                formattedBudget = selectedBudget + '€';
+            } else if (selectedLocation === 'Стамбул' || selectedLocation === 'Istanbul') {
+                formattedBudget = selectedBudget + '$';
+            }
+
             // Собираем данные
             const applicationData = {
-                niche: selectedNiche,
-                future_revenue: selectedFutureRevenue,
-                current_revenue: selectedCurrentRevenue,
+                category: selectedCategory,
+                property_type: selectedPropertyType,
+                property_kind: selectedPropertyKind,
+                layout: selectedLayout,
+                location: selectedLocation,
+                budget: formattedBudget,
+                timing: selectedTiming,
+                comment: userComment,
                 name: userName,
                 phone: formattedPhone,
-                email: userEmail || 'not specified',
+                email: userEmail || 'не указан',
                 region: currentRegion,
                 language: currentLanguage,
                 timestamp: new Date().toLocaleString('ru-RU'),
@@ -1123,22 +1539,43 @@
             };
 
             // Формируем сообщение для Telegram
-            const message = `🏢 *NEW BROKEROK APPLICATION* 🏢
-📋 *Service:* ${applicationData.niche}
-🎯 *Target revenue (3 months):* ${applicationData.future_revenue}
-📊 *Current revenue:* ${applicationData.current_revenue}
-
-👤 *Client:* ${applicationData.name}
-📞 *Phone:* ${applicationData.phone}
-📍 *Region:* ${applicationData.region}
-📧 *Email:* ${applicationData.email}
-🌐 *Language:* ${applicationData.language.toUpperCase()}
-
-⏰ *Submission time:* ${applicationData.timestamp}
-📅 *Year:* ${applicationData.year}
-🔗 *Source:* ${applicationData.source}
-
-_Application submitted via Telegram MiniApp_`;
+            let message = `🏢 *НОВАЯ ЗАЯВКА BROKEROK* 🏢\n`;
+            message += `📋 *Категория:* ${applicationData.category}\n`;
+            
+            if (applicationData.property_type) {
+                message += `🎯 *Тип недвижимости:* ${applicationData.property_type}\n`;
+            }
+            
+            if (applicationData.property_kind) {
+                message += `🏠 *Вид недвижимости:* ${applicationData.property_kind}\n`;
+            }
+            
+            if (applicationData.layout) {
+                message += `📐 *Планировка:* ${applicationData.layout}\n`;
+            }
+            
+            if (applicationData.location) {
+                message += `📍 *Локация:* ${applicationData.location}\n`;
+            }
+            
+            if (applicationData.budget) {
+                message += `💰 *Бюджет:* ${applicationData.budget}\n`;
+            }
+            
+            if (applicationData.timing) {
+                message += `⏰ *Сроки сделки:* ${applicationData.timing}\n`;
+            }
+            
+            if (applicationData.comment) {
+                message += `💬 *Комментарий:* ${applicationData.comment}\n`;
+            }
+            
+            message += `\n👤 *Клиент:* ${applicationData.name}\n`;
+            message += `📞 *Телефон:* ${applicationData.phone}\n`;
+            message += `📧 *Email:* ${applicationData.email}\n\n`;
+            message += `⏰ *Время отправки:* ${applicationData.timestamp}\n`;
+            message += `🌐 *Язык:* ${applicationData.language.toUpperCase()}\n`;
+            message += `🔗 *Источник:* ${applicationData.source}`;
 
             // Кодируем сообщение для URL
             const encodedMessage = encodeURIComponent(message);
@@ -1179,13 +1616,18 @@ _Application submitted via Telegram MiniApp_`;
 
         // Сброс формы
         function resetForm() {
-            selectedNiche = null;
-            selectedFutureRevenue = null;
-            selectedCurrentRevenue = null;
+            selectedCategory = null;
+            selectedPropertyType = null;
+            selectedPropertyKind = null;
+            selectedLayout = null;
+            selectedLocation = null;
+            selectedBudget = null;
+            selectedTiming = null;
+            userComment = '';
             isSubmitting = false;
             
             // Сброс выбора
-            document.querySelectorAll('.niche-option, .revenue-option').forEach(opt => {
+            document.querySelectorAll('.option-card, .layout-option, .budget-option, .timing-option').forEach(opt => {
                 opt.classList.remove('selected');
             });
             
@@ -1193,11 +1635,16 @@ _Application submitted via Telegram MiniApp_`;
             document.getElementById('next1').disabled = true;
             document.getElementById('next2').disabled = true;
             document.getElementById('next3').disabled = true;
+            document.getElementById('next4').disabled = true;
+            document.getElementById('next5').disabled = true;
+            document.getElementById('next6').disabled = true;
+            document.getElementById('next7').disabled = true;
             
             // Очистка полей
             document.getElementById('userName').value = '';
             document.getElementById('userPhone').value = '';
             document.getElementById('userEmail').value = '';
+            document.getElementById('userComment').value = '';
             
             // Восстановление кнопки отправки
             const submitBtn = document.getElementById('submitButton');
@@ -1207,19 +1654,17 @@ _Application submitted via Telegram MiniApp_`;
 
         // Инициализация
         document.addEventListener('DOMContentLoaded', function() {
-            // Инициализация языка
-            updateAllTexts();
+            // Исправлено: устанавливаем русский язык по умолчанию
+            switchLanguage('ru');
             
             // Инициализация региона телефона
             updatePhonePlaceholder();
             
-            // Маска для телефона (теперь простая, без строгой валидации)
+            // Маска для телефона
             const phoneInput = document.getElementById('userPhone');
             phoneInput.addEventListener('input', function(e) {
-                // Разрешаем ввод любых символов, но показываем предупреждение если не цифры
                 const value = e.target.value;
                 if (/[^0-9\s\-\+\(\)]/.test(value)) {
-                    // Если введен недопустимый символ, удаляем его
                     e.target.value = value.replace(/[^0-9\s\-\+\(\)]/g, '');
                 }
             });
@@ -1237,9 +1682,9 @@ _Application submitted via Telegram MiniApp_`;
                 Telegram.WebApp.MainButton.show();
                 
                 // Получаем язык пользователя из Telegram
-                const userLang = Telegram.WebApp.initDataUnsafe.user?.language_code || 'en';
-                if (userLang.startsWith('ru')) {
-                    switchLanguage('ru');
+                const userLang = Telegram.WebApp.initDataUnsafe.user?.language_code || 'ru';
+                if (userLang.startsWith('en')) {
+                    switchLanguage('en');
                 }
             }
         });
