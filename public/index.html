@@ -150,6 +150,94 @@
             padding: 0 8px;
         }
 
+        /* ЭКРАН /start */
+        .start-screen {
+            text-align: center;
+            padding-top: 40px;
+        }
+
+        .start-icon {
+            font-size: 72px;
+            color: #10B981;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        .start-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #10B981;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .start-subtitle {
+            font-size: 16px;
+            color: #aaa;
+            margin-bottom: 30px;
+            line-height: 1.5;
+            padding: 0 20px;
+        }
+
+        .start-features {
+            background: rgba(16, 185, 129, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 40px;
+            text-align: left;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .start-features ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .start-features li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .start-features i {
+            color: #10B981;
+            font-size: 16px;
+            min-width: 20px;
+        }
+
+        .start-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 32px;
+            background: linear-gradient(135deg, #10B981, #059669);
+            border: none;
+            border-radius: 14px;
+            color: #000;
+            font-size: 17px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .start-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.6);
+            background: linear-gradient(135deg, #0da271, #047857);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
         /* Блок "Получите стратегию продвижения" */
         .strategy-block {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0.02) 100%);
@@ -803,6 +891,18 @@
                 padding: 0;
             }
             
+            .start-icon {
+                font-size: 60px;
+            }
+            
+            .start-title {
+                font-size: 24px;
+            }
+            
+            .start-subtitle {
+                font-size: 14px;
+            }
+            
             .strategy-block {
                 padding: 20px;
             }
@@ -886,8 +986,41 @@
             <div class="progress-dot" id="dot7"></div>
         </div>
 
+        <!-- ЭКРАН /start: Приветственный экран -->
+        <div class="screen" id="screenStart">
+            <div class="content-card start-screen">
+                <div class="start-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h1 class="start-title" id="startTitle">🚀 ДОБРО ПОЖАЛОВАТЬ В BROKEROK!</h1>
+                <p class="start-subtitle" id="startSubtitle">
+                    Ваш надежный партнер в сфере профессиональных услуг: недвижимость, автомобили, 
+                    открытие компаний и многое другое. Мы поможем вам достичь ваших целей!
+                </p>
+                
+                <div class="start-features">
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> <span id="feature1">✅ Профессиональные услуги недвижимости</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="feature2">✅ Покупка и продажа автомобилей</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="feature3">✅ Открытие компаний в Турции</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="feature4">✅ Трансферы из аэропорта</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="feature5">✅ Экспертные консультации</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span id="feature6">✅ Быстрое оформление документов</span></li>
+                    </ul>
+                </div>
+                
+                <button class="start-button" onclick="startMiniApp()">
+                    <i class="fas fa-play"></i> <span id="startButtonText">ЗАПУСТИТЬ МИНИ-ПРИЛОЖЕНИЕ</span>
+                </button>
+                
+                <p class="description" style="margin-top: 30px; font-size: 13px;" id="startHint">
+                    Нажмите кнопку выше, чтобы перейти к основному интерфейсу приложения
+                </p>
+            </div>
+        </div>
+
         <!-- ЭКРАН 0: Начальный экран -->
-        <div class="screen" id="screen0">
+        <div class="screen hidden" id="screen0">
             <div class="content-card">
                 <!-- Блок "Получите стратегию продвижения" -->
                 <div class="strategy-block">
@@ -943,6 +1076,7 @@
             </div>
         </div>
 
+        <!-- Остальные экраны остаются без изменений (screen1, screen2 и т.д.) -->
         <!-- ЭКРАН 1: Выбор категории услуги -->
         <div class="screen hidden" id="screen1">
             <div class="content-card">
@@ -1104,6 +1238,12 @@
                     <input type="text" class="form-input" id="transferName" placeholder="Иван Иванов">
                 </div>
 
+                <div class="passport-group">
+                    <div class="form-group">
+                        <label class="form-label" id="transferPassportLabel">Номер паспорта</label>
+                        <input type="text" class="form-input" id="transferPassport" placeholder="AB1234567">
+                    </div>
+
                     <div class="form-group">
                         <label class="form-label" id="transferPassportDateLabel">Срок действия паспорта</label>
                         <input type="date" class="form-input" id="transferPassportDate">
@@ -1123,6 +1263,33 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="form-label" id="transferPhoneLabel">Телефон</label>
+                    
+                    <!-- Выбор региона -->
+                    <div class="phone-region-selector">
+                        <div class="region-flag" id="transferRegionFlag">🇷🇺</div>
+                        <select class="region-select" id="transferRegionSelect" onchange="updateTransferPhonePrefix()">
+                            <option value="+7" data-flag="🇷🇺">Россия (+7)</option>
+                            <option value="+90" data-flag="🇹🇷">Турция (+90)</option>
+                            <option value="+1" data-flag="🇺🇸">США (+1)</option>
+                            <option value="+44" data-flag="🇬🇧">Великобритания (+44)</option>
+                            <option value="+49" data-flag="🇩🇪">Германия (+49)</option>
+                            <option value="+971" data-flag="🇦🇪">ОАЭ (+971)</option>
+                            <option value="+996" data-flag="🇰🇬">Кыргызстан (+996)</option>
+                            <option value="+998" data-flag="🇺🇿">Узбекистан (+998)</option>
+                            <option value="+7" data-flag="🇰🇿">Казахстан (+7)</option>
+                            <option value="+375" data-flag="🇧🇾">Беларусь (+375)</option>
+                        </select>
+                    </div>
+                    
+                    <input type="tel" class="form-input" id="transferPhone" placeholder="Номер телефона">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="transferEmailLabel">Email (необязательно)</label>
+                    <input type="email" class="form-input" id="transferEmail" placeholder="email@example.com">
+                </div>
 
                 <div class="button-container">
                     <button class="button button-back" onclick="goToTransferDistrict()">
@@ -1455,7 +1622,6 @@
                 </div>
 
                 <div class="button-container">
-                    <!-- ИСПРАВЛЕННАЯ КНОПКА НАЗАД -->
                     <button class="button button-back" onclick="goToStep3()">
                         <i class="fas fa-arrow-left"></i> <span id="backButton4">НАЗАД</span>
                     </button>
@@ -1488,7 +1654,6 @@
                 </div>
 
                 <div class="button-container">
-                    <!-- ИСПРАВЛЕННАЯ КНОПКА НАЗАД -->
                     <button class="button button-back" onclick="goBackFromLocation()">
                         <i class="fas fa-arrow-left"></i> <span id="backButton5">НАЗАД</span>
                     </button>
@@ -1710,6 +1875,17 @@
                 strategyTitle: "Наши услуги",
                 strategyText: "Полный спектр услуг в сфере недвижимости и автомобилей. Помощь в покупке, продаже и аренде недвижимости в Турции. Подбор и оформление автомобилей. Открытие компаний и юридическое сопровождение. Трансферы из аэропорта. Профессиональные консультации.",
                 strategyButtonText: "Услуги",
+                // /start экран
+                startTitle: "🚀 ДОБРО ПОЖАЛОВАТЬ В BROKEROK!",
+                startSubtitle: "Ваш надежный партнер в сфере профессиональных услуг: недвижимость, автомобили, открытие компаний и многое другое. Мы поможем вам достичь ваших целей!",
+                feature1: "✅ Профессиональные услуги недвижимости",
+                feature2: "✅ Покупка и продажа автомобилей",
+                feature3: "✅ Открытие компаний в Турции",
+                feature4: "✅ Трансферы из аэропорта",
+                feature5: "✅ Экспертные консультации",
+                feature6: "✅ Быстрое оформление документов",
+                startButtonText: "ЗАПУСТИТЬ МИНИ-ПРИЛОЖЕНИЕ",
+                startHint: "Нажмите кнопку выше, чтобы перейти к основному интерфейсу приложения",
                 mainTitle: "Готовы вывести бизнес на новый уровень?",
                 mainDescription: "Наша команда экспертов поможет вам достичь финансовых целей с помощью проверенных стратегий и индивидуального подхода",
                 contactTitle: "Связаться с менеджером",
@@ -1836,6 +2012,17 @@
                 strategyTitle: "Our Services",
                 strategyText: "Full range of real estate and car services. Assistance in buying, selling, and renting real estate in Turkey. Selection and registration of cars. Opening companies and legal support. Airport transfers. Professional consultations.",
                 strategyButtonText: "Services",
+                // /start экран
+                startTitle: "🚀 WELCOME TO BROKEROK!",
+                startSubtitle: "Your reliable partner in professional services: real estate, cars, company registration and much more. We'll help you achieve your goals!",
+                feature1: "✅ Professional real estate services",
+                feature2: "✅ Car purchase and sale",
+                feature3: "✅ Company registration in Turkey",
+                feature4: "✅ Airport transfers",
+                feature5: "✅ Expert consultations",
+                feature6: "✅ Fast document processing",
+                startButtonText: "LAUNCH MINI-APP",
+                startHint: "Click the button above to go to the main application interface",
                 mainTitle: "Ready to take your business to the next level?",
                 mainDescription: "Our team of experts will help you achieve financial goals using proven strategies and individual approach",
                 contactTitle: "Contact Manager",
@@ -2210,6 +2397,12 @@
         }
 
         // Навигация
+        function startMiniApp() {
+            // Прячем экран /start и показываем основной экран
+            showScreen('screen0');
+            updateProgress(0);
+        }
+
         function goToStep0() {
             showScreen('screen0');
             updateProgress(0);
@@ -3046,6 +3239,20 @@
 
         // Инициализация
         document.addEventListener('DOMContentLoaded', function() {
+            // Проверяем наличие параметра start в URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const isStartCommand = urlParams.has('start');
+            
+            if (isStartCommand) {
+                // Если есть параметр start, показываем приветственный экран
+                showScreen('screenStart');
+                updateProgress(0);
+            } else {
+                // Иначе показываем основной экран
+                showScreen('screen0');
+                updateProgress(0);
+            }
+            
             switchLanguage('ru');
             
             updatePhonePlaceholder();
