@@ -130,7 +130,7 @@
             padding: 0 8px;
         }
 
-        /* Блок "Получите стратегию продвижения" - УЛУЧШЕННЫЙ ДИЗАЙН */
+        /* Блок "Получите стратегию продвижения" */
         .strategy-block {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0.02) 100%);
             border: 2px solid transparent;
@@ -162,7 +162,6 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            text-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
         }
 
         .strategy-text {
@@ -182,17 +181,6 @@
             border-radius: 6px;
         }
 
-        /* Анимация для текста */
-        .pulse-text {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.8; }
-            100% { opacity: 1; }
-        }
-
         /* Кнопка в стратегии блоке */
         .strategy-button {
             display: inline-flex;
@@ -210,23 +198,6 @@
             transition: all 0.3s;
             margin-top: 8px;
             box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .strategy-button::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .strategy-button:hover::after {
-            left: 100%;
         }
 
         .strategy-button:hover {
@@ -775,6 +746,84 @@
         .message-textarea::placeholder {
             color: #666;
         }
+
+        /* Ценовые категории */
+        .price-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(16, 185, 129, 0.2);
+            color: #10B981;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        /* Сетка районов для трансфера */
+        .district-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .district-option {
+            background: transparent;
+            border: 1.5px solid #333;
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .district-option:hover {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .district-option.selected {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+        }
+
+        .district-name {
+            flex: 1;
+        }
+
+        /* Паспортные данные */
+        .passport-group {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        @media (min-width: 480px) {
+            .passport-group {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Информация о рейсе */
+        .flight-info-group {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        @media (min-width: 480px) {
+            .flight-info-group {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -792,7 +841,7 @@
             </div>
         </div>
 
-        <!-- Прогресс-бар - ДОБАВЛЕНЫ ДОПОЛНИТЕЛЬНЫЕ ТОЧКИ -->
+        <!-- Прогресс-бар -->
         <div class="progress-bar">
             <div class="progress-dot active" id="dot1"></div>
             <div class="progress-dot" id="dot2"></div>
@@ -801,20 +850,18 @@
             <div class="progress-dot" id="dot5"></div>
             <div class="progress-dot" id="dot6"></div>
             <div class="progress-dot" id="dot7"></div>
-            <div class="progress-dot" id="dot8"></div>
-            <div class="progress-dot" id="dot9"></div>
         </div>
 
         <!-- ЭКРАН 0: Начальный экран -->
         <div class="screen" id="screen0">
             <div class="content-card">
-                <!-- Блок "Получите стратегию продвижения" - УЛУЧШЕННЫЙ -->
+                <!-- Блок "Получите стратегию продвижения" -->
                 <div class="strategy-block">
                     <div class="strategy-title" id="strategyTitle">
                         <i class="fas fa-rocket"></i> 🚀 РАСКРУТИ СВОЙ БИЗНЕС ЗА 48 ЧАСОВ!
                     </div>
                     <div class="strategy-text" id="strategyText">
-                        <span class="pulse-text">🔥 <span class="highlight-text">ХВАТИТ ТЕРЯТЬ ДЕНЬГИ!</span> 🔥</span><br><br>
+                        <span>🔥 <span class="highlight-text">ХВАТИТ ТЕРЯТЬ ДЕНЬГИ!</span> 🔥</span><br><br>
                         
                         Устали от низкой конверсии и пустых трат на рекламу? <br>
                         <span class="highlight-text">Мы покажем вам работающую схему,</span> которая приносит <span class="highlight-text">от 50 клиентов в месяц</span> даже новичкам!<br><br>
@@ -909,6 +956,244 @@
                     </button>
                     <button class="button button-next" id="next1" onclick="goToNextStep()" disabled>
                         <span id="nextButton">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН: Выбор направления трансфера -->
+        <div class="screen hidden" id="screenTransferDirection">
+            <div class="content-card">
+                <h1 class="title" id="transferDirectionTitle">Направление трансфера</h1>
+                
+                <p class="description" id="transferDirectionDescription">
+                    Выберите направление трансфера
+                </p>
+
+                <div class="service-grid">
+                    <div class="service-option" onclick="selectTransferDirection('С аэропорта', this)">
+                        <div class="service-icon"><i class="fas fa-plane-arrival"></i></div>
+                        <div class="service-text" id="transferFromAirport">С аэропорта</div>
+                        <div class="service-subtext" id="transferFromAirportSub">Встреча в аэропорту</div>
+                    </div>
+
+                    <div class="service-option" onclick="selectTransferDirection('До аэропорта', this)">
+                        <div class="service-icon"><i class="fas fa-plane-departure"></i></div>
+                        <div class="service-text" id="transferToAirport">До аэропорта</div>
+                        <div class="service-subtext" id="transferToAirportSub">Трансфер в аэропорт</div>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <button class="button button-back" onclick="goToStep1()">
+                        <i class="fas fa-arrow-left"></i> <span id="backButtonTransferDirection">НАЗАД</span>
+                    </button>
+                    <button class="button button-next" id="nextTransferDirection" onclick="goToTransferAirport()" disabled>
+                        <span id="nextButtonTransferDirection">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН: Выбор аэропорта трансфера -->
+        <div class="screen hidden" id="screenTransferAirport">
+            <div class="content-card">
+                <h1 class="title" id="transferAirportTitle">Выберите аэропорт</h1>
+                
+                <p class="description" id="transferAirportDescription">
+                    Выберите аэропорт для трансфера
+                </p>
+
+                <div class="service-grid">
+                    <div class="service-option" onclick="selectTransferAirport('Анталия (AYT)', this)">
+                        <div class="service-icon"><i class="fas fa-plane"></i></div>
+                        <div class="service-text" id="transferAirportAntalya">Аэропорт Анталия (AYT)</div>
+                        <div class="service-subtext" id="transferAirportAntalyaSub">Международный аэропорт Анталии</div>
+                    </div>
+
+                    <div class="service-option" onclick="selectTransferAirport('Газипаша (GZP)', this)">
+                        <div class="service-icon"><i class="fas fa-plane"></i></div>
+                        <div class="service-text" id="transferAirportGazipasa">Аэропорт Газипаша (GZP)</div>
+                        <div class="service-subtext" id="transferAirportGazipasaSub">Международный аэропорт Газипаши</div>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <button class="button button-back" onclick="goToTransferDirection()">
+                        <i class="fas fa-arrow-left"></i> <span id="backButtonTransferAirport">НАЗАД</span>
+                    </button>
+                    <button class="button button-next" id="nextTransferAirport" onclick="goToTransferDistrict()" disabled>
+                        <span id="nextButtonTransferAirport">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН: Выбор района трансфера -->
+        <div class="screen hidden" id="screenTransferDistrict">
+            <div class="content-card">
+                <h1 class="title" id="transferDistrictTitle">Выберите район</h1>
+                
+                <p class="description" id="transferDistrictDescription">
+                    Выберите район для трансфера. Цены указаны за автомобиль
+                </p>
+
+                <div class="district-grid" id="districtsGrid">
+                    <!-- Районы будут загружены динамически -->
+                </div>
+
+                <div class="button-container">
+                    <button class="button button-back" onclick="goToTransferAirport()">
+                        <i class="fas fa-arrow-left"></i> <span id="backButtonTransferDistrict">НАЗАД</span>
+                    </button>
+                    <button class="button button-next" id="nextTransferDistrict" onclick="goToTransferContact()" disabled>
+                        <span id="nextButtonTransferDistrict">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН: Контактная информация для трансфера -->
+        <div class="screen hidden" id="screenTransferContact">
+            <div class="content-card">
+                <h1 class="title" id="transferContactTitle">Контактная информация</h1>
+                
+                <p class="description" id="transferContactDescription">
+                    Оставьте свои контактные данные и информацию о рейсе
+                </p>
+
+                <!-- Статус отправки -->
+                <div id="statusMessageTransfer" class="status-message"></div>
+
+                <div class="form-group">
+                    <label class="form-label" id="transferNameLabel">Имя и Фамилия</label>
+                    <input type="text" class="form-input" id="transferName" placeholder="Иван Иванов">
+                </div>
+
+                <!-- Паспортные данные -->
+                <div class="passport-group">
+                    <div class="form-group">
+                        <label class="form-label" id="transferPassportLabel">Номер паспорта</label>
+                        <input type="text" class="form-input" id="transferPassport" placeholder="AB1234567">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" id="transferPassportDateLabel">Срок действия паспорта</label>
+                        <input type="date" class="form-input" id="transferPassportDate">
+                    </div>
+                </div>
+
+                <!-- Информация о рейсе -->
+                <div class="flight-info-group">
+                    <div class="form-group">
+                        <label class="form-label" id="transferFlightTimeLabel">Время рейса</label>
+                        <input type="datetime-local" class="form-input" id="transferFlightTime">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" id="transferFlightNumberLabel">Номер рейса</label>
+                        <input type="text" class="form-input" id="transferFlightNumber" placeholder="TK1234">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="transferPhoneLabel">Телефон</label>
+                    
+                    <!-- Выбор региона -->
+                    <div class="phone-region-selector">
+                        <div class="region-flag" id="transferRegionFlag">🇷🇺</div>
+                        <select class="region-select" id="transferRegionSelect" onchange="updateTransferPhonePrefix()">
+                            <option value="+7" data-flag="🇷🇺">Россия (+7)</option>
+                            <option value="+90" data-flag="🇹🇷">Турция (+90)</option>
+                            <option value="+1" data-flag="🇺🇸">США (+1)</option>
+                            <option value="+44" data-flag="🇬🇧">Великобритания (+44)</option>
+                            <option value="+49" data-flag="🇩🇪">Германия (+49)</option>
+                            <option value="+971" data-flag="🇦🇪">ОАЭ (+971)</option>
+                            <option value="+996" data-flag="🇰🇬">Кыргызстан (+996)</option>
+                            <option value="+998" data-flag="🇺🇿">Узбекистан (+998)</option>
+                            <option value="+7" data-flag="🇰🇿">Казахстан (+7)</option>
+                            <option value="+375" data-flag="🇧🇾">Беларусь (+375)</option>
+                        </select>
+                    </div>
+                    
+                    <input type="tel" class="form-input" id="transferPhone" placeholder="Номер телефона">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="transferEmailLabel">Email (необязательно)</label>
+                    <input type="email" class="form-input" id="transferEmail" placeholder="email@example.com">
+                </div>
+
+                <div class="button-container">
+                    <button class="button button-back" onclick="goToTransferDistrict()">
+                        <i class="fas fa-arrow-left"></i> <span id="backButtonTransferContact">НАЗАД</span>
+                    </button>
+                    <button class="button button-next" onclick="goToTransferContactMethod()">
+                        <span id="nextButtonTransferContact">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН: Способ связи для трансфера -->
+        <div class="screen hidden" id="screenTransferContactMethod">
+            <div class="content-card">
+                <h1 class="title" id="transferContactMethodTitle">Способ связи</h1>
+                
+                <p class="description" id="transferContactMethodDescription">
+                    Выберите предпочтительный способ связи
+                </p>
+
+                <div class="contact-method-grid">
+                    <div class="contact-method-option" onclick="selectTransferContactMethod('Telegram', this)">
+                        <div class="contact-method-icon"><i class="fab fa-telegram"></i></div>
+                        <div class="contact-method-text">Telegram</div>
+                    </div>
+
+                    <div class="contact-method-option" onclick="selectTransferContactMethod('WhatsApp', this)">
+                        <div class="contact-method-icon"><i class="fab fa-whatsapp"></i></div>
+                        <div class="contact-method-text">WhatsApp</div>
+                    </div>
+
+                    <div class="contact-method-option" onclick="selectTransferContactMethod('Телефонный звонок', this)">
+                        <div class="contact-method-icon"><i class="fas fa-phone"></i></div>
+                        <div class="contact-method-text" id="transferContactMethodPhone">Телефонный звонок</div>
+                    </div>
+
+                    <div class="contact-method-option" onclick="selectTransferContactMethod('Email', this)">
+                        <div class="contact-method-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-method-text">Email</div>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <button class="button button-back" onclick="goToTransferContact()">
+                        <i class="fas fa-arrow-left"></i> <span id="backButtonTransferContactMethod">НАЗАД</span>
+                    </button>
+                    <button class="button button-next" onclick="goToTransferMessage()" id="nextTransferContactMethod">
+                        <span id="nextButtonTransferContactMethod">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН: Сообщение для трансфера -->
+        <div class="screen hidden" id="screenTransferMessage">
+            <div class="content-card">
+                <h1 class="title" id="transferMessageTitle">Сообщение</h1>
+                
+                <p class="description" id="transferMessageDescription">
+                    Оставьте сообщение или комментарий к вашей заявке
+                </p>
+
+                <textarea class="message-textarea" id="transferMessage" placeholder="Ваше сообщение, комментарии, пожелания..."></textarea>
+
+                <div class="button-container">
+                    <button class="button button-back" onclick="goToTransferContactMethod()">
+                        <i class="fas fa-arrow-left"></i> <span id="backButtonTransferMessage">НАЗАД</span>
+                    </button>
+                    <button class="button button-next" onclick="submitTransferApplication()">
+                        <i class="fas fa-paper-plane"></i> <span id="submitButtonTransfer">ОТПРАВИТЬ ЗАЯВКУ</span>
                     </button>
                 </div>
             </div>
@@ -1379,6 +1664,10 @@
 
         // Глобальные переменные
         let selectedCategory = null;
+        let selectedTransferDirection = null;
+        let selectedTransferAirport = null;
+        let selectedTransferDistrict = null;
+        let selectedTransferContactMethod = null;
         let selectedAutoService = null;
         let selectedAutoContactMethod = null;
         let selectedPropertyType = null;
@@ -1392,11 +1681,26 @@
         let currentLanguage = 'ru';
         let currentRegion = '+7';
         let currentAutoRegion = '+7';
+        let currentTransferRegion = '+7';
+
+        // Данные по районам и ценам
+        const transferData = {
+            'Gazipaşa': {
+                50: ['Alanya', 'Oba', 'Tosmur', 'Kestel', 'Mahmutlar', 'Kargıcak', 'Demirtaş'],
+                60: ['Konaklı', 'Payallar', 'Türkler', 'Avsallar']
+            },
+            'Antalya': {
+                60: ['Konaklı', 'Payallar', 'Türkler', 'Avsallar'],
+                70: ['Alanya', 'Oba', 'Tosmur', 'Kestel'],
+                75: ['Mahmutlar', 'Kargıcak'],
+                80: ['Demirtaş']
+            }
+        };
 
         // Тексты для перевода
         const translations = {
             ru: {
-                headerSubtitle: "Профессиональные услуги недвижимости ",
+                headerSubtitle: "Профессиональные услуги недвижимости",
                 strategyTitle: "Brokerok",
                 strategyText: "Полный спектр услуг в сфере недвижимости и автомобилей. Помощь в покупке, продаже и аренде недвижимости в Турции. Подбор и оформление автомобилей. Открытие компаний и юридическое сопровождение. Трансферы из аэропорта. Профессиональные консультации.",
                 strategyButtonText: "Заполнить анкету",
@@ -1413,6 +1717,35 @@
                 categoryExpert: "Сопровождение сделки с экспертом",
                 categoryTransfer: "Трансфер (аэропорт)",
                 categoryConsultation: "Консультация",
+                // Трансфер
+                transferDirectionTitle: "Направление трансфера",
+                transferDirectionDescription: "Выберите направление трансфера",
+                transferFromAirport: "С аэропорта",
+                transferFromAirportSub: "Встреча в аэропорту",
+                transferToAirport: "До аэропорта",
+                transferToAirportSub: "Трансфер в аэропорт",
+                transferAirportTitle: "Выберите аэропорт",
+                transferAirportDescription: "Выберите аэропорт для трансфера",
+                transferAirportAntalya: "Аэропорт Анталия (AYT)",
+                transferAirportAntalyaSub: "Международный аэропорт Анталии",
+                transferAirportGazipasa: "Аэропорт Газипаша (GZP)",
+                transferAirportGazipasaSub: "Международный аэропорт Газипаши",
+                transferDistrictTitle: "Выберите район",
+                transferDistrictDescription: "Выберите район для трансфера. Цены указаны за автомобиль",
+                transferContactTitle: "Контактная информация",
+                transferContactDescription: "Оставьте свои контактные данные и информацию о рейсе",
+                transferNameLabel: "Имя и Фамилия",
+                transferPassportLabel: "Номер паспорта",
+                transferPassportDateLabel: "Срок действия паспорта",
+                transferFlightTimeLabel: "Время рейса",
+                transferFlightNumberLabel: "Номер рейса",
+                transferPhoneLabel: "Телефон",
+                transferEmailLabel: "Email (необязательно)",
+                transferContactMethodTitle: "Способ связи",
+                transferContactMethodDescription: "Выберите предпочтительный способ связи",
+                transferContactMethodPhone: "Телефонный звонок",
+                transferMessageTitle: "Сообщение",
+                transferMessageDescription: "Оставьте сообщение или комментарий к вашей заявке",
                 // Авто
                 autoServiceTitle: "Услуга Авто",
                 autoServiceDescription: "Выберите тип услуги",
@@ -1467,10 +1800,15 @@
                 emailLabel: "Email (необязательно)",
                 submitButtonText: "ОТПРАВИТЬ ЗАЯВКУ",
                 submitButtonAuto: "ОТПРАВИТЬ ЗАЯВКУ",
+                submitButtonTransfer: "ОТПРАВИТЬ ЗАЯВКУ",
                 footerText: "© 2023-2026 Brokerok | Все услуги оказываются профессиональными специалистами",
                 supportLink: "Поддержка",
                 managerLink: "Менеджер",
                 validationSelectCategory: "Пожалуйста, выберите категорию услуги",
+                validationSelectTransferDirection: "Пожалуйста, выберите направление трансфера",
+                validationSelectTransferAirport: "Пожалуйста, выберите аэропорт",
+                validationSelectTransferDistrict: "Пожалуйста, выберите район",
+                validationSelectTransferContactMethod: "Пожалуйста, выберите способ связи",
                 validationSelectAutoService: "Пожалуйста, выберите тип услуги авто",
                 validationSelectAutoContactMethod: "Пожалуйста, выберите способ связи",
                 validationSelectPropertyType: "Пожалуйста, выберите тип недвижимости",
@@ -1480,6 +1818,8 @@
                 validationSelectBudget: "Пожалуйста, выберите бюджет",
                 validationSelectTiming: "Пожалуйста, выберите сроки сделки",
                 validationNamePhone: "Пожалуйста, заполните имя и телефон",
+                validationPassport: "Пожалуйста, заполните номер паспорта",
+                validationFlightInfo: "Пожалуйста, заполните информацию о рейсе",
                 validationPhoneFormat: "Пожалуйста, введите корректный номер телефона",
                 successMessage: "✅ Заявка успешно отправлена! Наш специалист свяжется с вами в течение 24 часов.",
                 errorMessage: "❌ Ошибка отправки заявки. Пожалуйста, попробуйте еще раз или свяжитесь с нами напрямую.",
@@ -1503,6 +1843,35 @@
                 categoryExpert: "Deal Support with Expert",
                 categoryTransfer: "Transfer (Airport)",
                 categoryConsultation: "Consultation",
+                // Трансфер
+                transferDirectionTitle: "Transfer Direction",
+                transferDirectionDescription: "Select transfer direction",
+                transferFromAirport: "From Airport",
+                transferFromAirportSub: "Airport pickup",
+                transferToAirport: "To Airport",
+                transferToAirportSub: "Airport transfer",
+                transferAirportTitle: "Select Airport",
+                transferAirportDescription: "Select airport for transfer",
+                transferAirportAntalya: "Antalya Airport (AYT)",
+                transferAirportAntalyaSub: "Antalya International Airport",
+                transferAirportGazipasa: "Gazipasa Airport (GZP)",
+                transferAirportGazipasaSub: "Gazipasa International Airport",
+                transferDistrictTitle: "Select District",
+                transferDistrictDescription: "Select district for transfer. Prices are per car",
+                transferContactTitle: "Contact Information",
+                transferContactDescription: "Leave your contact details and flight information",
+                transferNameLabel: "First and Last Name",
+                transferPassportLabel: "Passport Number",
+                transferPassportDateLabel: "Passport Expiry Date",
+                transferFlightTimeLabel: "Flight Time",
+                transferFlightNumberLabel: "Flight Number",
+                transferPhoneLabel: "Phone",
+                transferEmailLabel: "Email (optional)",
+                transferContactMethodTitle: "Contact Method",
+                transferContactMethodDescription: "Select preferred contact method",
+                transferContactMethodPhone: "Phone Call",
+                transferMessageTitle: "Message",
+                transferMessageDescription: "Leave a message or comment for your application",
                 // Авто
                 autoServiceTitle: "Auto Service",
                 autoServiceDescription: "Select service type",
@@ -1557,10 +1926,15 @@
                 emailLabel: "Email (optional)",
                 submitButtonText: "SUBMIT APPLICATION",
                 submitButtonAuto: "SUBMIT APPLICATION",
+                submitButtonTransfer: "SUBMIT APPLICATION",
                 footerText: "© 2023-2026 Brokerok | All services provided by professional specialists",
                 supportLink: "Support",
                 managerLink: "Manager",
                 validationSelectCategory: "Please select a service category",
+                validationSelectTransferDirection: "Please select transfer direction",
+                validationSelectTransferAirport: "Please select airport",
+                validationSelectTransferDistrict: "Please select district",
+                validationSelectTransferContactMethod: "Please select contact method",
                 validationSelectAutoService: "Please select auto service type",
                 validationSelectAutoContactMethod: "Please select contact method",
                 validationSelectPropertyType: "Please select a property type",
@@ -1570,6 +1944,8 @@
                 validationSelectBudget: "Please select a budget",
                 validationSelectTiming: "Please select deal timing",
                 validationNamePhone: "Please fill in name and phone",
+                validationPassport: "Please fill in passport number",
+                validationFlightInfo: "Please fill in flight information",
                 validationPhoneFormat: "Please enter a valid phone number",
                 successMessage: "✅ Application successfully submitted! Our specialist will contact you within 24 hours.",
                 errorMessage: "❌ Error submitting application. Please try again or contact us directly.",
@@ -1594,20 +1970,30 @@
             for (const [key, value] of Object.entries(texts)) {
                 const elements = document.querySelectorAll(`[id="${key}"]`);
                 elements.forEach(element => {
-                    element.textContent = value;
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = value;
+                    } else {
+                        element.textContent = value;
+                    }
                 });
             }
             
             // Обновляем плейсхолдеры
             document.getElementById('userName').placeholder = currentLanguage === 'ru' ? 'Иван Иванов' : 'John Smith';
             document.getElementById('autoName').placeholder = currentLanguage === 'ru' ? 'Иван Иванов' : 'John Smith';
+            document.getElementById('transferName').placeholder = currentLanguage === 'ru' ? 'Иван Иванов' : 'John Smith';
             document.getElementById('userComment').placeholder = currentLanguage === 'ru' ? 'Ваш комментарий...' : 'Your comment...';
             document.getElementById('autoMessage').placeholder = currentLanguage === 'ru' ? 'Ваше сообщение, комментарии, пожелания...' : 'Your message, comments, wishes...';
+            document.getElementById('transferMessage').placeholder = currentLanguage === 'ru' ? 'Ваше сообщение, комментарии, пожелания...' : 'Your message, comments, wishes...';
             document.getElementById('userEmail').placeholder = 'email@example.com';
+            document.getElementById('transferEmail').placeholder = 'email@example.com';
+            document.getElementById('transferPassport').placeholder = currentLanguage === 'ru' ? 'AB1234567' : 'AB1234567';
+            document.getElementById('transferFlightNumber').placeholder = currentLanguage === 'ru' ? 'TK1234' : 'TK1234';
             
             // Обновляем телефонные плейсхолдеры
             updatePhonePlaceholder();
             updateAutoPhonePlaceholder();
+            updateTransferPhonePlaceholder();
             
             // Обновляем валюту бюджета
             updateBudgetCurrency();
@@ -1658,6 +2044,15 @@
             updateAutoPhonePlaceholder();
         }
 
+        // Обновление префикса телефона для трансфера
+        function updateTransferPhonePrefix() {
+            const select = document.getElementById('transferRegionSelect');
+            const selectedOption = select.options[select.selectedIndex];
+            currentTransferRegion = selectedOption.value;
+            document.getElementById('transferRegionFlag').textContent = selectedOption.getAttribute('data-flag');
+            updateTransferPhonePlaceholder();
+        }
+
         // Обновление плейсхолдера телефона для недвижимости
         function updatePhonePlaceholder() {
             const phoneInput = document.getElementById('userPhone');
@@ -1698,6 +2093,26 @@
             phoneInput.placeholder = placeholders[currentAutoRegion] || 'Phone number';
         }
 
+        // Обновление плейсхолдера телефона для трансфера
+        function updateTransferPhonePlaceholder() {
+            const phoneInput = document.getElementById('transferPhone');
+            if (!phoneInput) return;
+            
+            const placeholders = {
+                '+7': '+7 (999) 123-45-67',
+                '+90': '+90 (555) 123-4567',
+                '+1': '+1 (555) 123-4567',
+                '+44': '+44 7911 123456',
+                '+49': '+49 151 12345678',
+                '+971': '+971 50 123 4567',
+                '+996': '+996 555 123456',
+                '+998': '+998 91 123-45-67',
+                '+375': '+375 29 1234567'
+            };
+            
+            phoneInput.placeholder = placeholders[currentTransferRegion] || 'Phone number';
+        }
+
         // Навигация
         function goToStep0() {
             showScreen('screen0');
@@ -1716,14 +2131,7 @@
             }
             
             if (selectedCategory === 'Трансфер (аэропорт)' || selectedCategory === 'Transfer (Airport)') {
-                selectedPropertyType = null;
-                selectedPropertyKind = null;
-                selectedLayout = null;
-                selectedLocation = null;
-                selectedBudget = null;
-                selectedTiming = null;
-                userComment = '';
-                goToStep9();
+                goToTransferDirection();
             } else if (selectedCategory === 'Авто' || selectedCategory === 'Auto') {
                 goToAutoService();
             } else if (selectedCategory === 'Недвижимость' || selectedCategory === 'Real Estate') {
@@ -1739,6 +2147,84 @@
                 userComment = '';
                 goToStep9();
             }
+        }
+
+        // Навигация для Трансфера
+        function goToTransferDirection() {
+            showScreen('screenTransferDirection');
+            updateProgress(2);
+        }
+
+        function goToTransferAirport() {
+            if (!selectedTransferDirection) {
+                showStatus(translations[currentLanguage].validationSelectTransferDirection, 'error', 'screenTransferDirection');
+                return;
+            }
+            
+            showScreen('screenTransferAirport');
+            updateProgress(3);
+        }
+
+        function goToTransferDistrict() {
+            if (!selectedTransferAirport) {
+                showStatus(translations[currentLanguage].validationSelectTransferAirport, 'error', 'screenTransferAirport');
+                return;
+            }
+            
+            showScreen('screenTransferDistrict');
+            updateProgress(4);
+            loadDistricts();
+        }
+
+        function goToTransferContact() {
+            if (!selectedTransferDistrict) {
+                showStatus(translations[currentLanguage].validationSelectTransferDistrict, 'error', 'screenTransferDistrict');
+                return;
+            }
+            
+            showScreen('screenTransferContact');
+            updateProgress(5);
+        }
+
+        function goToTransferContactMethod() {
+            const name = document.getElementById('transferName').value.trim();
+            const passport = document.getElementById('transferPassport').value.trim();
+            const flightTime = document.getElementById('transferFlightTime').value;
+            const flightNumber = document.getElementById('transferFlightNumber').value.trim();
+            const phone = document.getElementById('transferPhone').value.trim();
+            
+            if (!name || !phone) {
+                showStatus(translations[currentLanguage].validationNamePhone, 'error', 'screenTransferContact');
+                return;
+            }
+            
+            if (!passport) {
+                showStatus(translations[currentLanguage].validationPassport, 'error', 'screenTransferContact');
+                return;
+            }
+            
+            if (!flightTime || !flightNumber) {
+                showStatus(translations[currentLanguage].validationFlightInfo, 'error', 'screenTransferContact');
+                return;
+            }
+            
+            if (!validatePhone(phone, currentTransferRegion)) {
+                showStatus(translations[currentLanguage].validationPhoneFormat, 'error', 'screenTransferContact');
+                return;
+            }
+            
+            showScreen('screenTransferContactMethod');
+            updateProgress(6);
+        }
+
+        function goToTransferMessage() {
+            if (!selectedTransferContactMethod) {
+                showStatus(translations[currentLanguage].validationSelectTransferContactMethod, 'error', 'screenTransferContactMethod');
+                return;
+            }
+            
+            showScreen('screenTransferMessage');
+            updateProgress(7);
         }
 
         // Навигация для Авто
@@ -1840,7 +2326,6 @@
             showScreen('screen6');
             updateProgress(6);
             
-            // Обновляем валюту после выбора локации
             updateBudgetCurrency();
         }
 
@@ -1878,6 +2363,75 @@
             element.classList.add('selected');
             selectedCategory = category;
             document.getElementById('next1').disabled = false;
+        }
+
+        // Выбор направления трансфера
+        function selectTransferDirection(direction, element) {
+            document.querySelectorAll('#screenTransferDirection .service-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedTransferDirection = direction;
+            document.getElementById('nextTransferDirection').disabled = false;
+        }
+
+        // Выбор аэропорта трансфера
+        function selectTransferAirport(airport, element) {
+            document.querySelectorAll('#screenTransferAirport .service-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedTransferAirport = airport;
+            document.getElementById('nextTransferAirport').disabled = false;
+        }
+
+        // Выбор района трансфера
+        function selectTransferDistrict(district, element) {
+            document.querySelectorAll('#screenTransferDistrict .district-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedTransferDistrict = district;
+            document.getElementById('nextTransferDistrict').disabled = false;
+        }
+
+        // Выбор способа связи для трансфера
+        function selectTransferContactMethod(method, element) {
+            document.querySelectorAll('#screenTransferContactMethod .contact-method-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedTransferContactMethod = method;
+            document.getElementById('nextTransferContactMethod').disabled = false;
+        }
+
+        // Загрузка районов
+        function loadDistricts() {
+            const grid = document.getElementById('districtsGrid');
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            
+            if (!selectedTransferAirport) return;
+            
+            let airportName = selectedTransferAirport.includes('Анталия') ? 'Antalya' : 'Gazipaşa';
+            if (selectedTransferAirport.includes('Antalya')) airportName = 'Antalya';
+            if (selectedTransferAirport.includes('Gazipasa')) airportName = 'Gazipaşa';
+            
+            const districts = transferData[airportName];
+            
+            for (const [price, districtList] of Object.entries(districts)) {
+                districtList.forEach(district => {
+                    const div = document.createElement('div');
+                    div.className = 'district-option';
+                    div.innerHTML = `
+                        <div class="district-name">${district}</div>
+                        <div class="price-badge">${price}€</div>
+                    `;
+                    div.onclick = () => selectTransferDistrict(district, div);
+                    grid.appendChild(div);
+                });
+            }
         }
 
         // Выбор услуги Авто
@@ -1939,7 +2493,6 @@
             selectedLocation = location;
             document.getElementById('next5').disabled = false;
             
-            // Обновляем валюту бюджета
             updateBudgetCurrency();
         }
 
@@ -1972,12 +2525,11 @@
             window.scrollTo(0, 0);
         }
 
-        // Обновить прогресс - ИСПРАВЛЕНА ФУНКЦИЯ
+        // Обновить прогресс
         function updateProgress(step) {
-            // Всего у нас 9 точек прогресса (dot1-dot9)
-            for (let i = 1; i <= 9; i++) {
+            for (let i = 1; i <= 7; i++) {
                 const dot = document.getElementById(`dot${i}`);
-                if (dot) { // Проверка на существование элемента
+                if (dot) {
                     if (i <= step) {
                         dot.classList.add('active');
                     } else {
@@ -1990,6 +2542,7 @@
         // Показать статус
         function showStatus(message, type = 'success', screenId = null) {
             let statusId = 'statusMessage';
+            if (screenId === 'screenTransferContact') statusId = 'statusMessageTransfer';
             if (screenId === 'screenAutoContact') statusId = 'statusMessageAuto';
             
             const statusEl = document.getElementById(statusId);
@@ -2010,6 +2563,116 @@
         function validatePhone(phone, region) {
             const digits = phone.replace(/\D/g, '');
             return digits.length >= 6;
+        }
+
+        // Отправка заявки на трансфер
+        async function submitTransferApplication() {
+            if (isSubmitting) return;
+            
+            const name = document.getElementById('transferName').value.trim();
+            const passport = document.getElementById('transferPassport').value.trim();
+            const passportDate = document.getElementById('transferPassportDate').value;
+            const flightTime = document.getElementById('transferFlightTime').value;
+            const flightNumber = document.getElementById('transferFlightNumber').value.trim();
+            const phone = document.getElementById('transferPhone').value.trim();
+            const email = document.getElementById('transferEmail').value.trim();
+            const message = document.getElementById('transferMessage').value.trim();
+            
+            if (!name || !phone) {
+                showStatus(translations[currentLanguage].validationNamePhone, 'error', 'screenTransferMessage');
+                return;
+            }
+            
+            if (!passport) {
+                showStatus(translations[currentLanguage].validationPassport, 'error', 'screenTransferMessage');
+                return;
+            }
+            
+            if (!validatePhone(phone, currentTransferRegion)) {
+                showStatus(translations[currentLanguage].validationPhoneFormat, 'error', 'screenTransferMessage');
+                return;
+            }
+            
+            if (!selectedTransferContactMethod) {
+                showStatus(translations[currentLanguage].validationSelectTransferContactMethod, 'error', 'screenTransferMessage');
+                return;
+            }
+            
+            const formattedPhone = currentTransferRegion + ' ' + phone.replace(/\D/g, '');
+            const formattedPassportDate = passportDate ? new Date(passportDate).toLocaleDateString('ru-RU') : 'Не указана';
+            const formattedFlightTime = flightTime ? new Date(flightTime).toLocaleString('ru-RU') : 'Не указано';
+            
+            // Определяем цену из выбранного района
+            let price = '0';
+            let airportName = selectedTransferAirport.includes('Анталия') ? 'Antalya' : 'Gazipaşa';
+            if (selectedTransferAirport.includes('Antalya')) airportName = 'Antalya';
+            if (selectedTransferAirport.includes('Gazipasa')) airportName = 'Gazipaşa';
+            
+            for (const [p, districts] of Object.entries(transferData[airportName])) {
+                if (districts.includes(selectedTransferDistrict)) {
+                    price = p;
+                    break;
+                }
+            }
+            
+            const transferMessage = `🚕 *ЗАЯВКА НА ТРАНСФЕР* 🚕
+
+👤 *Имя Фамилия:* ${name}
+📞 *Телефон:* ${formattedPhone}
+📧 *Email:* ${email || (currentLanguage === 'ru' ? 'не указан' : 'not specified')}
+
+✈️ *Направление:* ${selectedTransferDirection}
+🏢 *Аэропорт:* ${selectedTransferAirport}
+📍 *Район:* ${selectedTransferDistrict}
+💰 *Стоимость:* ${price}€
+
+🛂 *Паспортные данные:*
+📋 *Номер паспорта:* ${passport}
+📅 *Срок действия:* ${formattedPassportDate}
+
+✈️ *Информация о рейсе:*
+⏰ *Время рейса:* ${formattedFlightTime}
+🔢 *Номер рейса:* ${flightNumber}
+
+📱 *Способ связи:* ${selectedTransferContactMethod}
+
+💬 *Сообщение клиента:* ${message || (currentLanguage === 'ru' ? 'Без сообщения' : 'No message')}
+
+⏰ *Время отправки:* ${new Date().toLocaleString('ru-RU')}
+🌐 *Язык:* ${currentLanguage.toUpperCase()}
+🔗 *Источник:* Brokerok MiniApp`;
+
+            const encodedMessage = encodeURIComponent(transferMessage);
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatIdTransfer}&text=${encodedMessage}&parse_mode=Markdown`;
+            
+            isSubmitting = true;
+            const submitBtn = document.querySelector('#screenTransferMessage .button-next');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${translations[currentLanguage].sendingText}`;
+            submitBtn.disabled = true;
+            
+            try {
+                const response = await fetch(url);
+                const result = await response.json();
+                
+                if (result.ok) {
+                    showStatus(translations[currentLanguage].successMessage, 'success', 'screenTransferMessage');
+                    
+                    setTimeout(() => {
+                        resetTransferForm();
+                        goToStep0();
+                    }, 3000);
+                } else {
+                    throw new Error(result.description || 'Send error');
+                }
+            } catch (error) {
+                console.error('Send error:', error);
+                showStatus(translations[currentLanguage].errorMessage, 'error', 'screenTransferMessage');
+                
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                isSubmitting = false;
+            }
         }
 
         // Отправка заявки на авто
@@ -2108,23 +2771,7 @@
             let message = '';
             let targetChatId = '';
             
-            if (selectedCategory === 'Трансфер (аэропорт)' || selectedCategory === 'Transfer (Airport)') {
-                // Заявка на трансфер
-                message = `🚕 *ЗАЯВКА НА ТРАНСФЕР (АЭРОПОРТ)* 🚕
-
-👤 *Клиент:* ${userName}
-📞 *Телефон:* ${formattedPhone}
-📧 *Email:* ${userEmail || (currentLanguage === 'ru' ? 'не указан' : 'not specified')}
-
-💬 *Комментарий:* ${userComment || (currentLanguage === 'ru' ? 'Без комментария' : 'No comment')}
-
-⏰ *Время отправки:* ${new Date().toLocaleString('ru-RU')}
-🌐 *Язык:* ${currentLanguage.toUpperCase()}
-🔗 *Источник:* Brokerok MiniApp`;
-                
-                targetChatId = chatIdTransfer;
-                
-            } else if (selectedCategory === 'Недвижимость' || selectedCategory === 'Real Estate') {
+            if (selectedCategory === 'Недвижимость' || selectedCategory === 'Real Estate') {
                 // Заявка на недвижимость
                 let formattedBudget = selectedBudget;
                 if (selectedLocation === 'Алания' || selectedLocation === 'Alanya') {
@@ -2211,6 +2858,32 @@
             }
         }
 
+        // Сброс формы трансфера
+        function resetTransferForm() {
+            selectedTransferDirection = null;
+            selectedTransferAirport = null;
+            selectedTransferDistrict = null;
+            selectedTransferContactMethod = null;
+            isSubmitting = false;
+            
+            document.querySelectorAll('#screenTransferDirection .service-option, #screenTransferAirport .service-option, #screenTransferDistrict .district-option, #screenTransferContactMethod .contact-method-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            document.getElementById('transferName').value = '';
+            document.getElementById('transferPassport').value = '';
+            document.getElementById('transferPassportDate').value = '';
+            document.getElementById('transferFlightTime').value = '';
+            document.getElementById('transferFlightNumber').value = '';
+            document.getElementById('transferPhone').value = '';
+            document.getElementById('transferEmail').value = '';
+            document.getElementById('transferMessage').value = '';
+            document.getElementById('nextTransferDirection').disabled = true;
+            document.getElementById('nextTransferAirport').disabled = true;
+            document.getElementById('nextTransferDistrict').disabled = true;
+            document.getElementById('nextTransferContactMethod').disabled = true;
+        }
+
         // Сброс формы авто
         function resetAutoForm() {
             selectedAutoService = null;
@@ -2283,6 +2956,7 @@
             
             updatePhonePlaceholder();
             updateAutoPhonePlaceholder();
+            updateTransferPhonePlaceholder();
             
             const phoneInputs = document.querySelectorAll('input[type="tel"]');
             phoneInputs.forEach(input => {
@@ -2293,6 +2967,21 @@
                     }
                 });
             });
+
+            // Устанавливаем минимальную дату для паспорта (завтра)
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const passportDateInput = document.getElementById('transferPassportDate');
+            if (passportDateInput) {
+                passportDateInput.min = tomorrow.toISOString().split('T')[0];
+            }
+            
+            // Устанавливаем минимальную дату для времени рейса (текущее время)
+            const flightTimeInput = document.getElementById('transferFlightTime');
+            if (flightTimeInput) {
+                const now = new Date();
+                flightTimeInput.min = now.toISOString().slice(0, 16);
+            }
 
             if (window.Telegram && Telegram.WebApp) {
                 Telegram.WebApp.expand();
