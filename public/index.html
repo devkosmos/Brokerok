@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Brokerok | Professional Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -18,7 +18,23 @@
             color: #ffffff;
             min-height: 100vh;
             padding: 16px;
+            overflow-x: hidden;
         }
+        img, div, section {
+  max-width: 100%;
+}
+        /* Отключает автоматическое увеличение текста в полях ввода на iOS */
+            input, textarea, select {
+            font-size: 16px !important;
+            }
+
+            /* Фикс для масштабирования на iOS */
+            @supports (-webkit-touch-callout: none) {
+            body {
+                /* Иногда помогает это свойство */
+                -webkit-text-size-adjust: 100%;
+            }
+}
 
         .container {
             max-width: 100%;
@@ -2052,6 +2068,9 @@
             document.getElementById('transferRegionFlag').textContent = selectedOption.getAttribute('data-flag');
             updateTransferPhonePlaceholder();
         }
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+  document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+}
 
         // Обновление плейсхолдера телефона для недвижимости
         function updatePhonePlaceholder() {
