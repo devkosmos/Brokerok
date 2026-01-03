@@ -130,7 +130,7 @@
             padding: 0 8px;
         }
 
-        /* Блок "Получите стратегию продвижения" */
+        /* Блок "Получите стратегию продвижения" - УЛУЧШЕННЫЙ ДИЗАЙН */
         .strategy-block {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0.02) 100%);
             border: 2px solid transparent;
@@ -182,6 +182,7 @@
             border-radius: 6px;
         }
 
+        /* Анимация для текста */
         .pulse-text {
             animation: pulse 2s infinite;
         }
@@ -385,7 +386,7 @@
             color: #10B981;
         }
 
-        /* Сетка бюджетов */
+        /* Сетка бюджета */
         .budget-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -774,140 +775,6 @@
         .message-textarea::placeholder {
             color: #666;
         }
-
-        /* Специальные стили для экрана трансфера */
-        .subcategory-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .subcategory-option {
-            background: transparent;
-            border: 1.5px solid #333;
-            border-radius: 12px;
-            padding: 20px 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-        }
-
-        .subcategory-option:hover {
-            border-color: #10B981;
-            background: rgba(16, 185, 129, 0.05);
-        }
-
-        .subcategory-option.selected {
-            border-color: #10B981;
-            background: rgba(16, 185, 129, 0.1);
-        }
-
-        .subcategory-icon {
-            font-size: 28px;
-            color: #10B981;
-            margin-bottom: 12px;
-        }
-
-        .subcategory-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 6px;
-        }
-
-        .subcategory-desc {
-            font-size: 13px;
-            color: #aaa;
-        }
-
-        /* Стили для выбора маршрута трансфера */
-        .transfer-route-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .transfer-route-option {
-            background: transparent;
-            border: 1.5px solid #333;
-            border-radius: 12px;
-            padding: 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .transfer-route-option:hover {
-            border-color: #10B981;
-            background: rgba(16, 185, 129, 0.05);
-        }
-
-        .transfer-route-option.selected {
-            border-color: #10B981;
-            background: rgba(16, 185, 129, 0.1);
-        }
-
-        .route-main {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-
-        .route-from {
-            font-size: 16px;
-            font-weight: 600;
-            color: #fff;
-        }
-
-        .route-to {
-            font-size: 16px;
-            font-weight: 600;
-            color: #10B981;
-        }
-
-        .route-arrow {
-            color: #666;
-            margin: 0 8px;
-        }
-
-        .route-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: #10B981;
-        }
-
-        .route-details {
-            font-size: 13px;
-            color: #aaa;
-            margin-top: 4px;
-        }
-
-        /* Группы маршрутов */
-        .route-group {
-            margin-bottom: 20px;
-        }
-
-        .route-group-title {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 10px;
-            padding-left: 8px;
-        }
-
-        /* Экран информации о рейсе */
-        .flight-info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .form-group-half {
-            margin-bottom: 16px;
-        }
     </style>
 </head>
 <body>
@@ -925,7 +792,7 @@
             </div>
         </div>
 
-        <!-- Прогресс-бар -->
+        <!-- Прогресс-бар - ДОБАВЛЕНЫ ДОПОЛНИТЕЛЬНЫЕ ТОЧКИ -->
         <div class="progress-bar">
             <div class="progress-dot active" id="dot1"></div>
             <div class="progress-dot" id="dot2"></div>
@@ -936,13 +803,12 @@
             <div class="progress-dot" id="dot7"></div>
             <div class="progress-dot" id="dot8"></div>
             <div class="progress-dot" id="dot9"></div>
-            <div class="progress-dot" id="dot10"></div>
         </div>
 
         <!-- ЭКРАН 0: Начальный экран -->
         <div class="screen" id="screen0">
             <div class="content-card">
-                <!-- Блок "Получите стратегию продвижения" -->
+                <!-- Блок "Получите стратегию продвижения" - УЛУЧШЕННЫЙ -->
                 <div class="strategy-block">
                     <div class="strategy-title" id="strategyTitle">
                         <i class="fas fa-rocket"></i> 🚀 РАСКРУТИ СВОЙ БИЗНЕС ЗА 48 ЧАСОВ!
@@ -1192,440 +1058,6 @@
                     </button>
                     <button class="button button-next" onclick="submitAutoApplication()">
                         <i class="fas fa-paper-plane"></i> <span id="submitButtonAuto">ОТПРАВИТЬ ЗАЯВКУ</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ЭКРАН: Выбор подкатегории трансфера -->
-        <div class="screen hidden" id="screenTransferSubcategory">
-            <div class="content-card">
-                <h1 class="title" id="transferSubcategoryTitle">Трансфер (аэропорт)</h1>
-                
-                <p class="description" id="transferSubcategoryDescription">
-                    Выберите направление трансфера
-                </p>
-
-                <div class="subcategory-grid">
-                    <div class="subcategory-option" onclick="selectTransferSubcategory('С аэропорта', this)">
-                        <div class="subcategory-icon"><i class="fas fa-plane-arrival"></i></div>
-                        <div class="subcategory-title">С аэропорта</div>
-                        <div class="subcategory-desc">Трансфер из аэропорта в отель или указанный адрес</div>
-                    </div>
-
-                    <div class="subcategory-option" onclick="selectTransferSubcategory('До аэропорта', this)">
-                        <div class="subcategory-icon"><i class="fas fa-plane-departure"></i></div>
-                        <div class="subcategory-title">До аэропорта</div>
-                        <div class="subcategory-desc">Трансфер из отеля или указанного адреса в аэропорт</div>
-                    </div>
-                </div>
-
-                <div class="button-container">
-                    <button class="button button-back" onclick="goToStep1()">
-                        <i class="fas fa-arrow-left"></i> <span id="backButtonTransferSubcategory">НАЗАД</span>
-                    </button>
-                    <button class="button button-next" id="nextTransferSubcategory" onclick="goToTransferRoute()" disabled>
-                        <span id="nextButtonTransferSubcategory">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ЭКРАН: Выбор маршрута трансфера -->
-        <div class="screen hidden" id="screenTransferRoute">
-            <div class="content-card">
-                <h1 class="title" id="transferRouteTitle">Выберите маршрут трансфера</h1>
-                
-                <p class="description" id="transferRouteDescription">
-                    Выберите пункт отправления и назначения
-                </p>
-
-                <div class="transfer-route-grid">
-                    <div class="route-group">
-                        <div class="route-group-title">Анталия - Алания</div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Анталия - Алания', '70€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Анталия</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">Алания</span>
-                                <span class="route-price">70€</span>
-                            </div>
-                            <div class="route-details">Анталия - Алания</div>
-                        </div>
-                    </div>
-
-                    <div class="route-group">
-                        <div class="route-group-title">Alanya - Gazipaşa 50€</div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Alanya - Gazipaşa', '50€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Alanya</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">Gazipaşa</span>
-                                <span class="route-price">50€</span>
-                            </div>
-                            <div class="route-details">Alanya - Gazipaşa</div>
-                        </div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Oba - Gazipaşa', '50€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Oba</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">Gazipaşa</span>
-                                <span class="route-price">50€</span>
-                            </div>
-                            <div class="route-details">Oba - Gazipaşa</div>
-                        </div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Tosmur - Gazipaşa', '50€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Tosmur</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">Gazipaşa</span>
-                                <span class="route-price">50€</span>
-                            </div>
-                            <div class="route-details">Tosmur - Gazipaşa</div>
-                        </div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Kestel - Gazipaşa', '50€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Kestel</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">Gazipaşa</span>
-                                <span class="route-price">50€</span>
-                            </div>
-                            <div class="route-details">Kestel - Gazipaşa</div>
-                        </div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Mahmutlar - Gazipaşa', '50€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Mahmutlar</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">Gazipaşa</span>
-                                <span class="route-price">50€</span>
-                            </div>
-                            <div class="route-details">Mahmutlar - Gazipaşa</div>
-                        </div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Kargıcak - Gazipaşa', '50€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Kargıcak</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">Gazipaşa</span>
-                                <span class="route-price">50€</span>
-                            </div>
-                            <div class="route-details">Kargıcak - Gazipaşa</div>
-                        </div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Demirtaş - Gazipaşa', '50€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Demirtaş</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">Gazipaşa</span>
-                                <span class="route-price">50€</span>
-                            </div>
-                            <div class="route-details">Demirtaş - Gazipaşa</div>
-                        </div>
-                    </div>
-
-                    <div class="route-group">
-                        <div class="route-group-title">60€</div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Konaklı - Gazipaşa', '60€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Konaklı</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">Gazipaşa</span>
-                                <span class="route-price">60€</span>
-                            </div>
-                            <div class="route-details">Konaklı - Gazipaşa</div>
-                        </div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Payallar - Gazipaşa', '60€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Payallar</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">Gazipaşa</span>
-                                <span class="route-price">60€</span>
-                            </div>
-                            <div class="route-details">Payallar - Gazipaşa</div>
-                        </div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Türk\'ler - Gazipaşa', '60€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Türk'ler</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">Gazipaşa</span>
-                                <span class="route-price">60€</span>
-                            </div>
-                            <div class="route-details">Türk'ler - Gazipaşa</div>
-                        </div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Avsallar - Gazipaşa', '60€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Avsallar</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">Gazipaşa</span>
-                                <span class="route-price">60€</span>
-                            </div>
-                            <div class="route-details">Avsallar - Gazipaşa</div>
-                        </div>
-                    </div>
-
-                    <div class="route-group">
-                        <div class="route-group-title">Коньяклы - Анталия 60€</div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Konaklı - ANTALYA', '60€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Konaklı</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">ANTALYA</span>
-                                <span class="route-price">60€</span>
-                            </div>
-                            <div class="route-details">Konaklı - ANTALYA</div>
-                        </div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Payallar - ANTALYA', '60€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Payallar</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">ANTALYA</span>
-                                <span class="route-price">60€</span>
-                            </div>
-                            <div class="route-details">Payallar - ANTALYA</div>
-                        </div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Türk\'ler - ANTALYA', '60€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Türk'ler</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">ANTALYA</span>
-                                <span class="route-price">60€</span>
-                            </div>
-                            <div class="route-details">Türk'ler - ANTALYA</div>
-                        </div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Avsallar - ANTALYA', '60€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Avsallar</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">ANTALYA</span>
-                                <span class="route-price">60€</span>
-                            </div>
-                            <div class="route-details">Avsallar - ANTALYA</div>
-                        </div>
-                    </div>
-
-                    <div class="route-group">
-                        <div class="route-group-title">Алания - Анталия 70€</div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Alanya - ANTALYA', '70€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Alanya</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">ANTALYA</span>
-                                <span class="route-price">70€</span>
-                            </div>
-                            <div class="route-details">Alanya - ANTALYA</div>
-                        </div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Oba - ANTALYA', '70€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Oba</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">ANTALYA</span>
-                                <span class="route-price">70€</span>
-                            </div>
-                            <div class="route-details">Oba - ANTALYA</div>
-                        </div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Tosmur - ANTALYA', '70€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Tosmur</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">ANTALYA</span>
-                                <span class="route-price">70€</span>
-                            </div>
-                            <div class="route-details">Tosmur - ANTALYA</div>
-                        </div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Kestel - ANTALYA', '70€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Kestel</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">ANTALYA</span>
-                                <span class="route-price">70€</span>
-                            </div>
-                            <div class="route-details">Kestel - ANTALYA</div>
-                        </div>
-                    </div>
-
-                    <div class="route-group">
-                        <div class="route-group-title">Другие маршруты</div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Mahmutlar - Antalya', '75€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Mahmutlar</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">Antalya</span>
-                                <span class="route-price">75€</span>
-                            </div>
-                            <div class="route-details">Mahmutlar - Antalya</div>
-                        </div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Kargıcak - ANTALYA', '75€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Kargıcak</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">ANTALYA</span>
-                                <span class="route-price">75€</span>
-                            </div>
-                            <div class="route-details">Kargıcak - ANTALYA</div>
-                        </div>
-                        
-                        <div class="transfer-route-option" onclick="selectTransferRoute('Demirtaş - ANTALYA', '80€', this)">
-                            <div class="route-main">
-                                <span class="route-from">Demirtaş</span>
-                                <span class="route-arrow">→</span>
-                                <span class="route-to">ANTALYA</span>
-                                <span class="route-price">80€</span>
-                            </div>
-                            <div class="route-details">Demirtaş - ANTALYA</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="button-container">
-                    <button class="button button-back" onclick="goToTransferSubcategory()">
-                        <i class="fas fa-arrow-left"></i> <span id="backButtonTransferRoute">НАЗАД</span>
-                    </button>
-                    <button class="button button-next" id="nextTransferRoute" onclick="goToTransferPassengerInfo()" disabled>
-                        <span id="nextButtonTransferRoute">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ЭКРАН: Информация о пассажире и рейсе -->
-        <div class="screen hidden" id="screenTransferPassengerInfo">
-            <div class="content-card">
-                <h1 class="title" id="transferPassengerInfoTitle">Информация о пассажире</h1>
-                
-                <p class="description" id="transferPassengerInfoDescription">
-                    Заполните информацию о пассажире и рейсе
-                </p>
-
-                <div class="form-group">
-                    <label class="form-label" id="passportLabel">Номер паспорта</label>
-                    <input type="text" class="form-input" id="passportNumber" placeholder="AB1234567">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" id="passengerNameLabel">Имя и фамилия</label>
-                    <input type="text" class="form-input" id="passengerName" placeholder="Иван Иванов">
-                </div>
-
-                <div class="flight-info-grid">
-                    <div class="form-group-half">
-                        <label class="form-label" id="flightTimeLabel">Время рейса</label>
-                        <input type="text" class="form-input" id="flightTime" placeholder="14:30">
-                    </div>
-
-                    <div class="form-group-half">
-                        <label class="form-label" id="flightNumberLabel">Номер рейса</label>
-                        <input type="text" class="form-input" id="flightNumber" placeholder="TK1234">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" id="transferPhoneLabel">Номер телефона</label>
-                    
-                    <!-- Выбор региона -->
-                    <div class="phone-region-selector">
-                        <div class="region-flag" id="transferRegionFlag">🇷🇺</div>
-                        <select class="region-select" id="transferRegionSelect" onchange="updateTransferPhonePrefix()">
-                            <option value="+7" data-flag="🇷🇺">Россия (+7)</option>
-                            <option value="+90" data-flag="🇹🇷">Турция (+90)</option>
-                            <option value="+1" data-flag="🇺🇸">США (+1)</option>
-                            <option value="+44" data-flag="🇬🇧">Великобритания (+44)</option>
-                            <option value="+49" data-flag="🇩🇪">Германия (+49)</option>
-                            <option value="+971" data-flag="🇦🇪">ОАЭ (+971)</option>
-                            <option value="+996" data-flag="🇰🇬">Кыргызстан (+996)</option>
-                            <option value="+998" data-flag="🇺🇿">Узбекистан (+998)</option>
-                            <option value="+7" data-flag="🇰🇿">Казахстан (+7)</option>
-                            <option value="+375" data-flag="🇧🇾">Беларусь (+375)</option>
-                        </select>
-                    </div>
-                    
-                    <input type="tel" class="form-input" id="transferPhone" placeholder="Номер телефона">
-                </div>
-
-                <div class="button-container">
-                    <button class="button button-back" onclick="goToTransferRoute()">
-                        <i class="fas fa-arrow-left"></i> <span id="backButtonTransferPassengerInfo">НАЗАД</span>
-                    </button>
-                    <button class="button button-next" onclick="goToTransferContactMethod()">
-                        <span id="nextButtonTransferPassengerInfo">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ЭКРАН: Способ связи для трансфера -->
-        <div class="screen hidden" id="screenTransferContactMethod">
-            <div class="content-card">
-                <h1 class="title" id="transferContactMethodTitle">Способ связи</h1>
-                
-                <p class="description" id="transferContactMethodDescription">
-                    Выберите предпочтительный способ связи
-                </p>
-
-                <div class="contact-method-grid">
-                    <div class="contact-method-option" onclick="selectTransferContactMethod('Telegram', this)">
-                        <div class="contact-method-icon"><i class="fab fa-telegram"></i></div>
-                        <div class="contact-method-text">Telegram</div>
-                    </div>
-
-                    <div class="contact-method-option" onclick="selectTransferContactMethod('WhatsApp', this)">
-                        <div class="contact-method-icon"><i class="fab fa-whatsapp"></i></div>
-                        <div class="contact-method-text">WhatsApp</div>
-                    </div>
-
-                    <div class="contact-method-option" onclick="selectTransferContactMethod('Телефонный звонок', this)">
-                        <div class="contact-method-icon"><i class="fas fa-phone"></i></div>
-                        <div class="contact-method-text">Телефонный звонок</div>
-                    </div>
-                </div>
-
-                <div class="button-container">
-                    <button class="button button-back" onclick="goToTransferPassengerInfo()">
-                        <i class="fas fa-arrow-left"></i> <span id="backButtonTransferContactMethod">НАЗАД</span>
-                    </button>
-                    <button class="button button-next" onclick="goToTransferMessage()" id="nextTransferContactMethod">
-                        <span id="nextButtonTransferContactMethod">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ЭКРАН: Сообщение для трансфера -->
-        <div class="screen hidden" id="screenTransferMessage">
-            <div class="content-card">
-                <h1 class="title" id="transferMessageTitle">Написать сообщение</h1>
-                
-                <p class="description" id="transferMessageDescription">
-                    Оставьте дополнительные комментарии или пожелания
-                </p>
-
-                <textarea class="message-textarea" id="transferMessage" placeholder="Дополнительные комментарии, пожелания, особые требования..."></textarea>
-
-                <div class="button-container">
-                    <button class="button button-back" onclick="goToTransferContactMethod()">
-                        <i class="fas fa-arrow-left"></i> <span id="backButtonTransferMessage">НАЗАД</span>
-                    </button>
-                    <button class="button button-next" onclick="submitTransferApplication()">
-                        <i class="fas fa-paper-plane"></i> <span id="submitButtonTransfer">ОТПРАВИТЬ ЗАЯВКУ</span>
                     </button>
                 </div>
             </div>
@@ -1949,10 +1381,6 @@
         let selectedCategory = null;
         let selectedAutoService = null;
         let selectedAutoContactMethod = null;
-        let selectedTransferSubcategory = null;
-        let selectedTransferRoute = null;
-        let selectedTransferRoutePrice = null;
-        let selectedTransferContactMethod = null;
         let selectedPropertyType = null;
         let selectedPropertyKind = null;
         let selectedLayout = null;
@@ -1964,15 +1392,14 @@
         let currentLanguage = 'ru';
         let currentRegion = '+7';
         let currentAutoRegion = '+7';
-        let currentTransferRegion = '+7';
 
         // Тексты для перевода
         const translations = {
             ru: {
-                headerSubtitle: "Профессиональные услуги",
-                strategyTitle: "🚀 РАСКРУТИ СВОЙ БИЗНЕС ЗА 48 ЧАСОВ!",
-                strategyText: "🔥 ХВАТИТ ТЕРЯТЬ ДЕНЬГИ! 🔥\n\nУстали от низкой конверсии и пустых трат на рекламу? Мы покажем вам работающую схему, которая приносит от 50 клиентов в месяц даже новичкам!\n\n💰 ЗА 2 ДНЯ вы получите:\n✅ Готовую прибыльную связку\n✅ Индивидуальный план действий\n✅ Пошаговую стратегию без технических навыков\n✅ Работающую бизнес-модель с ROI от 300%\n\n⚡️ НЕТ РИСКА - только результат!\n⚡️ ПЕРВЫЕ клиенты через 48 часов!\n⚡️ ПРОВЕРЕННЫЕ методы - 100% гарантия!",
-                strategyButtonText: "БЕСПЛАТНО ПОЛУЧИТЬ СТРАТЕГИЮ",
+                headerSubtitle: "Профессиональные услуги недвижимости ",
+                strategyTitle: "Brokerok",
+                strategyText: "Полный спектр услуг в сфере недвижимости и автомобилей. Помощь в покупке, продаже и аренде недвижимости в Турции. Подбор и оформление автомобилей. Открытие компаний и юридическое сопровождение. Трансферы из аэропорта. Профессиональные консультации.",
+                strategyButtonText: "Заполнить анкету",
                 mainTitle: "Готовы вывести бизнес на новый уровень?",
                 mainDescription: "Наша команда экспертов поможет вам достичь финансовых целей с помощью проверенных стратегий и индивидуального подхода",
                 contactTitle: "Связаться с менеджером",
@@ -2002,22 +1429,6 @@
                 contactMethodPhone: "Телефонный звонок",
                 autoMessageTitle: "Сообщение",
                 autoMessageDescription: "Оставьте сообщение или комментарий к вашей заявке",
-                // Трансфер
-                transferSubcategoryTitle: "Трансфер (аэропорт)",
-                transferSubcategoryDescription: "Выберите направление трансфера",
-                transferRouteTitle: "Выберите маршрут трансфера",
-                transferRouteDescription: "Выберите пункт отправления и назначения",
-                transferPassengerInfoTitle: "Информация о пассажире",
-                transferPassengerInfoDescription: "Заполните информацию о пассажире и рейсе",
-                passportLabel: "Номер паспорта",
-                passengerNameLabel: "Имя и фамилия",
-                flightTimeLabel: "Время рейса",
-                flightNumberLabel: "Номер рейса",
-                transferPhoneLabel: "Номер телефона",
-                transferContactMethodTitle: "Способ связи",
-                transferContactMethodDescription: "Выберите предпочтительный способ связи",
-                transferMessageTitle: "Написать сообщение",
-                transferMessageDescription: "Оставьте дополнительные комментарии или пожелания",
                 // Недвижимость
                 propertyTypeTitle: "Тип недвижимости",
                 propertyTypeDescription: "Выберите тип недвижимости",
@@ -2056,16 +1467,12 @@
                 emailLabel: "Email (необязательно)",
                 submitButtonText: "ОТПРАВИТЬ ЗАЯВКУ",
                 submitButtonAuto: "ОТПРАВИТЬ ЗАЯВКУ",
-                submitButtonTransfer: "ОТПРАВИТЬ ЗАЯВКУ",
                 footerText: "© 2023-2026 Brokerok | Все услуги оказываются профессиональными специалистами",
                 supportLink: "Поддержка",
                 managerLink: "Менеджер",
                 validationSelectCategory: "Пожалуйста, выберите категорию услуги",
                 validationSelectAutoService: "Пожалуйста, выберите тип услуги авто",
                 validationSelectAutoContactMethod: "Пожалуйста, выберите способ связи",
-                validationSelectTransferSubcategory: "Пожалуйста, выберите направление трансфера",
-                validationSelectTransferRoute: "Пожалуйста, выберите маршрут трансфера",
-                validationSelectTransferContactMethod: "Пожалуйста, выберите способ связи",
                 validationSelectPropertyType: "Пожалуйста, выберите тип недвижимости",
                 validationSelectPropertyKind: "Пожалуйста, выберите вид недвижимости",
                 validationSelectLayout: "Пожалуйста, выберите планировку",
@@ -2073,8 +1480,6 @@
                 validationSelectBudget: "Пожалуйста, выберите бюджет",
                 validationSelectTiming: "Пожалуйста, выберите сроки сделки",
                 validationNamePhone: "Пожалуйста, заполните имя и телефон",
-                validationPassportName: "Пожалуйста, заполните номер паспорта и имя пассажира",
-                validationFlightInfo: "Пожалуйста, заполните информацию о рейсе",
                 validationPhoneFormat: "Пожалуйста, введите корректный номер телефона",
                 successMessage: "✅ Заявка успешно отправлена! Наш специалист свяжется с вами в течение 24 часов.",
                 errorMessage: "❌ Ошибка отправки заявки. Пожалуйста, попробуйте еще раз или свяжитесь с нами напрямую.",
@@ -2114,22 +1519,6 @@
                 contactMethodPhone: "Phone Call",
                 autoMessageTitle: "Message",
                 autoMessageDescription: "Leave a message or comment for your application",
-                // Трансфер
-                transferSubcategoryTitle: "Transfer (Airport)",
-                transferSubcategoryDescription: "Select transfer direction",
-                transferRouteTitle: "Select Transfer Route",
-                transferRouteDescription: "Select departure and destination points",
-                transferPassengerInfoTitle: "Passenger Information",
-                transferPassengerInfoDescription: "Fill in passenger and flight information",
-                passportLabel: "Passport Number",
-                passengerNameLabel: "First and Last Name",
-                flightTimeLabel: "Flight Time",
-                flightNumberLabel: "Flight Number",
-                transferPhoneLabel: "Phone Number",
-                transferContactMethodTitle: "Contact Method",
-                transferContactMethodDescription: "Select preferred contact method",
-                transferMessageTitle: "Write Message",
-                transferMessageDescription: "Leave additional comments or wishes",
                 // Недвижимость
                 propertyTypeTitle: "Property Type",
                 propertyTypeDescription: "Select property type",
@@ -2168,16 +1557,12 @@
                 emailLabel: "Email (optional)",
                 submitButtonText: "SUBMIT APPLICATION",
                 submitButtonAuto: "SUBMIT APPLICATION",
-                submitButtonTransfer: "SUBMIT APPLICATION",
                 footerText: "© 2023-2026 Brokerok | All services provided by professional specialists",
                 supportLink: "Support",
                 managerLink: "Manager",
                 validationSelectCategory: "Please select a service category",
                 validationSelectAutoService: "Please select auto service type",
                 validationSelectAutoContactMethod: "Please select contact method",
-                validationSelectTransferSubcategory: "Please select transfer direction",
-                validationSelectTransferRoute: "Please select transfer route",
-                validationSelectTransferContactMethod: "Please select contact method",
                 validationSelectPropertyType: "Please select a property type",
                 validationSelectPropertyKind: "Please select a property kind",
                 validationSelectLayout: "Please select a layout",
@@ -2185,8 +1570,6 @@
                 validationSelectBudget: "Please select a budget",
                 validationSelectTiming: "Please select deal timing",
                 validationNamePhone: "Please fill in name and phone",
-                validationPassportName: "Please fill in passport number and passenger name",
-                validationFlightInfo: "Please fill in flight information",
                 validationPhoneFormat: "Please enter a valid phone number",
                 successMessage: "✅ Application successfully submitted! Our specialist will contact you within 24 hours.",
                 errorMessage: "❌ Error submitting application. Please try again or contact us directly.",
@@ -2218,19 +1601,13 @@
             // Обновляем плейсхолдеры
             document.getElementById('userName').placeholder = currentLanguage === 'ru' ? 'Иван Иванов' : 'John Smith';
             document.getElementById('autoName').placeholder = currentLanguage === 'ru' ? 'Иван Иванов' : 'John Smith';
-            document.getElementById('passengerName').placeholder = currentLanguage === 'ru' ? 'Иван Иванов' : 'John Smith';
-            document.getElementById('passportNumber').placeholder = currentLanguage === 'ru' ? 'AB1234567' : 'AB1234567';
-            document.getElementById('flightTime').placeholder = currentLanguage === 'ru' ? '14:30' : '14:30';
-            document.getElementById('flightNumber').placeholder = currentLanguage === 'ru' ? 'TK1234' : 'TK1234';
             document.getElementById('userComment').placeholder = currentLanguage === 'ru' ? 'Ваш комментарий...' : 'Your comment...';
             document.getElementById('autoMessage').placeholder = currentLanguage === 'ru' ? 'Ваше сообщение, комментарии, пожелания...' : 'Your message, comments, wishes...';
-            document.getElementById('transferMessage').placeholder = currentLanguage === 'ru' ? 'Дополнительные комментарии, пожелания, особые требования...' : 'Additional comments, wishes, special requirements...';
             document.getElementById('userEmail').placeholder = 'email@example.com';
             
             // Обновляем телефонные плейсхолдеры
             updatePhonePlaceholder();
             updateAutoPhonePlaceholder();
-            updateTransferPhonePlaceholder();
             
             // Обновляем валюту бюджета
             updateBudgetCurrency();
@@ -2281,15 +1658,6 @@
             updateAutoPhonePlaceholder();
         }
 
-        // Обновление префикса телефона для трансфера
-        function updateTransferPhonePrefix() {
-            const select = document.getElementById('transferRegionSelect');
-            const selectedOption = select.options[select.selectedIndex];
-            currentTransferRegion = selectedOption.value;
-            document.getElementById('transferRegionFlag').textContent = selectedOption.getAttribute('data-flag');
-            updateTransferPhonePlaceholder();
-        }
-
         // Обновление плейсхолдера телефона для недвижимости
         function updatePhonePlaceholder() {
             const phoneInput = document.getElementById('userPhone');
@@ -2330,26 +1698,6 @@
             phoneInput.placeholder = placeholders[currentAutoRegion] || 'Phone number';
         }
 
-        // Обновление плейсхолдера телефона для трансфера
-        function updateTransferPhonePlaceholder() {
-            const phoneInput = document.getElementById('transferPhone');
-            if (!phoneInput) return;
-            
-            const placeholders = {
-                '+7': '+7 (999) 123-45-67',
-                '+90': '+90 (555) 123-4567',
-                '+1': '+1 (555) 123-4567',
-                '+44': '+44 7911 123456',
-                '+49': '+49 151 12345678',
-                '+971': '+971 50 123 4567',
-                '+996': '+996 555 123456',
-                '+998': '+998 91 123-45-67',
-                '+375': '+375 29 1234567'
-            };
-            
-            phoneInput.placeholder = placeholders[currentTransferRegion] || 'Phone number';
-        }
-
         // Навигация
         function goToStep0() {
             showScreen('screen0');
@@ -2368,7 +1716,14 @@
             }
             
             if (selectedCategory === 'Трансфер (аэропорт)' || selectedCategory === 'Transfer (Airport)') {
-                goToTransferSubcategory();
+                selectedPropertyType = null;
+                selectedPropertyKind = null;
+                selectedLayout = null;
+                selectedLocation = null;
+                selectedBudget = null;
+                selectedTiming = null;
+                userComment = '';
+                goToStep9();
             } else if (selectedCategory === 'Авто' || selectedCategory === 'Auto') {
                 goToAutoService();
             } else if (selectedCategory === 'Недвижимость' || selectedCategory === 'Real Estate') {
@@ -2384,73 +1739,6 @@
                 userComment = '';
                 goToStep9();
             }
-        }
-
-        // Навигация для Трансфера
-        function goToTransferSubcategory() {
-            showScreen('screenTransferSubcategory');
-            updateProgress(2);
-        }
-
-        function goToTransferRoute() {
-            if (!selectedTransferSubcategory) {
-                showStatus(translations[currentLanguage].validationSelectTransferSubcategory, 'error', 'screenTransferSubcategory');
-                return;
-            }
-            
-            showScreen('screenTransferRoute');
-            updateProgress(3);
-        }
-
-        function goToTransferPassengerInfo() {
-            if (!selectedTransferRoute) {
-                showStatus(translations[currentLanguage].validationSelectTransferRoute, 'error', 'screenTransferRoute');
-                return;
-            }
-            
-            showScreen('screenTransferPassengerInfo');
-            updateProgress(4);
-        }
-
-        function goToTransferContactMethod() {
-            const passport = document.getElementById('passportNumber').value.trim();
-            const name = document.getElementById('passengerName').value.trim();
-            const flightTime = document.getElementById('flightTime').value.trim();
-            const flightNumber = document.getElementById('flightNumber').value.trim();
-            const phone = document.getElementById('transferPhone').value.trim();
-            
-            if (!passport || !name) {
-                showStatus(translations[currentLanguage].validationPassportName, 'error', 'screenTransferPassengerInfo');
-                return;
-            }
-            
-            if (!flightTime || !flightNumber) {
-                showStatus(translations[currentLanguage].validationFlightInfo, 'error', 'screenTransferPassengerInfo');
-                return;
-            }
-            
-            if (!phone) {
-                showStatus(translations[currentLanguage].validationNamePhone, 'error', 'screenTransferPassengerInfo');
-                return;
-            }
-            
-            if (!validatePhone(phone, currentTransferRegion)) {
-                showStatus(translations[currentLanguage].validationPhoneFormat, 'error', 'screenTransferPassengerInfo');
-                return;
-            }
-            
-            showScreen('screenTransferContactMethod');
-            updateProgress(5);
-        }
-
-        function goToTransferMessage() {
-            if (!selectedTransferContactMethod) {
-                showStatus(translations[currentLanguage].validationSelectTransferContactMethod, 'error', 'screenTransferContactMethod');
-                return;
-            }
-            
-            showScreen('screenTransferMessage');
-            updateProgress(6);
         }
 
         // Навигация для Авто
@@ -2592,37 +1880,6 @@
             document.getElementById('next1').disabled = false;
         }
 
-        // Выбор подкатегории трансфера
-        function selectTransferSubcategory(subcategory, element) {
-            document.querySelectorAll('#screenTransferSubcategory .subcategory-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            element.classList.add('selected');
-            selectedTransferSubcategory = subcategory;
-            document.getElementById('nextTransferSubcategory').disabled = false;
-        }
-
-        // Выбор маршрута трансфера
-        function selectTransferRoute(route, price, element) {
-            document.querySelectorAll('#screenTransferRoute .transfer-route-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            element.classList.add('selected');
-            selectedTransferRoute = route;
-            selectedTransferRoutePrice = price;
-            document.getElementById('nextTransferRoute').disabled = false;
-        }
-
-        // Выбор способа связи для трансфера
-        function selectTransferContactMethod(method, element) {
-            document.querySelectorAll('#screenTransferContactMethod .contact-method-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            element.classList.add('selected');
-            selectedTransferContactMethod = method;
-            document.getElementById('nextTransferContactMethod').disabled = false;
-        }
-
         // Выбор услуги Авто
         function selectAutoService(service, element) {
             document.querySelectorAll('#screenAutoService .service-option').forEach(opt => {
@@ -2715,11 +1972,12 @@
             window.scrollTo(0, 0);
         }
 
-        // Обновить прогресс
+        // Обновить прогресс - ИСПРАВЛЕНА ФУНКЦИЯ
         function updateProgress(step) {
-            for (let i = 1; i <= 10; i++) {
+            // Всего у нас 9 точек прогресса (dot1-dot9)
+            for (let i = 1; i <= 9; i++) {
                 const dot = document.getElementById(`dot${i}`);
-                if (dot) {
+                if (dot) { // Проверка на существование элемента
                     if (i <= step) {
                         dot.classList.add('active');
                     } else {
@@ -2752,101 +2010,6 @@
         function validatePhone(phone, region) {
             const digits = phone.replace(/\D/g, '');
             return digits.length >= 6;
-        }
-
-        // Отправка заявки на трансфер
-        async function submitTransferApplication() {
-            if (isSubmitting) return;
-            
-            const passport = document.getElementById('passportNumber').value.trim();
-            const name = document.getElementById('passengerName').value.trim();
-            const flightTime = document.getElementById('flightTime').value.trim();
-            const flightNumber = document.getElementById('flightNumber').value.trim();
-            const phone = document.getElementById('transferPhone').value.trim();
-            const message = document.getElementById('transferMessage').value.trim();
-            
-            if (!passport || !name) {
-                showStatus(translations[currentLanguage].validationPassportName, 'error', 'screenTransferMessage');
-                return;
-            }
-            
-            if (!flightTime || !flightNumber) {
-                showStatus(translations[currentLanguage].validationFlightInfo, 'error', 'screenTransferMessage');
-                return;
-            }
-            
-            if (!phone) {
-                showStatus(translations[currentLanguage].validationNamePhone, 'error', 'screenTransferMessage');
-                return;
-            }
-            
-            if (!validatePhone(phone, currentTransferRegion)) {
-                showStatus(translations[currentLanguage].validationPhoneFormat, 'error', 'screenTransferMessage');
-                return;
-            }
-            
-            if (!selectedTransferContactMethod) {
-                showStatus(translations[currentLanguage].validationSelectTransferContactMethod, 'error', 'screenTransferMessage');
-                return;
-            }
-            
-            const formattedPhone = currentTransferRegion + ' ' + phone.replace(/\D/g, '');
-            
-            const transferMessage = `🚕 *ЗАЯВКА НА ТРАНСФЕР (АЭРОПОРТ)* 🚕
-
-📍 *Направление:* ${selectedTransferSubcategory}
-🛣 *Маршрут:* ${selectedTransferRoute}
-💰 *Стоимость:* ${selectedTransferRoutePrice}
-
-👤 *Информация о пассажире:*
-📋 *Номер паспорта:* ${passport}
-👤 *Имя и фамилия:* ${name}
-
-✈️ *Информация о рейсе:*
-⏰ *Время рейса:* ${flightTime}
-🛫 *Номер рейса:* ${flightNumber}
-
-📞 *Контактные данные:*
-📱 *Телефон:* ${formattedPhone}
-📲 *Способ связи:* ${selectedTransferContactMethod}
-
-💬 *Сообщение клиента:* ${message || (currentLanguage === 'ru' ? 'Без сообщения' : 'No message')}
-
-⏰ *Время отправки:* ${new Date().toLocaleString('ru-RU')}
-🌐 *Язык:* ${currentLanguage.toUpperCase()}
-🔗 *Источник:* Brokerok MiniApp`;
-
-            const encodedMessage = encodeURIComponent(transferMessage);
-            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatIdTransfer}&text=${encodedMessage}&parse_mode=Markdown`;
-            
-            isSubmitting = true;
-            const submitBtn = document.querySelector('#screenTransferMessage .button-next');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${translations[currentLanguage].sendingText}`;
-            submitBtn.disabled = true;
-            
-            try {
-                const response = await fetch(url);
-                const result = await response.json();
-                
-                if (result.ok) {
-                    showStatus(translations[currentLanguage].successMessage, 'success', 'screenTransferMessage');
-                    
-                    setTimeout(() => {
-                        resetTransferForm();
-                        goToStep0();
-                    }, 3000);
-                } else {
-                    throw new Error(result.description || 'Send error');
-                }
-            } catch (error) {
-                console.error('Send error:', error);
-                showStatus(translations[currentLanguage].errorMessage, 'error', 'screenTransferMessage');
-                
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-                isSubmitting = false;
-            }
         }
 
         // Отправка заявки на авто
@@ -2945,7 +2108,23 @@
             let message = '';
             let targetChatId = '';
             
-            if (selectedCategory === 'Недвижимость' || selectedCategory === 'Real Estate') {
+            if (selectedCategory === 'Трансфер (аэропорт)' || selectedCategory === 'Transfer (Airport)') {
+                // Заявка на трансфер
+                message = `🚕 *ЗАЯВКА НА ТРАНСФЕР (АЭРОПОРТ)* 🚕
+
+👤 *Клиент:* ${userName}
+📞 *Телефон:* ${formattedPhone}
+📧 *Email:* ${userEmail || (currentLanguage === 'ru' ? 'не указан' : 'not specified')}
+
+💬 *Комментарий:* ${userComment || (currentLanguage === 'ru' ? 'Без комментария' : 'No comment')}
+
+⏰ *Время отправки:* ${new Date().toLocaleString('ru-RU')}
+🌐 *Язык:* ${currentLanguage.toUpperCase()}
+🔗 *Источник:* Brokerok MiniApp`;
+                
+                targetChatId = chatIdTransfer;
+                
+            } else if (selectedCategory === 'Недвижимость' || selectedCategory === 'Real Estate') {
                 // Заявка на недвижимость
                 let formattedBudget = selectedBudget;
                 if (selectedLocation === 'Алания' || selectedLocation === 'Alanya') {
@@ -3032,29 +2211,6 @@
             }
         }
 
-        // Сброс формы трансфера
-        function resetTransferForm() {
-            selectedTransferSubcategory = null;
-            selectedTransferRoute = null;
-            selectedTransferRoutePrice = null;
-            selectedTransferContactMethod = null;
-            isSubmitting = false;
-            
-            document.querySelectorAll('#screenTransferSubcategory .subcategory-option, #screenTransferRoute .transfer-route-option, #screenTransferContactMethod .contact-method-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            
-            document.getElementById('passportNumber').value = '';
-            document.getElementById('passengerName').value = '';
-            document.getElementById('flightTime').value = '';
-            document.getElementById('flightNumber').value = '';
-            document.getElementById('transferPhone').value = '';
-            document.getElementById('transferMessage').value = '';
-            document.getElementById('nextTransferSubcategory').disabled = true;
-            document.getElementById('nextTransferRoute').disabled = true;
-            document.getElementById('nextTransferContactMethod').disabled = true;
-        }
-
         // Сброс формы авто
         function resetAutoForm() {
             selectedAutoService = null;
@@ -3127,7 +2283,6 @@
             
             updatePhonePlaceholder();
             updateAutoPhonePlaceholder();
-            updateTransferPhonePlaceholder();
             
             const phoneInputs = document.querySelectorAll('input[type="tel"]');
             phoneInputs.forEach(input => {
