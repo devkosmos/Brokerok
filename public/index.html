@@ -1775,11 +1775,11 @@
     </div>
 
     <script>
-        // Telegram данные
-        const botToken = '8412708945:AAEPdeJ9jd1N_Hlo-o7A0rOZjv3t-mq6gjA';
+                // Telegram данные
+        const botToken = '8366294261:AAFUNQgos-NVAliadS-s6VsE5GOKNueWrGI';
         const chatIdTransfer = '-1003470913151'; // Чат для трансфера аэропорта
-        const chatIdRealEstate = '1289173133'; // Чат для недвижимости
-        const chatIdAuto = '1289173133'; // Чат для авто и остальных заявок
+        const chatIdRealEstate = '8039700599'; // Чат для недвижимости
+        const chatIdAuto = '8039700599'; // Чат для авто и остальных заявок
 
         // Глобальные переменные
         let selectedCategory = null;
@@ -2684,41 +2684,128 @@
             return digits.length >= 6;
         }
 
-        // Функция отправки в Telegram через прокси (решение проблемы CORS)
-        async function sendToTelegramViaProxy(message, chatId) {
-            return new Promise((resolve) => {
-                // Используем простой GET запрос вместо POST для обхода CORS
-                const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${encodeURIComponent(chatId)}&text=${encodeURIComponent(message)}&parse_mode=HTML`;
-                
-                // Используем image для отправки запроса (обход CORS)
-                const img = new Image();
-                img.src = url;
-                img.onload = () => {
-                    resolve({ ok: true });
-                };
-                img.onerror = () => {
-                    // Если не получилось через image, пробуем через fetch с no-cors
-                    fetch(url, { mode: 'no-cors' })
-                        .then(() => resolve({ ok: true }))
-                        .catch(() => resolve({ ok: false }));
-                };
+        // Функция отправки в Telegram (исправленная)
+        async function sendToTelegram(message, chatId) {
+            // Используем простой GET запрос к Telegram Bot API
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+            
+            // Параметры для запроса
+            const params = new URLSearchParams({
+                chat_id: chatId,
+                text: message,
+                parse_mode: 'HTML'
             });
+            
+            // Пробуем отправить через fetch
+            try {
+                // Создаем изображение для отправки GET запроса (обход CORS)
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    
+                    img.onload = function() {
+                        resolve({ ok: true });
+                    };
+                    
+                    img.onerror = function() {
+                        // Если не сработало через Image, пробуем через XMLHttpRequest
+                        try {
+                            const xhr = new XMLHttpRequest();
+                            xhr.open('GET', `${url}?${params.toString()}`, true);
+                            xhr.onreadystatechange = function() {
+                                if (xhr.readyState === 4) {
+                                    if (xhr.status === 200) {
+                                        try {
+                                            const response = JSON.parse(xhr.responseText);
+                                            resolve(response);
+                                        } catch (e) {
+                                            resolve({ ok: true });
+                                        }
+                                    } else {
+                                        // Пробуем альтернативный метод
+                                        sendViaBackupMethod(message, chatId)
+                                            .then(resolve)
+                                            .catch(() => resolve({ ok: false }));
+                                    }
+                                }
+                            };
+                            xhr.send();
+                        } catch (error) {
+                            sendViaBackupMethod(message, chatId)
+                                .then(resolve)
+                                .catch(() => resolve({ ok: false }));
+                        }
+                    };
+                    
+                    // Пробуем через Image (самый надежный способ обхода CORS)
+                    img.src = `${url}?${params.toString()}`;
+                    
+                    // Таймаут на случай, если ничего не сработает
+                    setTimeout(() => {
+                        resolve({ ok: false });
+                    }, 10000);
+                });
+            } catch (error) {
+                console.error('Error sending to Telegram:', error);
+                return { ok: false };
+            }
         }
 
-        // Функция отправки через Telegram Web App (если используется в Telegram)
-        async function sendToTelegram(message, chatId) {
-            if (window.Telegram && Telegram.WebApp) {
-                // Если в Telegram Web App, можно использовать их API
-                Telegram.WebApp.sendData(JSON.stringify({
-                    type: 'transfer_request',
-                    message: message,
-                    chat_id: chatId
-                }));
-                return { ok: true };
-            } else {
-                // Для браузера используем прокси метод
-                return await sendToTelegramViaProxy(message, chatId);
-            }
+        // Альтернативный метод отправки через iframe
+        function sendViaBackupMethod(message, chatId) {
+            return new Promise((resolve) => {
+                try {
+                    // Создаем временный iframe
+                    const iframe = document.createElement('iframe');
+                    iframe.style.display = 'none';
+                    iframe.name = 'telegram-sender-' + Date.now();
+                    document.body.appendChild(iframe);
+                    
+                    // Создаем форму
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = `https://api.telegram.org/bot${botToken}/sendMessage`;
+                    form.target = iframe.name;
+                    form.style.display = 'none';
+                    
+                    // Добавляем поля
+                    const chatIdField = document.createElement('input');
+                    chatIdField.type = 'hidden';
+                    chatIdField.name = 'chat_id';
+                    chatIdField.value = chatId;
+                    
+                    const textField = document.createElement('input');
+                    textField.type = 'hidden';
+                    textField.name = 'text';
+                    textField.value = message;
+                    
+                    const parseModeField = document.createElement('input');
+                    parseModeField.type = 'hidden';
+                    parseModeField.name = 'parse_mode';
+                    parseModeField.value = 'HTML';
+                    
+                    form.appendChild(chatIdField);
+                    form.appendChild(textField);
+                    form.appendChild(parseModeField);
+                    document.body.appendChild(form);
+                    
+                    // Удаляем форму и iframe после отправки
+                    setTimeout(() => {
+                        if (document.body.contains(form)) {
+                            document.body.removeChild(form);
+                        }
+                        if (document.body.contains(iframe)) {
+                            document.body.removeChild(iframe);
+                        }
+                        resolve({ ok: true });
+                    }, 2000);
+                    
+                    // Отправляем форму
+                    form.submit();
+                    
+                } catch (error) {
+                    resolve({ ok: false });
+                }
+            });
         }
 
         // Отправка заявки на трансфер (ИСПРАВЛЕНА КНОПКА)
@@ -2810,21 +2897,27 @@
                 if (result.ok) {
                     showStatus(translations[currentLanguage].successMessage, 'success', 'screenTransferMessage');
                     
+                    // Только через 3 секунды сбрасываем форму и кнопку
                     setTimeout(() => {
-                        // ВОССТАНАВЛИВАЕМ ТЕКСТ КНОПКИ
                         submitBtn.innerHTML = originalText;
                         submitBtn.disabled = false;
+                        isSubmitting = false;
                         resetTransferForm();
                         goToStep0();
                     }, 3000);
                 } else {
-                    throw new Error('Send error');
+                    showStatus(translations[currentLanguage].errorMessage, 'error', 'screenTransferMessage');
+                    
+                    // Сразу восстанавливаем кнопку при ошибке
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    isSubmitting = false;
                 }
             } catch (error) {
                 console.error('Send error:', error);
                 showStatus(translations[currentLanguage].errorMessage, 'error', 'screenTransferMessage');
                 
-                // ВОССТАНАВЛИВАЕМ ТЕКСТ КНОПКИ ПРИ ОШИБКЕ
+                // Восстанавливаем кнопку при любой ошибке
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
                 isSubmitting = false;
@@ -2884,20 +2977,23 @@
                     showStatus(translations[currentLanguage].successMessage, 'success', 'screenAutoMessage');
                     
                     setTimeout(() => {
-                        // ВОССТАНАВЛИВАЕМ ТЕКСТ КНОПКИ
                         submitBtn.innerHTML = originalText;
                         submitBtn.disabled = false;
+                        isSubmitting = false;
                         resetAutoForm();
                         goToStep0();
                     }, 3000);
                 } else {
-                    throw new Error('Send error');
+                    showStatus(translations[currentLanguage].errorMessage, 'error', 'screenAutoMessage');
+                    
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    isSubmitting = false;
                 }
             } catch (error) {
                 console.error('Send error:', error);
                 showStatus(translations[currentLanguage].errorMessage, 'error', 'screenAutoMessage');
                 
-                // ВОССТАНАВЛИВАЕМ ТЕКСТ КНОПКИ ПРИ ОШИБКЕ
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
                 isSubmitting = false;
@@ -2995,20 +3091,23 @@
                     showStatus(translations[currentLanguage].successMessage, 'success', 'screen9');
                     
                     setTimeout(() => {
-                        // ВОССТАНАВЛИВАЕМ ТЕКСТ КНОПКИ
                         submitBtn.innerHTML = originalText;
                         submitBtn.disabled = false;
+                        isSubmitting = false;
                         resetForm();
                         goToStep0();
                     }, 3000);
                 } else {
-                    throw new Error('Send error');
+                    showStatus(translations[currentLanguage].errorMessage, 'error', 'screen9');
+                    
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    isSubmitting = false;
                 }
             } catch (error) {
                 console.error('Send error:', error);
                 showStatus(translations[currentLanguage].errorMessage, 'error', 'screen9');
                 
-                // ВОССТАНАВЛИВАЕМ ТЕКСТ КНОПКИ ПРИ ОШИБКЕ
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
                 isSubmitting = false;
@@ -3021,7 +3120,6 @@
             selectedTransferAirport = null;
             selectedTransferDistrict = null;
             selectedTransferContactMethod = null;
-            isSubmitting = false;
             
             document.querySelectorAll('#screenTransferDirection .service-option, #screenTransferAirport .service-option, #screenTransferDistrict .district-option, #screenTransferContactMethod .contact-method-option').forEach(opt => {
                 opt.classList.remove('selected');
@@ -3045,7 +3143,6 @@
         function resetAutoForm() {
             selectedAutoService = null;
             selectedAutoContactMethod = null;
-            isSubmitting = false;
             
             document.querySelectorAll('#screenAutoService .service-option, #screenAutoContactMethod .contact-method-option').forEach(opt => {
                 opt.classList.remove('selected');
@@ -3068,7 +3165,6 @@
             selectedBudget = null;
             selectedTiming = null;
             userComment = '';
-            isSubmitting = false;
             
             document.querySelectorAll('.option-card, .layout-option, .budget-option, .timing-option').forEach(opt => {
                 opt.classList.remove('selected');
@@ -3138,9 +3234,6 @@
 
             // iOS специфичные настройки
             if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
-                // Добавляем класс для iOS
-                document.body.classList.add('ios-device');
-                
                 // Фикс для высоты на iOS
                 const setVh = () => {
                     let vh = window.innerHeight * 0.01;
