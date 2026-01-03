@@ -2,7 +2,11 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <!-- ИСПРАВЛЕНИЕ ДЛЯ iOS -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
     <title>Brokerok | Professional Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -12,63 +16,31 @@
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        input, textarea, select {
+            -webkit-user-select: text;
+            user-select: text;
         }
 
         body {
             background: #000000;
             color: #ffffff;
             min-height: 100vh;
-            padding: 16px;
-            padding-top: max(16px, env(safe-area-inset-top));
-            padding-bottom: max(16px, env(safe-area-inset-bottom));
-            padding-left: max(16px, env(safe-area-inset-left));
-            padding-right: max(16px, env(safe-area-inset-right));
+            padding-top: max(16px, env(safe-area-inset-top, 16px));
+            padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
+            padding-left: max(16px, env(safe-area-inset-left, 16px));
+            padding-right: max(16px, env(safe-area-inset-right, 16px));
             overflow-x: hidden;
-            -webkit-text-size-adjust: 100%;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        img, div, section {
-            max-width: 100%;
-        }
-
-        /* iOS фиксы */
-        @supports (-webkit-touch-callout: none) {
-            body {
-                min-height: -webkit-fill-available;
-            }
-            
-            input, textarea, select {
-                font-size: 16px !important;
-                border-radius: 12px;
-                -webkit-appearance: none;
-                appearance: none;
-            }
-            
-            select {
-                background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-                background-repeat: no-repeat;
-                background-position: right 12px center;
-                background-size: 16px;
-                padding-right: 40px;
-            }
-            
-            /* Убираем синий фон при тапе на iOS */
-            button, input, textarea, select {
-                -webkit-tap-highlight-color: rgba(0,0,0,0);
-            }
-            
-            /* Фикс для полосы прокрутки */
-            ::-webkit-scrollbar {
-                width: 0;
-                background: transparent;
-            }
         }
 
         .container {
             max-width: 100%;
             margin: 0 auto;
-            min-height: 100vh;
+            position: relative;
         }
 
         /* Шапка с языком */
@@ -147,6 +119,7 @@
         /* Основной контент */
         .screen {
             display: block;
+            min-height: calc(100vh - 150px);
         }
 
         .screen.hidden {
@@ -165,6 +138,7 @@
             margin-bottom: 12px;
             line-height: 1.3;
             text-align: center;
+            padding: 0 8px;
         }
 
         .description {
@@ -244,8 +218,6 @@
             transition: all 0.3s;
             margin-top: 8px;
             box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-            width: 100%;
-            justify-content: center;
         }
 
         .strategy-button:hover {
@@ -296,8 +268,6 @@
             text-decoration: none;
             cursor: pointer;
             transition: all 0.3s;
-            width: 100%;
-            justify-content: center;
         }
 
         .contact-button:hover {
@@ -314,26 +284,18 @@
 
         .region-flag {
             font-size: 20px;
-            min-width: 30px;
-            text-align: center;
         }
 
         .region-select {
-            padding: 16px 40px 16px 12px;
+            padding: 8px 12px;
             background: transparent;
             border: 1.5px solid #333;
-            border-radius: 12px;
+            border-radius: 8px;
             color: #fff;
-            font-size: 15px;
+            font-size: 14px;
             flex: 1;
-            width: 100%;
             -webkit-appearance: none;
             appearance: none;
-        }
-
-        .region-select:focus {
-            outline: none;
-            border-color: #10B981;
         }
 
         .region-select option {
@@ -361,8 +323,6 @@
             transition: all 0.3s;
             display: flex;
             align-items: center;
-            -webkit-user-select: none;
-            user-select: none;
         }
 
         .option-card:hover {
@@ -406,8 +366,6 @@
             color: #fff;
             cursor: pointer;
             transition: all 0.3s;
-            -webkit-user-select: none;
-            user-select: none;
         }
 
         .layout-option:hover {
@@ -440,8 +398,6 @@
             color: #fff;
             cursor: pointer;
             transition: all 0.3s;
-            -webkit-user-select: none;
-            user-select: none;
         }
 
         .budget-option:hover {
@@ -475,8 +431,6 @@
             transition: all 0.3s;
             display: flex;
             align-items: center;
-            -webkit-user-select: none;
-            user-select: none;
         }
 
         .timing-option:hover {
@@ -502,8 +456,6 @@
             resize: vertical;
             min-height: 100px;
             font-family: inherit;
-            -webkit-user-select: text;
-            user-select: text;
         }
 
         .comment-input:focus {
@@ -538,8 +490,6 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            -webkit-user-select: none;
-            user-select: none;
         }
 
         .button-back {
@@ -630,7 +580,7 @@
         .footer {
             text-align: center;
             margin-top: 32px;
-            padding-bottom: 20px;
+            padding-bottom: max(20px, env(safe-area-inset-bottom, 20px));
             font-size: 12px;
             color: #555;
         }
@@ -640,14 +590,204 @@
             text-decoration: none;
         }
 
-        /* Мобильная оптимизация */
+        /* Экран для выбора услуги Авто */
+        .service-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .service-option {
+            background: transparent;
+            border: 1.5px solid #333;
+            border-radius: 12px;
+            padding: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .service-option:hover {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .service-option.selected {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .service-icon {
+            font-size: 24px;
+            color: #10B981;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .service-text {
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            color: #fff;
+        }
+
+        .service-subtext {
+            font-size: 13px;
+            color: #aaa;
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        /* Экран выбора способа связи */
+        .contact-method-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .contact-method-option {
+            background: transparent;
+            border: 1.5px solid #333;
+            border-radius: 12px;
+            padding: 20px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .contact-method-option:hover {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .contact-method-option.selected {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .contact-method-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #10B981;
+        }
+
+        .contact-method-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        /* Текстовое поле для сообщения */
+        .message-textarea {
+            width: 100%;
+            padding: 16px;
+            background: transparent;
+            border: 1.5px solid #333;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+        }
+
+        .message-textarea:focus {
+            outline: none;
+            border-color: #10B981;
+        }
+
+        .message-textarea::placeholder {
+            color: #666;
+        }
+
+        /* Ценовые категории */
+        .price-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(16, 185, 129, 0.2);
+            color: #10B981;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        /* Сетка районов для трансфера */
+        .district-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .district-option {
+            background: transparent;
+            border: 1.5px solid #333;
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .district-option:hover {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .district-option.selected {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+        }
+
+        .district-name {
+            flex: 1;
+        }
+
+        /* Паспортные данные */
+        .passport-group {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        /* Информация о рейсе */
+        .flight-info-group {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        /* Анимация появления */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-card {
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        /* Медиа-запросы */
+        @media (min-width: 480px) {
+            .passport-group, .flight-info-group {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
         @media (max-width: 480px) {
             body {
-                padding: 14px;
-                padding-top: max(14px, env(safe-area-inset-top));
-                padding-bottom: max(14px, env(safe-area-inset-bottom));
-                padding-left: max(14px, env(safe-area-inset-left));
-                padding-right: max(14px, env(safe-area-inset-right));
+                padding-left: max(14px, env(safe-area-inset-left, 14px));
+                padding-right: max(14px, env(safe-area-inset-right, 14px));
             }
             
             .logo {
@@ -704,249 +844,24 @@
             }
         }
 
-        /* Анимация появления */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .content-card {
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        /* Экран для выбора услуги Авто */
-        .service-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .service-option {
-            background: transparent;
-            border: 1.5px solid #333;
-            border-radius: 12px;
-            padding: 18px;
-            cursor: pointer;
-            transition: all 0.3s;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        .service-option:hover {
-            border-color: #10B981;
-            background: rgba(16, 185, 129, 0.05);
-        }
-
-        .service-option.selected {
-            border-color: #10B981;
-            background: rgba(16, 185, 129, 0.1);
-        }
-
-        .service-icon {
-            font-size: 24px;
-            color: #10B981;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .service-text {
-            font-size: 16px;
-            font-weight: 600;
-            text-align: center;
-            color: #fff;
-        }
-
-        .service-subtext {
-            font-size: 13px;
-            color: #aaa;
-            text-align: center;
-            margin-top: 4px;
-        }
-
-        /* Экран выбора способа связи */
-        .contact-method-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .contact-method-option {
-            background: transparent;
-            border: 1.5px solid #333;
-            border-radius: 12px;
-            padding: 20px 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        .contact-method-option:hover {
-            border-color: #10B981;
-            background: rgba(16, 185, 129, 0.05);
-        }
-
-        .contact-method-option.selected {
-            border-color: #10B981;
-            background: rgba(16, 185, 129, 0.1);
-        }
-
-        .contact-method-icon {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: #10B981;
-        }
-
-        .contact-method-text {
-            font-size: 14px;
-            font-weight: 500;
-            color: #fff;
-        }
-
-        /* Текстовое поле для сообщения */
-        .message-textarea {
-            width: 100%;
-            padding: 16px;
-            background: transparent;
-            border: 1.5px solid #333;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 14px;
-            resize: vertical;
-            min-height: 120px;
-            font-family: inherit;
-            -webkit-user-select: text;
-            user-select: text;
-        }
-
-        .message-textarea:focus {
-            outline: none;
-            border-color: #10B981;
-        }
-
-        .message-textarea::placeholder {
-            color: #666;
-        }
-
-        /* Ценовые категории */
-        .price-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            background: rgba(16, 185, 129, 0.2);
-            color: #10B981;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-left: 8px;
-        }
-
-        /* Сетка районов для трансфера */
-        .district-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-            margin-bottom: 24px;
-        }
-
-        .district-option {
-            background: transparent;
-            border: 1.5px solid #333;
-            border-radius: 12px;
-            padding: 14px 16px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #fff;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        .district-option:hover {
-            border-color: #10B981;
-            background: rgba(16, 185, 129, 0.05);
-        }
-
-        .district-option.selected {
-            border-color: #10B981;
-            background: rgba(16, 185, 129, 0.1);
-            color: #10B981;
-        }
-
-        .district-name {
-            flex: 1;
-        }
-
-        /* Паспортные данные */
-        .passport-group {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-
-        @media (min-width: 480px) {
-            .passport-group {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        /* Информация о рейсе */
-        .flight-info-group {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-
-        @media (min-width: 480px) {
-            .flight-info-group {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        /* Фикс для высоты на iOS */
-        .ios-height-fix {
-            min-height: -webkit-fill-available;
-        }
-
-        /* Отключаем увеличение при фокусе на iOS */
-        input[type="text"]:focus,
-        input[type="tel"]:focus,
-        input[type="email"]:focus,
-        input[type="date"]:focus,
-        input[type="datetime-local"]:focus,
-        textarea:focus,
-        select:focus {
-            font-size: 16px !important;
-        }
-
-        /* Улучшаем отображение на iPhone */
-        @media (max-width: 430px) {
-            .button-container {
-                gap: 10px;
+        /* iOS специфичные стили */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                min-height: -webkit-fill-available;
             }
             
-            .button {
-                padding: 14px 12px;
-                font-size: 14px;
+            .screen {
+                min-height: -webkit-fill-available;
             }
             
-            .strategy-button {
-                padding: 16px 20px;
-                font-size: 16px;
+            input, textarea, select {
+                font-size: 16px !important;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container ios-height-fix">
+    <div class="container">
         <!-- Шапка с переключателем языка -->
         <div class="header">
             <div class="logo-section">
@@ -1189,13 +1104,6 @@
                     <input type="text" class="form-input" id="transferName" placeholder="Иван Иванов">
                 </div>
 
-                <!-- Паспортные данные -->
-                <div class="passport-group">
-                    <div class="form-group">
-                        <label class="form-label" id="transferPassportLabel">Номер паспорта</label>
-                        <input type="text" class="form-input" id="transferPassport" placeholder="AB1234567">
-                    </div>
-
                     <div class="form-group">
                         <label class="form-label" id="transferPassportDateLabel">Срок действия паспорта</label>
                         <input type="date" class="form-input" id="transferPassportDate">
@@ -1215,33 +1123,6 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label" id="transferPhoneLabel">Телефон</label>
-                    
-                    <!-- Выбор региона -->
-                    <div class="phone-region-selector">
-                        <div class="region-flag" id="transferRegionFlag">🇷🇺</div>
-                        <select class="region-select" id="transferRegionSelect" onchange="updateTransferPhonePrefix()">
-                            <option value="+7" data-flag="🇷🇺">Россия (+7)</option>
-                            <option value="+90" data-flag="🇹🇷">Турция (+90)</option>
-                            <option value="+1" data-flag="🇺🇸">США (+1)</option>
-                            <option value="+44" data-flag="🇬🇧">Великобритания (+44)</option>
-                            <option value="+49" data-flag="🇩🇪">Германия (+49)</option>
-                            <option value="+971" data-flag="🇦🇪">ОАЭ (+971)</option>
-                            <option value="+996" data-flag="🇰🇬">Кыргызстан (+996)</option>
-                            <option value="+998" data-flag="🇺🇿">Узбекистан (+998)</option>
-                            <option value="+7" data-flag="🇰🇿">Казахстан (+7)</option>
-                            <option value="+375" data-flag="🇧🇾">Беларусь (+375)</option>
-                        </select>
-                    </div>
-                    
-                    <input type="tel" class="form-input" id="transferPhone" placeholder="Номер телефона">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" id="transferEmailLabel">Email (необязательно)</label>
-                    <input type="email" class="form-input" id="transferEmail" placeholder="email@example.com">
-                </div>
 
                 <div class="button-container">
                     <button class="button button-back" onclick="goToTransferDistrict()">
@@ -1311,7 +1192,7 @@
                     <button class="button button-back" onclick="goToTransferContactMethod()">
                         <i class="fas fa-arrow-left"></i> <span id="backButtonTransferMessage">НАЗАД</span>
                     </button>
-                    <button class="button button-next" onclick="submitTransferApplication()" id="submitTransferButton">
+                    <button class="button button-next" onclick="submitTransferApplication()">
                         <i class="fas fa-paper-plane"></i> <span id="submitButtonTransfer">ОТПРАВИТЬ ЗАЯВКУ</span>
                     </button>
                 </div>
@@ -1460,7 +1341,7 @@
                     <button class="button button-back" onclick="goToAutoContactMethod()">
                         <i class="fas fa-arrow-left"></i> <span id="backButtonAutoMessage">НАЗАД</span>
                     </button>
-                    <button class="button button-next" onclick="submitAutoApplication()" id="submitAutoButton">
+                    <button class="button button-next" onclick="submitAutoApplication()">
                         <i class="fas fa-paper-plane"></i> <span id="submitButtonAuto">ОТПРАВИТЬ ЗАЯВКУ</span>
                     </button>
                 </div>
@@ -1574,6 +1455,7 @@
                 </div>
 
                 <div class="button-container">
+                    <!-- ИСПРАВЛЕННАЯ КНОПКА НАЗАД -->
                     <button class="button button-back" onclick="goToStep3()">
                         <i class="fas fa-arrow-left"></i> <span id="backButton4">НАЗАД</span>
                     </button>
@@ -1606,7 +1488,8 @@
                 </div>
 
                 <div class="button-container">
-                    <button class="button button-back" onclick="goToStep4()">
+                    <!-- ИСПРАВЛЕННАЯ КНОПКА НАЗАД -->
+                    <button class="button button-back" onclick="goBackFromLocation()">
                         <i class="fas fa-arrow-left"></i> <span id="backButton5">НАЗАД</span>
                     </button>
                     <button class="button button-next" id="next5" onclick="goToStep6()" disabled>
@@ -1756,7 +1639,8 @@
                 </div>
 
                 <div class="button-container">
-                    <button class="button button-back" onclick="goToStep8()">
+                    <!-- ИСПРАВЛЕННАЯ КНОПКА НАЗАД -->
+                    <button class="button button-back" onclick="goBackFromContactInfo()">
                         <i class="fas fa-arrow-left"></i> <span id="backButton9">НАЗАД</span>
                     </button>
                     <button class="button button-next" onclick="submitApplication()" id="submitButton">
@@ -1775,12 +1659,15 @@
     </div>
 
     <script>
-                // Telegram данные
+        // ИСПРАВЛЕНИЕ ДЛЯ ГРУПП: правильные chat_id
         const botToken = '8366294261:AAFUNQgos-NVAliadS-s6VsE5GOKNueWrGI';
-        const chatIdTransfer = '-1003470913151'; // Чат для трансфера аэропорта
-        const chatIdRealEstate = '8039700599'; // Чат для недвижимости
-        const chatIdAuto = '8039700599'; // Чат для авто и остальных заявок
-
+        
+        // ВАЖНО: Для групп chat_id должен быть отрицательным числом с -100 в начале
+        // Пример: -1001234567890
+        const chatIdTransfer = '-1003470913151'; // ЗАМЕНИТЕ на ваш реальный chat_id группы для трансфера
+        const chatIdRealEstate = '-1003470913151'; // Уже правильный формат
+        const chatIdAuto = '-1003470913151'; // ЗАМЕНИТЕ на ваш реальный chat_id группы для авто
+        
         // Глобальные переменные
         let selectedCategory = null;
         let selectedTransferDirection = null;
@@ -1820,9 +1707,9 @@
         const translations = {
             ru: {
                 headerSubtitle: "Профессиональные услуги недвижимости",
-                strategyTitle: "Brokerok",
+                strategyTitle: "Наши услуги",
                 strategyText: "Полный спектр услуг в сфере недвижимости и автомобилей. Помощь в покупке, продаже и аренде недвижимости в Турции. Подбор и оформление автомобилей. Открытие компаний и юридическое сопровождение. Трансферы из аэропорта. Профессиональные консультации.",
-                strategyButtonText: "Заполнить анкету",
+                strategyButtonText: "Услуги",
                 mainTitle: "Готовы вывести бизнес на новый уровень?",
                 mainDescription: "Наша команда экспертов поможет вам достичь финансовых целей с помощью проверенных стратегий и индивидуального подхода",
                 contactTitle: "Связаться с менеджером",
@@ -1946,9 +1833,9 @@
             },
             en: {
                 headerSubtitle: "Professional Services",
-                strategyTitle: "🚀 BOOST YOUR BUSINESS IN 48 HOURS!",
-                strategyText: "🔥 STOP LOSING MONEY! 🔥\n\nTired of low conversion and wasted ad spend? We'll show you a working scheme that brings in 50+ clients per month even for beginners!\n\n💰 IN 2 DAYS you'll get:\n✅ Ready profitable bundle\n✅ Individual action plan\n✅ Step-by-step strategy without technical skills\n✅ Working business model with 300%+ ROI\n\n⚡️ NO RISK - only results!\n⚡️ FIRST clients in 48 hours!\n⚡️ PROVEN methods - 100% guarantee!",
-                strategyButtonText: "GET STRATEGY FOR FREE",
+                strategyTitle: "Our Services",
+                strategyText: "Full range of real estate and car services. Assistance in buying, selling, and renting real estate in Turkey. Selection and registration of cars. Opening companies and legal support. Airport transfers. Professional consultations.",
+                strategyButtonText: "Services",
                 mainTitle: "Ready to take your business to the next level?",
                 mainDescription: "Our team of experts will help you achieve financial goals using proven strategies and individual approach",
                 contactTitle: "Contact Manager",
@@ -2071,6 +1958,49 @@
                 sendingText: "SENDING..."
             }
         };
+
+        // Функция для проверки валидности chat_id
+        function isValidChatId(chatId) {
+            if (!chatId) return false;
+            // Группы начинаются с -100, приватные чаты положительные
+            return /^(-100\d+|\d+)$/.test(chatId.toString());
+        }
+
+        // Улучшенная функция отправки в Telegram
+        async function sendToTelegram(chatId, message) {
+            if (!isValidChatId(chatId)) {
+                console.error('Invalid chat_id format:', chatId);
+                throw new Error('Неверный формат chat_id. Для групп должен начинаться с -100');
+            }
+            
+            const encodedMessage = encodeURIComponent(message);
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodedMessage}&parse_mode=Markdown`;
+            
+            try {
+                const response = await fetch(url);
+                const result = await response.json();
+                
+                if (!result.ok) {
+                    console.error('Telegram API Error:', result);
+                    
+                    // Проверяем распространенные ошибки
+                    if (result.error_code === 403) {
+                        throw new Error('Бот удален из группы или не является администратором');
+                    } else if (result.error_code === 400) {
+                        throw new Error('Неверный chat_id или бот не имеет доступа');
+                    } else if (result.error_code === 429) {
+                        throw new Error('Слишком много запросов. Подождите немного');
+                    } else {
+                        throw new Error(result.description || `Ошибка API: ${result.error_code}`);
+                    }
+                }
+                
+                return result;
+            } catch (error) {
+                console.error('Network error:', error);
+                throw error;
+            }
+        }
 
         // Переключение языка
         function switchLanguage(lang) {
@@ -2230,6 +2160,53 @@
             };
             
             phoneInput.placeholder = placeholders[currentTransferRegion] || 'Phone number';
+        }
+
+        // Новая функция для обработки возврата с экрана контактной информации
+        function goBackFromContactInfo() {
+            // Проверяем, какая категория выбрана
+            if (selectedCategory === 'Недвижимость' || selectedCategory === 'Real Estate') {
+                // Для недвижимости возвращаемся на экран комментария
+                goToStep8();
+            } else if (selectedCategory === 'Трансфер (аэропорт)' || selectedCategory === 'Transfer (Airport)') {
+                // Для трансфера возвращаемся на последний экран
+                if (!document.getElementById('screenTransferMessage').classList.contains('hidden')) {
+                    // Мы на экране сообщения трансфера
+                    goToTransferContactMethod();
+                } else if (!document.getElementById('screenTransferContactMethod').classList.contains('hidden')) {
+                    // Мы на экране выбора способа связи трансфера
+                    goToTransferContact();
+                } else {
+                    // По умолчанию возвращаемся к выбору аэропорта
+                    goToTransferAirport();
+                }
+            } else if (selectedCategory === 'Авто' || selectedCategory === 'Auto') {
+                // Для авто возвращаемся на последний экран
+                if (!document.getElementById('screenAutoMessage').classList.contains('hidden')) {
+                    // Мы на экране сообщения авто
+                    goToAutoContactMethod();
+                } else if (!document.getElementById('screenAutoContactMethod').classList.contains('hidden')) {
+                    // Мы на экране выбора способа связи авто
+                    goToAutoContact();
+                } else {
+                    // По умолчанию возвращаемся к выбору услуги авто
+                    goToAutoService();
+                }
+            } else {
+                // Для остальных категорий возвращаемся на выбор категории
+                goToStep1();
+            }
+        }
+
+        // Новая функция для кнопки "НАЗАД" на экране локации
+        function goBackFromLocation() {
+            // Если выбрана квартира, возвращаемся к планировке
+            if (selectedPropertyKind === 'Квартира' || selectedPropertyKind === 'Apartment') {
+                goToStep4();
+            } else {
+                // Для других типов недвижимости возвращаемся к выбору вида недвижимости
+                goToStep3();
+            }
         }
 
         // Навигация
@@ -2411,27 +2388,35 @@
             updateProgress(3);
         }
 
+        // ИСПРАВЛЕННАЯ функция goToStep4()
         function goToStep4() {
             if (!selectedPropertyKind) {
                 showStatus(translations[currentLanguage].validationSelectPropertyKind, 'error', 'screen3');
                 return;
             }
             
+            // Если выбрана квартира, показываем экран планировки
             if (selectedPropertyKind === 'Квартира' || selectedPropertyKind === 'Apartment') {
                 showScreen('screen4');
                 updateProgress(4);
             } else {
-                selectedLayout = null;
-                goToStep5();
+                // Для других типов недвижимости пропускаем экран планировки
+                selectedLayout = null; // Явно устанавливаем null
+                goToStep5(); // Переходим сразу к локации
             }
         }
 
+        // ИСПРАВЛЕННАЯ функция goToStep5()
         function goToStep5() {
-            if ((selectedPropertyKind === 'Квартира' || selectedPropertyKind === 'Apartment') && !selectedLayout) {
-                showStatus(translations[currentLanguage].validationSelectLayout, 'error', 'screen4');
-                return;
+            // Проблема была здесь: проверка только для квартир, но для других типов недвижимости selectedLayout = null
+            if (selectedPropertyKind === 'Квартира' || selectedPropertyKind === 'Apartment') {
+                if (!selectedLayout) {
+                    showStatus(translations[currentLanguage].validationSelectLayout, 'error', 'screen4');
+                    return;
+                }
             }
             
+            // Всегда показываем экран локации, независимо от выбранного типа недвижимости
             showScreen('screen5');
             updateProgress(5);
         }
@@ -2444,7 +2429,6 @@
             
             showScreen('screen6');
             updateProgress(6);
-            
             updateBudgetCurrency();
         }
 
@@ -2468,8 +2452,22 @@
             updateProgress(8);
         }
 
+        // ИСПРАВЛЕННАЯ функция goToStep9()
         function goToStep9() {
-            userComment = document.getElementById('userComment').value.trim();
+            // Сначала сохраняем комментарий
+            const commentInput = document.getElementById('userComment');
+            if (commentInput) {
+                userComment = commentInput.value.trim();
+            }
+            
+            // Проверяем, что все обязательные поля предыдущих шагов заполнены
+            if (!selectedTiming) {
+                showStatus(translations[currentLanguage].validationSelectTiming, 'error', 'screen7');
+                goToStep7(); // Возвращаем на шаг 7 для выбора сроков
+                return;
+            }
+            
+            // Показываем экран контактной информации
             showScreen('screen9');
             updateProgress(9);
         }
@@ -2684,131 +2682,7 @@
             return digits.length >= 6;
         }
 
-        // Функция отправки в Telegram (исправленная)
-        async function sendToTelegram(message, chatId) {
-            // Используем простой GET запрос к Telegram Bot API
-            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-            
-            // Параметры для запроса
-            const params = new URLSearchParams({
-                chat_id: chatId,
-                text: message,
-                parse_mode: 'HTML'
-            });
-            
-            // Пробуем отправить через fetch
-            try {
-                // Создаем изображение для отправки GET запроса (обход CORS)
-                return new Promise((resolve) => {
-                    const img = new Image();
-                    
-                    img.onload = function() {
-                        resolve({ ok: true });
-                    };
-                    
-                    img.onerror = function() {
-                        // Если не сработало через Image, пробуем через XMLHttpRequest
-                        try {
-                            const xhr = new XMLHttpRequest();
-                            xhr.open('GET', `${url}?${params.toString()}`, true);
-                            xhr.onreadystatechange = function() {
-                                if (xhr.readyState === 4) {
-                                    if (xhr.status === 200) {
-                                        try {
-                                            const response = JSON.parse(xhr.responseText);
-                                            resolve(response);
-                                        } catch (e) {
-                                            resolve({ ok: true });
-                                        }
-                                    } else {
-                                        // Пробуем альтернативный метод
-                                        sendViaBackupMethod(message, chatId)
-                                            .then(resolve)
-                                            .catch(() => resolve({ ok: false }));
-                                    }
-                                }
-                            };
-                            xhr.send();
-                        } catch (error) {
-                            sendViaBackupMethod(message, chatId)
-                                .then(resolve)
-                                .catch(() => resolve({ ok: false }));
-                        }
-                    };
-                    
-                    // Пробуем через Image (самый надежный способ обхода CORS)
-                    img.src = `${url}?${params.toString()}`;
-                    
-                    // Таймаут на случай, если ничего не сработает
-                    setTimeout(() => {
-                        resolve({ ok: false });
-                    }, 10000);
-                });
-            } catch (error) {
-                console.error('Error sending to Telegram:', error);
-                return { ok: false };
-            }
-        }
-
-        // Альтернативный метод отправки через iframe
-        function sendViaBackupMethod(message, chatId) {
-            return new Promise((resolve) => {
-                try {
-                    // Создаем временный iframe
-                    const iframe = document.createElement('iframe');
-                    iframe.style.display = 'none';
-                    iframe.name = 'telegram-sender-' + Date.now();
-                    document.body.appendChild(iframe);
-                    
-                    // Создаем форму
-                    const form = document.createElement('form');
-                    form.method = 'POST';
-                    form.action = `https://api.telegram.org/bot${botToken}/sendMessage`;
-                    form.target = iframe.name;
-                    form.style.display = 'none';
-                    
-                    // Добавляем поля
-                    const chatIdField = document.createElement('input');
-                    chatIdField.type = 'hidden';
-                    chatIdField.name = 'chat_id';
-                    chatIdField.value = chatId;
-                    
-                    const textField = document.createElement('input');
-                    textField.type = 'hidden';
-                    textField.name = 'text';
-                    textField.value = message;
-                    
-                    const parseModeField = document.createElement('input');
-                    parseModeField.type = 'hidden';
-                    parseModeField.name = 'parse_mode';
-                    parseModeField.value = 'HTML';
-                    
-                    form.appendChild(chatIdField);
-                    form.appendChild(textField);
-                    form.appendChild(parseModeField);
-                    document.body.appendChild(form);
-                    
-                    // Удаляем форму и iframe после отправки
-                    setTimeout(() => {
-                        if (document.body.contains(form)) {
-                            document.body.removeChild(form);
-                        }
-                        if (document.body.contains(iframe)) {
-                            document.body.removeChild(iframe);
-                        }
-                        resolve({ ok: true });
-                    }, 2000);
-                    
-                    // Отправляем форму
-                    form.submit();
-                    
-                } catch (error) {
-                    resolve({ ok: false });
-                }
-            });
-        }
-
-        // Отправка заявки на трансфер (ИСПРАВЛЕНА КНОПКА)
+        // Отправка заявки на трансфер
         async function submitTransferApplication() {
             if (isSubmitting) return;
             
@@ -2858,73 +2732,60 @@
                 }
             }
             
-            const transferMessage = `🚕 <b>ЗАЯВКА НА ТРАНСФЕР</b> 🚕
+            const transferMessage = `🚕 *ЗАЯВКА НА ТРАНСФЕР* 🚕
 
-👤 <b>Имя Фамилия:</b> ${name}
-📞 <b>Телефон:</b> ${formattedPhone}
-📧 <b>Email:</b> ${email || (currentLanguage === 'ru' ? 'не указан' : 'not specified')}
+👤 *Имя Фамилия:* ${name}
+📞 *Телефон:* ${formattedPhone}
+📧 *Email:* ${email || (currentLanguage === 'ru' ? 'не указан' : 'not specified')}
 
-✈️ <b>Направление:</b> ${selectedTransferDirection}
-🏢 <b>Аэропорт:</b> ${selectedTransferAirport}
-📍 <b>Район:</b> ${selectedTransferDistrict}
-💰 <b>Стоимость:</b> ${price}€
+✈️ *Направление:* ${selectedTransferDirection}
+🏢 *Аэропорт:* ${selectedTransferAirport}
+📍 *Район:* ${selectedTransferDistrict}
+💰 *Стоимость:* ${price}€
 
-🛂 <b>Паспортные данные:</b>
-📋 <b>Номер паспорта:</b> ${passport}
-📅 <b>Срок действия:</b> ${formattedPassportDate}
+🛂 *Паспортные данные:*
+📋 *Номер паспорта:* ${passport}
+📅 *Срок действия:* ${formattedPassportDate}
 
-✈️ <b>Информация о рейсе:</b>
-⏰ <b>Время рейса:</b> ${formattedFlightTime}
-🔢 <b>Номер рейса:</b> ${flightNumber}
+✈️ *Информация о рейсе:*
+⏰ *Время рейса:* ${formattedFlightTime}
+🔢 *Номер рейса:* ${flightNumber}
 
-📱 <b>Способ связи:</b> ${selectedTransferContactMethod}
+📱 *Способ связи:* ${selectedTransferContactMethod}
 
-💬 <b>Сообщение клиента:</b> ${message || (currentLanguage === 'ru' ? 'Без сообщения' : 'No message')}
+💬 *Сообщение клиента:* ${message || (currentLanguage === 'ru' ? 'Без сообщения' : 'No message')}
 
-⏰ <b>Время отправки:</b> ${new Date().toLocaleString('ru-RU')}
-🌐 <b>Язык:</b> ${currentLanguage.toUpperCase()}
-🔗 <b>Источник:</b> Brokerok MiniApp`;
+⏰ *Время отправки:* ${new Date().toLocaleString('ru-RU')}
+🌐 *Язык:* ${currentLanguage.toUpperCase()}
+🔗 *Источник:* Brokerok MiniApp`;
 
             isSubmitting = true;
-            const submitBtn = document.getElementById('submitTransferButton');
+            const submitBtn = document.querySelector('#screenTransferMessage .button-next');
             const originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${translations[currentLanguage].sendingText}`;
             submitBtn.disabled = true;
             
             try {
-                const result = await sendToTelegram(transferMessage, chatIdTransfer);
+                // Используем новую функцию отправки
+                await sendToTelegram(chatIdTransfer, transferMessage);
                 
-                if (result.ok) {
-                    showStatus(translations[currentLanguage].successMessage, 'success', 'screenTransferMessage');
-                    
-                    // Только через 3 секунды сбрасываем форму и кнопку
-                    setTimeout(() => {
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.disabled = false;
-                        isSubmitting = false;
-                        resetTransferForm();
-                        goToStep0();
-                    }, 3000);
-                } else {
-                    showStatus(translations[currentLanguage].errorMessage, 'error', 'screenTransferMessage');
-                    
-                    // Сразу восстанавливаем кнопку при ошибке
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                    isSubmitting = false;
-                }
+                showStatus(translations[currentLanguage].successMessage, 'success', 'screenTransferMessage');
+                
+                setTimeout(() => {
+                    resetTransferForm();
+                    goToStep0();
+                }, 3000);
             } catch (error) {
                 console.error('Send error:', error);
-                showStatus(translations[currentLanguage].errorMessage, 'error', 'screenTransferMessage');
+                showStatus(`${translations[currentLanguage].errorMessage}\n\nДетали: ${error.message}`, 'error', 'screenTransferMessage');
                 
-                // Восстанавливаем кнопку при любой ошибке
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
                 isSubmitting = false;
             }
         }
 
-        // Отправка заявки на авто (ИСПРАВЛЕНА КНОПКА)
+        // Отправка заявки на авто
         async function submitAutoApplication() {
             if (isSubmitting) return;
             
@@ -2949,50 +2810,39 @@
             
             const formattedPhone = currentAutoRegion + ' ' + phone.replace(/\D/g, '');
             
-            const autoMessage = `🚗 <b>ЗАЯВКА НА АВТО УСЛУГУ</b> 🚗
+            const autoMessage = `🚗 *ЗАЯВКА НА АВТО УСЛУГУ* 🚗
 
-👤 <b>Клиент:</b> ${name}
-📞 <b>Телефон:</b> ${formattedPhone}
-📍 <b>Регион:</b> ${currentAutoRegion}
+👤 *Клиент:* ${name}
+📞 *Телефон:* ${formattedPhone}
+📍 *Регион:* ${currentAutoRegion}
 
-🛠 <b>Тип услуги:</b> ${selectedAutoService}
-📱 <b>Способ связи:</b> ${selectedAutoContactMethod}
+🛠 *Тип услуги:* ${selectedAutoService}
+📱 *Способ связи:* ${selectedAutoContactMethod}
 
-💬 <b>Сообщение клиента:</b> ${message || (currentLanguage === 'ru' ? 'Без сообщения' : 'No message')}
+💬 *Сообщение клиента:* ${message || (currentLanguage === 'ru' ? 'Без сообщения' : 'No message')}
 
-⏰ <b>Время отправки:</b> ${new Date().toLocaleString('ru-RU')}
-🌐 <b>Язык:</b> ${currentLanguage.toUpperCase()}
-🔗 <b>Источник:</b> Brokerok MiniApp`;
+⏰ *Время отправки:* ${new Date().toLocaleString('ru-RU')}
+🌐 *Язык:* ${currentLanguage.toUpperCase()}
+🔗 *Источник:* Brokerok MiniApp`;
 
             isSubmitting = true;
-            const submitBtn = document.getElementById('submitAutoButton');
+            const submitBtn = document.querySelector('#screenAutoMessage .button-next');
             const originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${translations[currentLanguage].sendingText}`;
             submitBtn.disabled = true;
             
             try {
-                const result = await sendToTelegram(autoMessage, chatIdAuto);
+                await sendToTelegram(chatIdAuto, autoMessage);
                 
-                if (result.ok) {
-                    showStatus(translations[currentLanguage].successMessage, 'success', 'screenAutoMessage');
-                    
-                    setTimeout(() => {
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.disabled = false;
-                        isSubmitting = false;
-                        resetAutoForm();
-                        goToStep0();
-                    }, 3000);
-                } else {
-                    showStatus(translations[currentLanguage].errorMessage, 'error', 'screenAutoMessage');
-                    
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                    isSubmitting = false;
-                }
+                showStatus(translations[currentLanguage].successMessage, 'success', 'screenAutoMessage');
+                
+                setTimeout(() => {
+                    resetAutoForm();
+                    goToStep0();
+                }, 3000);
             } catch (error) {
                 console.error('Send error:', error);
-                showStatus(translations[currentLanguage].errorMessage, 'error', 'screenAutoMessage');
+                showStatus(`${translations[currentLanguage].errorMessage}\n\nДетали: ${error.message}`, 'error', 'screenAutoMessage');
                 
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
@@ -3000,7 +2850,7 @@
             }
         }
 
-        // Отправка заявки на недвижимость и другие услуги (ИСПРАВЛЕНА КНОПКА)
+        // Отправка заявки на недвижимость и другие услуги
         async function submitApplication() {
             if (isSubmitting) return;
             
@@ -3032,83 +2882,71 @@
                     formattedBudget = selectedBudget + (currentLanguage === 'ru' ? '$' : ' USD');
                 }
 
-                message = `🏢 <b>НОВАЯ ЗАЯВКА НА НЕДВИЖИМОСТЬ</b> 🏢
+                message = `🏢 *НОВАЯ ЗАЯВКА НА НЕДВИЖИМОСТЬ* 🏢
 
-👤 <b>Клиент:</b> ${userName}
-📞 <b>Телефон:</b> ${formattedPhone}
-📧 <b>Email:</b> ${userEmail || (currentLanguage === 'ru' ? 'не указан' : 'not specified')}
+👤 *Клиент:* ${userName}
+📞 *Телефон:* ${formattedPhone}
+📧 *Email:* ${userEmail || (currentLanguage === 'ru' ? 'не указан' : 'not specified')}
 
-📋 <b>Категория:</b> ${selectedCategory}
-🎯 <b>Тип недвижимости:</b> ${selectedPropertyType}
-🏠 <b>Вид недвижимости:</b> ${selectedPropertyKind}`;
+📋 *Категория:* ${selectedCategory}
+🎯 *Тип недвижимости:* ${selectedPropertyType}
+🏠 *Вид недвижимости:* ${selectedPropertyKind}`;
 
                 if (selectedLayout) {
-                    message += `\n📐 <b>Планировка:</b> ${selectedLayout}`;
+                    message += `\n📐 *Планировка:* ${selectedLayout}`;
                 }
                 
                 message += `
-📍 <b>Локация:</b> ${selectedLocation}
-💰 <b>Бюджет:</b> ${formattedBudget}
-⏰ <b>Сроки сделки:</b> ${selectedTiming}
+📍 *Локация:* ${selectedLocation}
+💰 *Бюджет:* ${formattedBudget}
+⏰ *Сроки сделки:* ${selectedTiming}
 
-💬 <b>Комментарий:</b> ${userComment || (currentLanguage === 'ru' ? 'Без комментария' : 'No comment')}
+💬 *Комментарий:* ${userComment || (currentLanguage === 'ru' ? 'Без комментария' : 'No comment')}
 
-⏰ <b>Время отправки:</b> ${new Date().toLocaleString('ru-RU')}
-🌐 <b>Язык:</b> ${currentLanguage.toUpperCase()}
-🔗 <b>Источник:</b> Brokerok MiniApp`;
+⏰ *Время отправки:* ${new Date().toLocaleString('ru-RU')}
+🌐 *Язык:* ${currentLanguage.toUpperCase()}
+🔗 *Источник:* Brokerok MiniApp`;
                 
                 targetChatId = chatIdRealEstate;
                 
             } else {
                 // Другие заявки
-                message = `📋 <b>НОВАЯ ЗАЯВКА</b> 📋
+                message = `📋 *НОВАЯ ЗАЯВКА* 📋
 
-👤 <b>Клиент:</b> ${userName}
-📞 <b>Телефон:</b> ${formattedPhone}
-📧 <b>Email:</b> ${userEmail || (currentLanguage === 'ru' ? 'не указан' : 'not specified')}
+👤 *Клиент:* ${userName}
+📞 *Телефон:* ${formattedPhone}
+📧 *Email:* ${userEmail || (currentLanguage === 'ru' ? 'не указан' : 'not specified')}
 
-📋 <b>Категория услуги:</b> ${selectedCategory}
+📋 *Категория услуги:* ${selectedCategory}
 
-💬 <b>Комментарий:</b> ${userComment || (currentLanguage === 'ru' ? 'Без комментария' : 'No comment')}
+💬 *Комментарий:* ${userComment || (currentLanguage === 'ru' ? 'Без комментария' : 'No comment')}
 
-⏰ <b>Время отправки:</b> ${new Date().toLocaleString('ru-RU')}
-🌐 <b>Язык:</b> ${currentLanguage.toUpperCase()}
-🔗 <b>Источник:</b> Brokerok MiniApp`;
+⏰ *Время отправки:* ${new Date().toLocaleString('ru-RU')}
+🌐 *Язык:* ${currentLanguage.toUpperCase()}
+🔗 *Источник:* Brokerok MiniApp`;
                 
                 targetChatId = chatIdAuto;
             }
 
             isSubmitting = true;
             const submitBtn = document.getElementById('submitButton');
-            const originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${translations[currentLanguage].sendingText}`;
             submitBtn.disabled = true;
 
             try {
-                const result = await sendToTelegram(message, targetChatId);
-
-                if (result.ok) {
-                    showStatus(translations[currentLanguage].successMessage, 'success', 'screen9');
-                    
-                    setTimeout(() => {
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.disabled = false;
-                        isSubmitting = false;
-                        resetForm();
-                        goToStep0();
-                    }, 3000);
-                } else {
-                    showStatus(translations[currentLanguage].errorMessage, 'error', 'screen9');
-                    
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                    isSubmitting = false;
-                }
+                await sendToTelegram(targetChatId, message);
+                
+                showStatus(translations[currentLanguage].successMessage, 'success', 'screen9');
+                
+                setTimeout(() => {
+                    resetForm();
+                    goToStep0();
+                }, 3000);
             } catch (error) {
                 console.error('Send error:', error);
-                showStatus(translations[currentLanguage].errorMessage, 'error', 'screen9');
+                showStatus(`${translations[currentLanguage].errorMessage}\n\nДетали: ${error.message}`, 'error', 'screen9');
                 
-                submitBtn.innerHTML = originalText;
+                submitBtn.innerHTML = `<i class="fas fa-paper-plane"></i> ${translations[currentLanguage].submitButtonText}`;
                 submitBtn.disabled = false;
                 isSubmitting = false;
             }
@@ -3120,6 +2958,7 @@
             selectedTransferAirport = null;
             selectedTransferDistrict = null;
             selectedTransferContactMethod = null;
+            isSubmitting = false;
             
             document.querySelectorAll('#screenTransferDirection .service-option, #screenTransferAirport .service-option, #screenTransferDistrict .district-option, #screenTransferContactMethod .contact-method-option').forEach(opt => {
                 opt.classList.remove('selected');
@@ -3143,6 +2982,7 @@
         function resetAutoForm() {
             selectedAutoService = null;
             selectedAutoContactMethod = null;
+            isSubmitting = false;
             
             document.querySelectorAll('#screenAutoService .service-option, #screenAutoContactMethod .contact-method-option').forEach(opt => {
                 opt.classList.remove('selected');
@@ -3165,6 +3005,7 @@
             selectedBudget = null;
             selectedTiming = null;
             userComment = '';
+            isSubmitting = false;
             
             document.querySelectorAll('.option-card, .layout-option, .budget-option, .timing-option').forEach(opt => {
                 opt.classList.remove('selected');
@@ -3182,6 +3023,10 @@
             document.getElementById('userPhone').value = '';
             document.getElementById('userEmail').value = '';
             document.getElementById('userComment').value = '';
+            
+            const submitBtn = document.getElementById('submitButton');
+            submitBtn.innerHTML = `<i class="fas fa-paper-plane"></i> ${translations[currentLanguage].submitButtonText}`;
+            submitBtn.disabled = false;
             
             // Сброс валюты бюджета
             const budgetOptions = [
@@ -3232,16 +3077,22 @@
                 flightTimeInput.min = now.toISOString().slice(0, 16);
             }
 
-            // iOS специфичные настройки
-            if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
-                // Фикс для высоты на iOS
-                const setVh = () => {
-                    let vh = window.innerHeight * 0.01;
-                    document.documentElement.style.setProperty('--vh', `${vh}px`);
-                };
+            // ИСПРАВЛЕНИЕ ДЛЯ iOS: предотвращаем увеличение при фокусе
+            document.addEventListener('touchstart', function() {}, {passive: true});
+            
+            // Улучшенная обработка iOS Safari
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            if (isIOS) {
+                document.body.classList.add('ios-device');
                 
-                setVh();
-                window.addEventListener('resize', setVh);
+                // Фикс для полей ввода на iOS
+                document.querySelectorAll('input, textarea').forEach(el => {
+                    el.addEventListener('focus', function() {
+                        setTimeout(() => {
+                            this.scrollIntoView({behavior: 'smooth', block: 'center'});
+                        }, 300);
+                    });
+                });
             }
 
             if (window.Telegram && Telegram.WebApp) {
@@ -3259,6 +3110,15 @@
                     switchLanguage('en');
                 }
             }
+            
+            // Защита от случайного увеличения на мобильных устройствах
+            document.addEventListener('gesturestart', function(e) {
+                e.preventDefault();
+            });
+            
+            document.addEventListener('dblclick', function(e) {
+                e.preventDefault();
+            }, { passive: false });
         });
     </script>
 </body>
