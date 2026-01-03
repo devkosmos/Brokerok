@@ -2,7 +2,11 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ИСПРАВЛЕНИЕ ДЛЯ iOS: предотвращаем увеличение и масштабирование -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
     <title>Brokerok | Professional Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -11,18 +15,32 @@
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        input, textarea, select {
+            -webkit-user-select: text;
+            user-select: text;
         }
 
         body {
             background: #000000;
             color: #ffffff;
             min-height: 100vh;
-            padding: 16px;
+            padding-top: max(16px, env(safe-area-inset-top, 16px));
+            padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
+            padding-left: max(16px, env(safe-area-inset-left, 16px));
+            padding-right: max(16px, env(safe-area-inset-right, 16px));
+            overflow-x: hidden;
         }
 
         .container {
             max-width: 100%;
             margin: 0 auto;
+            position: relative;
         }
 
         /* Шапка с языком */
@@ -101,6 +119,7 @@
         /* Основной контент */
         .screen {
             display: block;
+            min-height: calc(100vh - 150px);
         }
 
         .screen.hidden {
@@ -119,6 +138,7 @@
             margin-bottom: 12px;
             line-height: 1.3;
             text-align: center;
+            padding: 0 8px;
         }
 
         .description {
@@ -274,6 +294,8 @@
             color: #fff;
             font-size: 14px;
             flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .region-select option {
@@ -519,6 +541,8 @@
             border-radius: 12px;
             color: #fff;
             font-size: 15px;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .form-input:focus {
@@ -556,7 +580,7 @@
         .footer {
             text-align: center;
             margin-top: 32px;
-            padding-bottom: 20px;
+            padding-bottom: max(20px, env(safe-area-inset-bottom, 20px));
             font-size: 12px;
             color: #555;
         }
@@ -564,76 +588,6 @@
         .footer a {
             color: #10B981;
             text-decoration: none;
-        }
-
-        /* Мобильная оптимизация */
-        @media (max-width: 480px) {
-            body {
-                padding: 14px;
-            }
-            
-            .logo {
-                font-size: 24px;
-            }
-            
-            .title {
-                font-size: 20px;
-            }
-            
-            .description {
-                font-size: 13px;
-                padding: 0;
-            }
-            
-            .strategy-block {
-                padding: 20px;
-            }
-            
-            .strategy-title {
-                font-size: 20px;
-            }
-            
-            .strategy-text {
-                font-size: 14px;
-            }
-            
-            .strategy-button {
-                padding: 15px 24px;
-                font-size: 15px;
-            }
-            
-            .contact-block {
-                padding: 20px;
-            }
-            
-            .contact-title {
-                font-size: 18px;
-            }
-            
-            .contact-button, .button {
-                padding: 14px;
-                font-size: 14px;
-            }
-            
-            .layout-option, .budget-option {
-                padding: 12px 6px;
-                font-size: 12px;
-            }
-            
-            .option-card, .timing-option {
-                padding: 14px 16px;
-                font-size: 13px;
-            }
-        }
-
-        /* Анимация появления */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .content-card {
-            animation: fadeIn 0.4s ease-out;
         }
 
         /* Экран для выбора услуги Авто */
@@ -805,12 +759,6 @@
             margin-bottom: 20px;
         }
 
-        @media (min-width: 480px) {
-            .passport-group {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
         /* Информация о рейсе */
         .flight-info-group {
             display: grid;
@@ -819,9 +767,95 @@
             margin-bottom: 20px;
         }
 
+        /* Анимация появления */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-card {
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        /* Медиа-запросы */
         @media (min-width: 480px) {
-            .flight-info-group {
+            .passport-group, .flight-info-group {
                 grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding-left: max(14px, env(safe-area-inset-left, 14px));
+                padding-right: max(14px, env(safe-area-inset-right, 14px));
+            }
+            
+            .logo {
+                font-size: 24px;
+            }
+            
+            .title {
+                font-size: 20px;
+            }
+            
+            .description {
+                font-size: 13px;
+                padding: 0;
+            }
+            
+            .strategy-block {
+                padding: 20px;
+            }
+            
+            .strategy-title {
+                font-size: 20px;
+            }
+            
+            .strategy-text {
+                font-size: 14px;
+            }
+            
+            .strategy-button {
+                padding: 15px 24px;
+                font-size: 15px;
+            }
+            
+            .contact-block {
+                padding: 20px;
+            }
+            
+            .contact-title {
+                font-size: 18px;
+            }
+            
+            .contact-button, .button {
+                padding: 14px;
+                font-size: 14px;
+            }
+            
+            .layout-option, .budget-option {
+                padding: 12px 6px;
+                font-size: 12px;
+            }
+            
+            .option-card, .timing-option {
+                padding: 14px 16px;
+                font-size: 13px;
+            }
+        }
+
+        /* iOS специфичные стили */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                min-height: -webkit-fill-available;
+            }
+            
+            .screen {
+                min-height: -webkit-fill-available;
+            }
+            
+            input, textarea, select {
+                font-size: 16px !important;
             }
         }
     </style>
@@ -1656,12 +1690,15 @@
     </div>
 
     <script>
-        // Telegram данные
+        // ИСПРАВЛЕНИЕ ДЛЯ ГРУПП: правильные chat_id
         const botToken = '8366294261:AAFUNQgos-NVAliadS-s6VsE5GOKNueWrGI';
-        const chatIdTransfer = '1289173133'; // Чат для трансфера аэропорта
-        const chatIdRealEstate = '-1003470913151'; // Чат для недвижимости
-        const chatIdAuto = '1289173133'; // Чат для авто и остальных заявок
-
+        
+        // ВАЖНО: Для групп chat_id должен быть отрицательным числом с -100 в начале
+        // Пример: -1001234567890
+        const chatIdTransfer = '-1003470913151'; // ЗАМЕНИТЕ на ваш реальный chat_id группы для трансфера
+        const chatIdRealEstate = '-1003470913151'; // Уже правильный формат
+        const chatIdAuto = '-1003470913151'; // ЗАМЕНИТЕ на ваш реальный chat_id группы для авто
+        
         // Глобальные переменные
         let selectedCategory = null;
         let selectedTransferDirection = null;
@@ -1952,6 +1989,49 @@
                 sendingText: "SENDING..."
             }
         };
+
+        // Функция для проверки валидности chat_id
+        function isValidChatId(chatId) {
+            if (!chatId) return false;
+            // Группы начинаются с -100, приватные чаты положительные
+            return /^(-100\d+|\d+)$/.test(chatId.toString());
+        }
+
+        // Улучшенная функция отправки в Telegram
+        async function sendToTelegram(chatId, message) {
+            if (!isValidChatId(chatId)) {
+                console.error('Invalid chat_id format:', chatId);
+                throw new Error('Неверный формат chat_id. Для групп должен начинаться с -100');
+            }
+            
+            const encodedMessage = encodeURIComponent(message);
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodedMessage}&parse_mode=Markdown`;
+            
+            try {
+                const response = await fetch(url);
+                const result = await response.json();
+                
+                if (!result.ok) {
+                    console.error('Telegram API Error:', result);
+                    
+                    // Проверяем распространенные ошибки
+                    if (result.error_code === 403) {
+                        throw new Error('Бот удален из группы или не является администратором');
+                    } else if (result.error_code === 400) {
+                        throw new Error('Неверный chat_id или бот не имеет доступа');
+                    } else if (result.error_code === 429) {
+                        throw new Error('Слишком много запросов. Подождите немного');
+                    } else {
+                        throw new Error(result.description || `Ошибка API: ${result.error_code}`);
+                    }
+                }
+                
+                return result;
+            } catch (error) {
+                console.error('Network error:', error);
+                throw error;
+            }
+        }
 
         // Переключение языка
         function switchLanguage(lang) {
@@ -2642,9 +2722,6 @@
 🌐 *Язык:* ${currentLanguage.toUpperCase()}
 🔗 *Источник:* Brokerok MiniApp`;
 
-            const encodedMessage = encodeURIComponent(transferMessage);
-            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatIdTransfer}&text=${encodedMessage}&parse_mode=Markdown`;
-            
             isSubmitting = true;
             const submitBtn = document.querySelector('#screenTransferMessage .button-next');
             const originalText = submitBtn.innerHTML;
@@ -2652,22 +2729,18 @@
             submitBtn.disabled = true;
             
             try {
-                const response = await fetch(url);
-                const result = await response.json();
+                // ИСПРАВЛЕНИЕ: Используем новую функцию отправки
+                await sendToTelegram(chatIdTransfer, transferMessage);
                 
-                if (result.ok) {
-                    showStatus(translations[currentLanguage].successMessage, 'success', 'screenTransferMessage');
-                    
-                    setTimeout(() => {
-                        resetTransferForm();
-                        goToStep0();
-                    }, 3000);
-                } else {
-                    throw new Error(result.description || 'Send error');
-                }
+                showStatus(translations[currentLanguage].successMessage, 'success', 'screenTransferMessage');
+                
+                setTimeout(() => {
+                    resetTransferForm();
+                    goToStep0();
+                }, 3000);
             } catch (error) {
                 console.error('Send error:', error);
-                showStatus(translations[currentLanguage].errorMessage, 'error', 'screenTransferMessage');
+                showStatus(`${translations[currentLanguage].errorMessage}\n\nДетали: ${error.message}`, 'error', 'screenTransferMessage');
                 
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
@@ -2715,9 +2788,6 @@
 🌐 *Язык:* ${currentLanguage.toUpperCase()}
 🔗 *Источник:* Brokerok MiniApp`;
 
-            const encodedMessage = encodeURIComponent(autoMessage);
-            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatIdAuto}&text=${encodedMessage}&parse_mode=Markdown`;
-            
             isSubmitting = true;
             const submitBtn = document.querySelector('#screenAutoMessage .button-next');
             const originalText = submitBtn.innerHTML;
@@ -2725,22 +2795,17 @@
             submitBtn.disabled = true;
             
             try {
-                const response = await fetch(url);
-                const result = await response.json();
+                await sendToTelegram(chatIdAuto, autoMessage);
                 
-                if (result.ok) {
-                    showStatus(translations[currentLanguage].successMessage, 'success', 'screenAutoMessage');
-                    
-                    setTimeout(() => {
-                        resetAutoForm();
-                        goToStep0();
-                    }, 3000);
-                } else {
-                    throw new Error(result.description || 'Send error');
-                }
+                showStatus(translations[currentLanguage].successMessage, 'success', 'screenAutoMessage');
+                
+                setTimeout(() => {
+                    resetAutoForm();
+                    goToStep0();
+                }, 3000);
             } catch (error) {
                 console.error('Send error:', error);
-                showStatus(translations[currentLanguage].errorMessage, 'error', 'screenAutoMessage');
+                showStatus(`${translations[currentLanguage].errorMessage}\n\nДетали: ${error.message}`, 'error', 'screenAutoMessage');
                 
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
@@ -2826,31 +2891,23 @@
                 targetChatId = chatIdAuto;
             }
 
-            const encodedMessage = encodeURIComponent(message);
-            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${targetChatId}&text=${encodedMessage}&parse_mode=Markdown`;
-
             isSubmitting = true;
             const submitBtn = document.getElementById('submitButton');
             submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${translations[currentLanguage].sendingText}`;
             submitBtn.disabled = true;
 
             try {
-                const response = await fetch(url);
-                const result = await response.json();
-
-                if (result.ok) {
-                    showStatus(translations[currentLanguage].successMessage, 'success', 'screen9');
-                    
-                    setTimeout(() => {
-                        resetForm();
-                        goToStep0();
-                    }, 3000);
-                } else {
-                    throw new Error(result.description || 'Send error');
-                }
+                await sendToTelegram(targetChatId, message);
+                
+                showStatus(translations[currentLanguage].successMessage, 'success', 'screen9');
+                
+                setTimeout(() => {
+                    resetForm();
+                    goToStep0();
+                }, 3000);
             } catch (error) {
                 console.error('Send error:', error);
-                showStatus(translations[currentLanguage].errorMessage, 'error', 'screen9');
+                showStatus(`${translations[currentLanguage].errorMessage}\n\nДетали: ${error.message}`, 'error', 'screen9');
                 
                 submitBtn.innerHTML = `<i class="fas fa-paper-plane"></i> ${translations[currentLanguage].submitButtonText}`;
                 submitBtn.disabled = false;
@@ -2983,6 +3040,24 @@
                 flightTimeInput.min = now.toISOString().slice(0, 16);
             }
 
+            // ИСПРАВЛЕНИЕ ДЛЯ iOS: предотвращаем увеличение при фокусе
+            document.addEventListener('touchstart', function() {}, {passive: true});
+            
+            // Улучшенная обработка iOS Safari
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            if (isIOS) {
+                document.body.classList.add('ios-device');
+                
+                // Фикс для полей ввода на iOS
+                document.querySelectorAll('input, textarea').forEach(el => {
+                    el.addEventListener('focus', function() {
+                        setTimeout(() => {
+                            this.scrollIntoView({behavior: 'smooth', block: 'center'});
+                        }, 300);
+                    });
+                });
+            }
+
             if (window.Telegram && Telegram.WebApp) {
                 Telegram.WebApp.expand();
                 Telegram.WebApp.setHeaderColor('#000000');
@@ -2998,6 +3073,15 @@
                     switchLanguage('en');
                 }
             }
+            
+            // Защита от случайного увеличения на мобильных устройствах
+            document.addEventListener('gesturestart', function(e) {
+                e.preventDefault();
+            });
+            
+            document.addEventListener('dblclick', function(e) {
+                e.preventDefault();
+            }, { passive: false });
         });
     </script>
 </body>
