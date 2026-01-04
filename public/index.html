@@ -965,8 +965,8 @@
         <!-- Шапка с переключателем языка -->
         <div class="header">
             <div class="logo-section">
-                <div class="logo">Brokerok</div>
-                <div class="logo-subtitle" id="headerSubtitle">Professional Services</div>
+                <!-- <div class="logo">Brokerok</div> -->
+                <div class="logo-subtitle" id="headerSubtitle">профессиональный сервис для достижения нужных результатов</div>
             </div>
             
             <div class="language-switcher">
@@ -1437,16 +1437,6 @@
                         <div class="contact-method-icon"><i class="fab fa-whatsapp"></i></div>
                         <div class="contact-method-text">WhatsApp</div>
                     </div>
-
-                    <div class="contact-method-option" onclick="selectAutoContactMethod('Телефонный звонок', this)">
-                        <div class="contact-method-icon"><i class="fas fa-phone"></i></div>
-                        <div class="contact-method-text" id="contactMethodPhone">Телефонный звонок</div>
-                    </div>
-
-                    <div class="contact-method-option" onclick="selectAutoContactMethod('Email', this)">
-                        <div class="contact-method-icon"><i class="fas fa-envelope"></i></div>
-                        <div class="contact-method-text">Email</div>
-                    </div>
                 </div>
 
                 <div class="button-container">
@@ -1796,9 +1786,9 @@
         
         // ВАЖНО: Для групп chat_id должен быть отрицательным числом с -100 в начале
         // Пример: -1001234567890
-        const chatIdTransfer = '8039700599'; // ЗАМЕНИТЕ на ваш реальный chat_id группы для трансфера
-        const chatIdRealEstate = '8039700599'; // Уже правильный формат
-        const chatIdAuto = '8039700599'; // ЗАМЕНИТЕ на ваш реальный chat_id группы для авто
+        const chatIdTransfer = '-1003470913151'; // ЗАМЕНИТЕ на ваш реальный chat_id группы для трансфера
+        const chatIdRealEstate = '-1003438445599'; // Уже правильный формат
+        const chatIdAuto = '-1003638614530'; // ЗАМЕНИТЕ на ваш реальный chat_id группы для авто
         
         // Глобальные переменные
         let selectedCategory = null;
@@ -1838,7 +1828,7 @@
         // Тексты для перевода
         const translations = {
             ru: {
-                headerSubtitle: "Профессиональные услуги недвижимости",
+                headerSubtitle: "профессиональный сервис для достижения нужных результатов",
                 strategyTitle: "Наши услуги",
                 strategyText: "Полный спектр услуг в сфере недвижимости и автомобилей. Помощь в покупке, продаже и аренде недвижимости в Турции. Подбор и оформление автомобилей. Открытие компаний и юридическое сопровождение. Трансферы из аэропорта. Профессиональные консультации.",
                 strategyButtonText: "Услуги",
@@ -1975,7 +1965,7 @@
                 sendingText: "ОТПРАВКА..."
             },
             en: {
-                headerSubtitle: "Professional Services",
+                headerSubtitle: "professional service to achieve the desired results",
                 strategyTitle: "Our Services",
                 strategyText: "Full range of real estate and car services. Assistance in buying, selling, and renting real estate in Turkey. Selection and registration of cars. Opening companies and legal support. Airport transfers. Professional consultations.",
                 strategyButtonText: "Services",
@@ -2196,7 +2186,7 @@
             // Обновляем телефонные плейсхолдеры
             updatePhonePlaceholder();
             updateAutoPhonePlaceholder();
-            updateTransferPhonePlaceholder();
+            // updateTransferPhonePlaceholder();
             
             // Обновляем валюту бюджета
             updateBudgetCurrency();
@@ -2247,14 +2237,6 @@
             updateAutoPhonePlaceholder();
         }
 
-        // Обновление префикса телефона для трансфера
-        function updateTransferPhonePrefix() {
-            const select = document.getElementById('transferRegionSelect');
-            const selectedOption = select.options[select.selectedIndex];
-            currentTransferRegion = selectedOption.value;
-            document.getElementById('transferRegionFlag').textContent = selectedOption.getAttribute('data-flag');
-            updateTransferPhonePlaceholder();
-        }
 
         // Обновление плейсхолдера телефона для недвижимости
         function updatePhonePlaceholder() {
@@ -2296,25 +2278,6 @@
             phoneInput.placeholder = placeholders[currentAutoRegion] || 'Phone number';
         }
 
-        // Обновление плейсхолдера телефона для трансфера
-        function updateTransferPhonePlaceholder() {
-            const phoneInput = document.getElementById('transferPhone');
-            if (!phoneInput) return;
-            
-            const placeholders = {
-                '+7': '+7 (999) 123-45-67',
-                '+90': '+90 (555) 123-4567',
-                '+1': '+1 (555) 123-4567',
-                '+44': '+44 7911 123456',
-                '+49': '+49 151 12345678',
-                '+971': '+971 50 123 4567',
-                '+996': '+996 555 123456',
-                '+998': '+998 91 123-45-67',
-                '+375': '+375 29 1234567'
-            };
-            
-            phoneInput.placeholder = placeholders[currentTransferRegion] || 'Phone number';
-        }
 
         // Новая функция для обработки возврата с экрана контактной информации
         function goBackFromContactInfo() {
@@ -2447,9 +2410,9 @@
             const passport = document.getElementById('transferPassport').value.trim();
             const flightTime = document.getElementById('transferFlightTime').value;
             const flightNumber = document.getElementById('transferFlightNumber').value.trim();
-            const phone = document.getElementById('transferPhone').value.trim();
             
-            if (!name || !phone) {
+            
+            if (!name) {
                 showStatus(translations[currentLanguage].validationNamePhone, 'error', 'screenTransferContact');
                 return;
             }
@@ -2464,10 +2427,6 @@
                 return;
             }
             
-            if (!validatePhone(phone, currentTransferRegion)) {
-                showStatus(translations[currentLanguage].validationPhoneFormat, 'error', 'screenTransferContact');
-                return;
-            }
             
             showScreen('screenTransferContactMethod');
             updateProgress(6);
@@ -2851,11 +2810,10 @@
             const passportDate = document.getElementById('transferPassportDate').value;
             const flightTime = document.getElementById('transferFlightTime').value;
             const flightNumber = document.getElementById('transferFlightNumber').value.trim();
-            const phone = document.getElementById('transferPhone').value.trim();
             const email = document.getElementById('transferEmail').value.trim();
             const message = document.getElementById('transferMessage').value.trim();
             
-            if (!name || !phone) {
+            if (!name) {
                 showStatus(translations[currentLanguage].validationNamePhone, 'error', 'screenTransferMessage');
                 return;
             }
@@ -2864,18 +2822,13 @@
                 showStatus(translations[currentLanguage].validationPassport, 'error', 'screenTransferMessage');
                 return;
             }
-            
-            if (!validatePhone(phone, currentTransferRegion)) {
-                showStatus(translations[currentLanguage].validationPhoneFormat, 'error', 'screenTransferMessage');
-                return;
-            }
+
             
             if (!selectedTransferContactMethod) {
                 showStatus(translations[currentLanguage].validationSelectTransferContactMethod, 'error', 'screenTransferMessage');
                 return;
             }
             
-            const formattedPhone = currentTransferRegion + ' ' + phone.replace(/\D/g, '');
             const formattedPassportDate = passportDate ? new Date(passportDate).toLocaleDateString('ru-RU') : 'Не указана';
             const formattedFlightTime = flightTime ? new Date(flightTime).toLocaleString('ru-RU') : 'Не указано';
             
@@ -2892,10 +2845,9 @@
                 }
             }
             
-            const transferMessage = `🚕 *ЗАЯВКА НА ТРАНСФЕР* 🚕
+            const transferMessage = `! *ЗАЯВКА НА ТРАНСФЕР*
 
 👤 *Имя Фамилия:* ${name}
-📞 *Телефон:* ${formattedPhone}
 📧 *Email:* ${email || (currentLanguage === 'ru' ? 'не указан' : 'not specified')}
 
 ✈️ *Направление:* ${selectedTransferDirection}
@@ -2970,7 +2922,7 @@
             
             const formattedPhone = currentAutoRegion + ' ' + phone.replace(/\D/g, '');
             
-            const autoMessage = `🚗 *ЗАЯВКА НА АВТО УСЛУГУ* 🚗
+            const autoMessage = `- *ЗАЯВКА НА АВТО УСЛУГУ*
 
 👤 *Клиент:* ${name}
 📞 *Телефон:* ${formattedPhone}
@@ -3037,12 +2989,14 @@
                 // Заявка на недвижимость
                 let formattedBudget = selectedBudget;
                 if (selectedLocation === 'Алания' || selectedLocation === 'Alanya') {
+
                     formattedBudget = selectedBudget + (currentLanguage === 'ru' ? '€' : ' EUR');
                 } else if (selectedLocation === 'Стамбул' || selectedLocation === 'Istanbul') {
                     formattedBudget = selectedBudget + (currentLanguage === 'ru' ? '$' : ' USD');
                 }
 
-                message = `🏢 *НОВАЯ ЗАЯВКА НА НЕДВИЖИМОСТЬ* 🏢
+
+                message = `- *НОВАЯ ЗАЯВКА НА НЕДВИЖИМОСТЬ* 
 
 👤 *Клиент:* ${userName}
 📞 *Телефон:* ${formattedPhone}
@@ -3056,7 +3010,7 @@
                     message += `\n📐 *Планировка:* ${selectedLayout}`;
                 }
                 
-                message += `
+message += `
 📍 *Локация:* ${selectedLocation}
 💰 *Бюджет:* ${formattedBudget}
 ⏰ *Сроки сделки:* ${selectedTiming}
@@ -3071,7 +3025,7 @@
                 
             } else {
                 // Другие заявки
-                message = `📋 *НОВАЯ ЗАЯВКА* 📋
+                message = `📋 *НОВАЯ ЗАЯВКА*
 
 👤 *Клиент:* ${userName}
 📞 *Телефон:* ${formattedPhone}
@@ -3129,7 +3083,6 @@
             document.getElementById('transferPassportDate').value = '';
             document.getElementById('transferFlightTime').value = '';
             document.getElementById('transferFlightNumber').value = '';
-            document.getElementById('transferPhone').value = '';
             document.getElementById('transferEmail').value = '';
             document.getElementById('transferMessage').value = '';
             document.getElementById('nextTransferDirection').disabled = true;
@@ -3224,7 +3177,7 @@
             
             updatePhonePlaceholder();
             updateAutoPhonePlaceholder();
-            updateTransferPhonePlaceholder();
+            // updateTransferPhonePlaceholder();
             
             const phoneInputs = document.querySelectorAll('input[type="tel"]');
             phoneInputs.forEach(input => {
