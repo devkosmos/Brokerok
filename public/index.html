@@ -1264,29 +1264,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" id="transferPhoneLabel">Телефон</label>
-                    
-                    <!-- Выбор региона -->
-                    <div class="phone-region-selector">
-                        <div class="region-flag" id="transferRegionFlag">🇷🇺</div>
-                        <select class="region-select" id="transferRegionSelect" onchange="updateTransferPhonePrefix()">
-                            <option value="+7" data-flag="🇷🇺">Россия (+7)</option>
-                            <option value="+90" data-flag="🇹🇷">Турция (+90)</option>
-                            <option value="+1" data-flag="🇺🇸">США (+1)</option>
-                            <option value="+44" data-flag="🇬🇧">Великобритания (+44)</option>
-                            <option value="+49" data-flag="🇩🇪">Германия (+49)</option>
-                            <option value="+971" data-flag="🇦🇪">ОАЭ (+971)</option>
-                            <option value="+996" data-flag="🇰🇬">Кыргызстан (+996)</option>
-                            <option value="+998" data-flag="🇺🇿">Узбекистан (+998)</option>
-                            <option value="+7" data-flag="🇰🇿">Казахстан (+7)</option>
-                            <option value="+375" data-flag="🇧🇾">Беларусь (+375)</option>
-                        </select>
-                    </div>
-                    
-                    <input type="tel" class="form-input" id="transferPhone" placeholder="Номер телефона">
-                </div>
-
-                <div class="form-group">
                     <label class="form-label" id="transferEmailLabel">Email (необязательно)</label>
                     <input type="email" class="form-input" id="transferEmail" placeholder="email@example.com">
                 </div>
@@ -1320,16 +1297,6 @@
                     <div class="contact-method-option" onclick="selectTransferContactMethod('WhatsApp', this)">
                         <div class="contact-method-icon"><i class="fab fa-whatsapp"></i></div>
                         <div class="contact-method-text">WhatsApp</div>
-                    </div>
-
-                    <div class="contact-method-option" onclick="selectTransferContactMethod('Телефонный звонок', this)">
-                        <div class="contact-method-icon"><i class="fas fa-phone"></i></div>
-                        <div class="contact-method-text" id="transferContactMethodPhone">Телефонный звонок</div>
-                    </div>
-
-                    <div class="contact-method-option" onclick="selectTransferContactMethod('Email', this)">
-                        <div class="contact-method-icon"><i class="fas fa-envelope"></i></div>
-                        <div class="contact-method-text">Email</div>
                     </div>
                 </div>
 
