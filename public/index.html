@@ -1076,7 +1076,6 @@
             </div>
         </div>
 
-        <!-- Остальные экраны остаются без изменений (screen1, screen2 и т.д.) -->
         <!-- ЭКРАН 1: Выбор категории услуги -->
         <div class="screen hidden" id="screen1">
             <div class="content-card">
@@ -1124,6 +1123,93 @@
                     </button>
                     <button class="button button-next" id="next1" onclick="goToNextStep()" disabled>
                         <span id="nextButton">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН: Открытие компании -->
+        <div class="screen hidden" id="screenCompany">
+            <div class="content-card">
+                <h1 class="title" id="companyTitle">Открытие компании</h1>
+                <p class="description" id="companyDescription">
+                    Открытие компании на территории Турции и ведение бизнес деятельности не принуждает иметь гражданство Турции, а также иметь партнера — гражданина Турции. Для подробной информации оставьте заявку, и наши эксперты свяжутся с вами.
+                </p>
+
+                <!-- Кнопка "Оставить заявку" -->
+                <button class="button button-next" onclick="goToCompanyContactMethod()" style="margin-top: 30px; width: 100%;">
+                    <i class="fas fa-paper-plane"></i> <span id="companySubmitButton">Оставить заявку</span>
+                </button>
+
+                <!-- Блок "Связаться с клиентом" (уже существующий стиль) -->
+                <div class="contact-block" style="margin-top: 32px;">
+                    <div class="contact-title" id="companyContactTitle">
+                        <i class="fas fa-headset"></i> Связаться напрямую
+                    </div>
+                    <div class="contact-text" id="companyContactText">
+                        Есть срочные вопросы? Напишите нам в мессенджер — ответим мгновенно.
+                    </div>
+                    <div style="display: flex; gap: 12px; justify-content: center; margin-top: 16px;">
+                        <a href="https://t.me/brokerok_manager" target="_blank" class="contact-button" style="flex: 1; text-align: center;">
+                            <i class="fab fa-telegram-plane"></i> Telegram
+                        </a>
+                        <a href="https://wa.me/905070797977" target="_blank" class="contact-button" style="flex: 1; text-align: center;">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН: Способ связи для компании -->
+        <div class="screen hidden" id="screenCompanyContactMethod">
+            <div class="content-card">
+                <h1 class="title" id="companyContactMethodTitle">Способ связи</h1>
+                
+                <p class="description" id="companyContactMethodDescription">
+                    Выберите предпочтительный способ связи
+                </p>
+
+                <div class="contact-method-grid">
+                    <div class="contact-method-option" onclick="selectCompanyContactMethod('Telegram', this)">
+                        <div class="contact-method-icon"><i class="fab fa-telegram"></i></div>
+                        <div class="contact-method-text">Telegram</div>
+                    </div>
+
+                    <div class="contact-method-option" onclick="selectCompanyContactMethod('WhatsApp', this)">
+                        <div class="contact-method-icon"><i class="fab fa-whatsapp"></i></div>
+                        <div class="contact-method-text">WhatsApp</div>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <button class="button button-back" onclick="goToCompanyScreen()">
+                        <i class="fas fa-arrow-left"></i> <span id="backButtonCompanyContactMethod">НАЗАД</span>
+                    </button>
+                    <button class="button button-next" onclick="goToCompanyMessage()" id="nextCompanyContactMethod">
+                        <span id="nextButtonCompanyContactMethod">ДАЛЕЕ</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН: Сообщение для компании -->
+        <div class="screen hidden" id="screenCompanyMessage">
+            <div class="content-card">
+                <h1 class="title" id="companyMessageTitle">Сообщение</h1>
+                
+                <p class="description" id="companyMessageDescription">
+                    Оставьте сообщение или комментарий к вашей заявке
+                </p>
+
+                <textarea class="message-textarea" id="companyMessage" placeholder="Ваше сообщение, комментарии, пожелания..."></textarea>
+
+                <div class="button-container">
+                    <button class="button button-back" onclick="goToCompanyContactMethod()">
+                        <i class="fas fa-arrow-left"></i> <span id="backButtonCompanyMessage">НАЗАД</span>
+                    </button>
+                    <button class="button button-next" onclick="submitCompanyApplication()">
+                        <i class="fas fa-paper-plane"></i> <span id="submitButtonCompany">ОТПРАВИТЬ ЗАЯВКУ</span>
                     </button>
                 </div>
             </div>
@@ -1789,9 +1875,10 @@
         const chatIdTransfer = '-1003470913151'; // ЗАМЕНИТЕ на ваш реальный chat_id группы для трансфера
         const chatIdRealEstate = '-1003438445599'; // Уже правильный формат
         const chatIdAuto = '-1003638614530'; // ЗАМЕНИТЕ на ваш реальный chat_id группы для авто
-        
+        const chatIdCompany = "-1003502873994"
         // Глобальные переменные
         let selectedCategory = null;
+        let selectedCompanyContactMethod = null;
         let selectedTransferDirection = null;
         let selectedTransferAirport = null;
         let selectedTransferDistrict = null;
@@ -1856,6 +1943,16 @@
                 categoryExpert: "Сопровождение сделки с экспертом",
                 categoryTransfer: "Трансфер (аэропорт)",
                 categoryConsultation: "Консультация",
+                // Компания
+                companyTitle: "Открытие компании",
+                companyDescription: "Открытие компании на территории Турции и ведение бизнес деятельности не принуждает иметь гражданство Турции, а также иметь партнера — гражданина Турции. Для подробной информации оставьте заявку, и наши эксперты свяжутся с вами.",
+                companySubmitButton: "Оставить заявку",
+                companyContactTitle: "Связаться напрямую",
+                companyContactText: "Есть срочные вопросы? Напишите нам в мессенджер — ответим мгновенно.",
+                companyContactMethodTitle: "Способ связи",
+                companyContactMethodDescription: "Выберите предпочтительный способ связи",
+                companyMessageTitle: "Сообщение",
+                companyMessageDescription: "Оставьте сообщение или комментарий к вашей заявке",
                 // Трансфер
                 transferDirectionTitle: "Направление трансфера",
                 transferDirectionDescription: "Выберите направление трансфера",
@@ -1940,10 +2037,12 @@
                 submitButtonText: "ОТПРАВИТЬ ЗАЯВКУ",
                 submitButtonAuto: "ОТПРАВИТЬ ЗАЯВКУ",
                 submitButtonTransfer: "ОТПРАВИТЬ ЗАЯВКУ",
+                submitButtonCompany: "ОТПРАВИТЬ ЗАЯВКУ",
                 footerText: "© 2023-2026 Brokerok | Все услуги оказываются профессиональными специалистами",
                 supportLink: "Поддержка",
                 managerLink: "Менеджер",
                 validationSelectCategory: "Пожалуйста, выберите категорию услуги",
+                validationSelectContactMethod: "Пожалуйста, выберите способ связи",
                 validationSelectTransferDirection: "Пожалуйста, выберите направление трансфера",
                 validationSelectTransferAirport: "Пожалуйста, выберите аэропорт",
                 validationSelectTransferDistrict: "Пожалуйста, выберите район",
@@ -1993,6 +2092,16 @@
                 categoryExpert: "Deal Support with Expert",
                 categoryTransfer: "Transfer (Airport)",
                 categoryConsultation: "Consultation",
+                // Компания
+                companyTitle: "Company Registration",
+                companyDescription: "Opening a company in Turkey and conducting business does not require Turkish citizenship or a Turkish citizen as a partner. Leave a request, and our experts will contact you for details.",
+                companySubmitButton: "Submit Request",
+                companyContactTitle: "Contact Directly",
+                companyContactText: "Urgent questions? Write to us on messenger — we reply instantly.",
+                companyContactMethodTitle: "Contact Method",
+                companyContactMethodDescription: "Select preferred contact method",
+                companyMessageTitle: "Message",
+                companyMessageDescription: "Leave a message or comment for your application",
                 // Трансфер
                 transferDirectionTitle: "Transfer Direction",
                 transferDirectionDescription: "Select transfer direction",
@@ -2077,10 +2186,12 @@
                 submitButtonText: "SUBMIT APPLICATION",
                 submitButtonAuto: "SUBMIT APPLICATION",
                 submitButtonTransfer: "SUBMIT APPLICATION",
+                submitButtonCompany: "SUBMIT APPLICATION",
                 footerText: "© 2023-2026 Brokerok | All services provided by professional specialists",
                 supportLink: "Support",
                 managerLink: "Manager",
                 validationSelectCategory: "Please select a service category",
+                validationSelectContactMethod: "Please select contact method",
                 validationSelectTransferDirection: "Please select transfer direction",
                 validationSelectTransferAirport: "Please select airport",
                 validationSelectTransferDistrict: "Please select district",
@@ -2178,6 +2289,7 @@
             document.getElementById('userComment').placeholder = currentLanguage === 'ru' ? 'Ваш комментарий...' : 'Your comment...';
             document.getElementById('autoMessage').placeholder = currentLanguage === 'ru' ? 'Ваше сообщение, комментарии, пожелания...' : 'Your message, comments, wishes...';
             document.getElementById('transferMessage').placeholder = currentLanguage === 'ru' ? 'Ваше сообщение, комментарии, пожелания...' : 'Your message, comments, wishes...';
+            document.getElementById('companyMessage').placeholder = currentLanguage === 'ru' ? 'Ваше сообщение, комментарии, пожелания...' : 'Your message, comments, wishes...';
             document.getElementById('userEmail').placeholder = 'email@example.com';
             document.getElementById('transferEmail').placeholder = 'email@example.com';
             document.getElementById('transferPassport').placeholder = currentLanguage === 'ru' ? 'AB1234567' : 'AB1234567';
@@ -2186,7 +2298,6 @@
             // Обновляем телефонные плейсхолдеры
             updatePhonePlaceholder();
             updateAutoPhonePlaceholder();
-            // updateTransferPhonePlaceholder();
             
             // Обновляем валюту бюджета
             updateBudgetCurrency();
@@ -2237,7 +2348,6 @@
             updateAutoPhonePlaceholder();
         }
 
-
         // Обновление плейсхолдера телефона для недвижимости
         function updatePhonePlaceholder() {
             const phoneInput = document.getElementById('userPhone');
@@ -2278,7 +2388,6 @@
             phoneInput.placeholder = placeholders[currentAutoRegion] || 'Phone number';
         }
 
-
         // Новая функция для обработки возврата с экрана контактной информации
         function goBackFromContactInfo() {
             // Проверяем, какая категория выбрана
@@ -2296,6 +2405,17 @@
                 } else {
                     // По умолчанию возвращаемся к выбору аэропорта
                     goToTransferAirport();
+                }
+            } else if (selectedCategory === 'Открытие компании' || selectedCategory === 'Company Registration') {
+                if (!document.getElementById('screenCompanyMessage').classList.contains('hidden')) {
+                    // Мы на экране сообщения компании
+                    goToCompanyContactMethod();
+                } else if (!document.getElementById('screenCompanyContactMethod').classList.contains('hidden')) {
+                    // Мы на экране выбора способа связи компании
+                    goToCompanyScreen();
+                } else {
+                    // По умолчанию возвращаемся к экрану компании
+                    goToCompanyScreen();
                 }
             } else if (selectedCategory === 'Авто' || selectedCategory === 'Auto') {
                 // Для авто возвращаемся на последний экран
@@ -2355,6 +2475,8 @@
                 goToAutoService();
             } else if (selectedCategory === 'Недвижимость' || selectedCategory === 'Real Estate') {
                 goToStep2();
+            } else if (selectedCategory === 'Открытие компании' || selectedCategory === 'Company Registration') {
+                goToCompanyScreen();
             } else {
                 // Для других категорий пропускаем детальные шаги
                 selectedPropertyType = null;
@@ -2366,6 +2488,27 @@
                 userComment = '';
                 goToStep9();
             }
+        }
+
+        // Навигация для Компании
+        function goToCompanyScreen() {
+            showScreen('screenCompany');
+            updateProgress(2);
+        }
+
+        function goToCompanyContactMethod() {
+            showScreen('screenCompanyContactMethod');
+            updateProgress(3);
+        }
+
+        function goToCompanyMessage() {
+            if (!selectedCompanyContactMethod) {
+                showStatus(translations[currentLanguage].validationSelectContactMethod, 'error', 'screenCompanyContactMethod');
+                return;
+            }
+            
+            showScreen('screenCompanyMessage');
+            updateProgress(4);
         }
 
         // Навигация для Трансфера
@@ -2411,7 +2554,6 @@
             const flightTime = document.getElementById('transferFlightTime').value;
             const flightNumber = document.getElementById('transferFlightNumber').value.trim();
             
-            
             if (!name) {
                 showStatus(translations[currentLanguage].validationNamePhone, 'error', 'screenTransferContact');
                 return;
@@ -2426,7 +2568,6 @@
                 showStatus(translations[currentLanguage].validationFlightInfo, 'error', 'screenTransferContact');
                 return;
             }
-            
             
             showScreen('screenTransferContactMethod');
             updateProgress(6);
@@ -2599,6 +2740,16 @@
             element.classList.add('selected');
             selectedCategory = category;
             document.getElementById('next1').disabled = false;
+        }
+
+        // Выбор способа связи для компании
+        function selectCompanyContactMethod(method, element) {
+            document.querySelectorAll('#screenCompanyContactMethod .contact-method-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedCompanyContactMethod = method;
+            document.getElementById('nextCompanyContactMethod').disabled = false;
         }
 
         // Выбор направления трансфера
@@ -2799,6 +2950,54 @@
         function validatePhone(phone, region) {
             const digits = phone.replace(/\D/g, '');
             return digits.length >= 6;
+        }
+
+        // Отправка заявки на компанию
+        async function submitCompanyApplication() {
+            if (isSubmitting) return;
+            
+            const message = document.getElementById('companyMessage').value.trim();
+            
+            if (!selectedCompanyContactMethod) {
+                showStatus(translations[currentLanguage].validationSelectContactMethod, 'error', 'screenCompanyMessage');
+                return;
+            }
+            
+            const companyMessage = `📋 *НОВАЯ ЗАЯВКА НА ОТКРЫТИЕ КОМПАНИИ*
+
+🔧 *Тип услуги:* Открытие компании
+📱 *Способ связи:* ${selectedCompanyContactMethod}
+
+💬 *Сообщение клиента:* ${message || (currentLanguage === 'ru' ? 'Без сообщения' : 'No message')}
+
+⏰ *Время отправки:* ${new Date().toLocaleString('ru-RU')}
+🌐 *Язык:* ${currentLanguage.toUpperCase()}
+🔗 *Источник:* Brokerok MiniApp`;
+
+            isSubmitting = true;
+            const submitBtn = document.querySelector('#screenCompanyMessage .button-next');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${translations[currentLanguage].sendingText}`;
+            submitBtn.disabled = true;
+            
+            try {
+                // Используем чат для авто, или создайте отдельный chatIdCompany если нужно
+                await sendToTelegram(chatIdCompany, companyMessage);
+                
+                showStatus(translations[currentLanguage].successMessage, 'success', 'screenCompanyMessage');
+                
+                setTimeout(() => {
+                    resetCompanyForm();
+                    goToStep0();
+                }, 3000);
+            } catch (error) {
+                console.error('Send error:', error);
+                showStatus(`${translations[currentLanguage].errorMessage}\n\nДетали: ${error.message}`, 'error', 'screenCompanyMessage');
+                
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                isSubmitting = false;
+            }
         }
 
         // Отправка заявки на трансфер
@@ -3066,6 +3265,19 @@ message += `
             }
         }
 
+        // Сброс формы компании
+        function resetCompanyForm() {
+            selectedCompanyContactMethod = null;
+            isSubmitting = false;
+            
+            document.querySelectorAll('#screenCompanyContactMethod .contact-method-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            document.getElementById('companyMessage').value = '';
+            document.getElementById('nextCompanyContactMethod').disabled = true;
+        }
+
         // Сброс формы трансфера
         function resetTransferForm() {
             selectedTransferDirection = null;
@@ -3177,7 +3389,6 @@ message += `
             
             updatePhonePlaceholder();
             updateAutoPhonePlaceholder();
-            // updateTransferPhonePlaceholder();
             
             const phoneInputs = document.querySelectorAll('input[type="tel"]');
             phoneInputs.forEach(input => {
