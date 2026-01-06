@@ -101,11 +101,12 @@
             width: 100%;
         }
 
-        /* Меню */
+        /* Горизонтальное меню */
         .nav-menu {
             display: flex;
             gap: 40px;
             align-items: center;
+            position: relative;
         }
 
         .nav-link {
@@ -118,6 +119,7 @@
             position: relative;
             opacity: 0;
             animation: slideInRight 0.5s forwards;
+            white-space: nowrap;
         }
 
         .nav-link:nth-child(1) { animation-delay: 0.1s; }
@@ -125,7 +127,6 @@
         .nav-link:nth-child(3) { animation-delay: 0.3s; }
         .nav-link:nth-child(4) { animation-delay: 0.4s; }
         .nav-link:nth-child(5) { animation-delay: 0.5s; }
-        .nav-link:nth-child(6) { animation-delay: 0.6s; }
 
         .nav-link:hover {
             color: var(--primary-color);
@@ -223,56 +224,194 @@
             box-shadow: 0 10px 30px rgba(46, 139, 87, 0.4);
         }
 
-        /* Герой баннер с параллаксом */
-        .hero-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                        url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: white;
-            padding: 180px 0 100px;
-            margin-bottom: 80px;
+        /* Слайдер фотографий */
+        .slider-section {
             position: relative;
+            width: 100%;
+            height: 700px;
             overflow: hidden;
+            margin-top: 100px;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            box-shadow: var(--shadow);
         }
 
-        .hero-banner::before {
-            content: '';
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slider-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: scale(1.1);
+            transition: opacity 1.2s ease, transform 8s ease;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+        }
+
+        .slider-slide.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 2;
+        }
+
+        .slider-overlay {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, rgba(46, 139, 87, 0.2), rgba(139, 69, 19, 0.2));
-            animation: gradientShift 8s infinite alternate;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+            color: white;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px;
         }
 
-        .hero-content {
-            max-width: 700px;
-            position: relative;
-            z-index: 2;
+        .slider-content {
+            max-width: 800px;
             opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s 0.5s forwards;
+            transform: translateY(50px);
+            transition: all 1s ease 0.5s;
         }
 
-        .hero-title {
-            font-size: 56px;
+        .slider-slide.active .slider-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slider-subtitle {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.9);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .slider-title {
+            font-size: 64px;
             font-weight: 800;
-            margin-bottom: 25px;
-            line-height: 1.2;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            background: linear-gradient(135deg, #fff, #f0f0f0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 15px rgba(0,0,0,0.5);
+            line-height: 1.1;
         }
 
-        .hero-subtitle {
-            font-size: 22px;
+        .slider-text {
+            font-size: 24px;
             margin-bottom: 40px;
             opacity: 0.9;
             max-width: 600px;
+        }
+
+        .slider-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 45px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 35px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 10px 35px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .slider-button:hover::before {
+            left: 100%;
+        }
+
+        .slider-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            gap: 15px;
+            z-index: 4;
+        }
+
+        .slider-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            color: var(--primary-color);
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .slider-btn:hover {
+            background: white;
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 4;
+        }
+
+        .slider-dot {
+            width: 14px;
+            height: 14px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .slider-dot.active {
+            background: white;
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .slider-dot:hover {
+            background: white;
+            transform: scale(1.3);
         }
 
         /* Основной контент */
@@ -280,7 +419,7 @@
             display: grid;
             grid-template-columns: 1fr 1.2fr;
             gap: 80px;
-            margin-bottom: 100px;
+            margin: 100px 0;
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 0.8s 0.8s forwards;
@@ -666,6 +805,11 @@
             margin: 100px 0;
             position: relative;
             overflow: hidden;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .consultation-section::before {
@@ -722,12 +866,12 @@
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
         }
 
-        /* О компании */
-        .about-section {
+        /* Услуги */
+        .services-section {
             margin: 100px 0;
             opacity: 0;
             transform: translateY(30px);
-            animation: fadeInUp 0.8s 1s forwards;
+            animation: fadeInUp 0.8s 1.2s forwards;
         }
 
         .section-title {
@@ -752,79 +896,6 @@
             height: 5px;
             background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
             border-radius: 3px;
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        .about-card {
-            background: white;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .about-card:nth-child(1) { animation: fadeInUp 0.8s 0.3s forwards; }
-        .about-card:nth-child(2) { animation: fadeInUp 0.8s 0.5s forwards; }
-        .about-card:nth-child(3) { animation: fadeInUp 0.8s 0.7s forwards; }
-
-        .about-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
-        }
-
-        .about-image {
-            height: 250px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 60px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
-            animation: shine 3s infinite;
-        }
-
-        .about-content {
-            padding: 35px;
-        }
-
-        .about-card-title {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-        }
-
-        .about-card-text {
-            color: var(--gray-color);
-            font-size: 16px;
-            line-height: 1.8;
-        }
-
-        /* Услуги */
-        .services-section {
-            margin: 100px 0;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.8s 1.2s forwards;
         }
 
         .services-grid {
@@ -908,76 +979,6 @@
             color: var(--gray-color);
             font-size: 15px;
             line-height: 1.7;
-        }
-
-        /* Карты городов */
-        .cities-section {
-            margin: 100px 0;
-        }
-
-        .cities-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .city-card {
-            position: relative;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            height: 400px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .city-card:nth-child(1) { animation: fadeInUp 0.8s 0.3s forwards; }
-        .city-card:nth-child(2) { animation: fadeInUp 0.8s 0.5s forwards; }
-        .city-card:nth-child(3) { animation: fadeInUp 0.8s 0.7s forwards; }
-
-        .city-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
-        }
-
-        .city-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .city-card:hover .city-image {
-            transform: scale(1.1);
-        }
-
-        .city-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
-            padding: 40px;
-            color: white;
-            transform: translateY(20px);
-            transition: var(--transition);
-        }
-
-        .city-card:hover .city-overlay {
-            transform: translateY(0);
-        }
-
-        .city-name {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        .city-description {
-            opacity: 0.9;
-            font-size: 16px;
         }
 
         /* Формы (модальные) */
@@ -1458,6 +1459,17 @@
             100% { transform: translateX(100%); }
         }
 
+        @keyframes slideIn {
+            from { 
+                opacity: 0; 
+                transform: translateX(-50px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0); 
+            }
+        }
+
         /* Анимация появления элементов при скролле */
         .animate-on-scroll {
             opacity: 0;
@@ -1482,8 +1494,7 @@
                 gap: 50px;
             }
             
-            .services-grid,
-            .cities-grid {
+            .services-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             
@@ -1494,17 +1505,21 @@
         }
 
         @media (max-width: 992px) {
-            .hero-title {
-                font-size: 42px;
-            }
-            
             .transfer-grid {
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
             
-            .about-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .slider-section {
+                height: 600px;
+            }
+            
+            .slider-title {
+                font-size: 48px;
+            }
+            
+            .slider-text {
+                font-size: 20px;
             }
         }
 
@@ -1519,29 +1534,49 @@
                 flex-wrap: wrap;
                 justify-content: center;
                 gap: 15px;
+                max-width: 100%;
+                overflow-x: auto;
+                padding: 10px 0;
             }
             
-            .hero-banner {
-                padding: 150px 0 60px;
-                background-attachment: scroll;
+            .nav-link {
+                font-size: 14px;
+                padding: 5px 10px;
             }
             
-            .hero-title {
-                font-size: 32px;
+            .slider-section {
+                height: 500px;
+                margin-top: 80px;
             }
             
-            .hero-subtitle {
+            .slider-overlay {
+                padding: 30px;
+            }
+            
+            .slider-subtitle {
+                font-size: 16px;
+            }
+            
+            .slider-title {
+                font-size: 36px;
+            }
+            
+            .slider-text {
                 font-size: 18px;
             }
             
-            .services-grid,
-            .cities-grid,
-            .about-grid {
+            .slider-button {
+                padding: 18px 35px;
+                font-size: 18px;
+            }
+            
+            .services-grid {
                 grid-template-columns: 1fr;
             }
             
             .consultation-section {
                 padding: 50px 30px;
+                min-height: 400px;
             }
             
             .consultation-title {
@@ -1574,10 +1609,6 @@
                 justify-content: center;
             }
             
-            .hero-title {
-                font-size: 28px;
-            }
-            
             .form-container,
             .info-card {
                 padding: 30px 20px;
@@ -1585,6 +1616,33 @@
             
             .footer-content {
                 grid-template-columns: 1fr;
+            }
+            
+            .slider-section {
+                height: 450px;
+            }
+            
+            .slider-controls {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .slider-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            
+            .slider-dots {
+                bottom: 20px;
+            }
+            
+            .slider-title {
+                font-size: 28px;
+            }
+            
+            .slider-text {
+                font-size: 16px;
             }
         }
 
@@ -1663,10 +1721,9 @@
                 </div>
                 
                 <nav class="nav-menu">
+                    <a href="#slider" class="nav-link" id="navSlider">Главная</a>
                     <a href="#services" class="nav-link" id="navServices">Услуги</a>
                     <a href="#transfer" class="nav-link" id="navTransfer">Трансфер</a>
-                    <a href="#cities" class="nav-link" id="navCities">Города</a>
-                    <a href="#about" class="nav-link" id="navAbout">О компании</a>
                     <a href="#consultation" class="nav-link" id="navConsultation">Консультация</a>
                     <a href="#contacts" class="nav-link" id="navContacts">Контакты</a>
                 </nav>
@@ -1684,16 +1741,63 @@
         </div>
     </header>
 
-    <!-- Герой баннер -->
-    <section class="hero-banner">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title" id="heroTitle">Профессиональные услуги по недвижимости</h1>
-                <p class="hero-subtitle" id="heroSubtitle">Помогаем клиентам находить идеальную недвижимость в Турции с 2015 года. Трансфер, авто, юридические услуги и открытие компаний</p>
-                <button class="cta-button" onclick="openFormModal()" id="heroButton">
-                    <i class="fas fa-file-alt"></i> Получить консультацию
-                </button>
+    <!-- Слайдер фотографий -->
+    <section class="slider-section" id="slider">
+        <div class="slider-container">
+            <!-- Слайд 1: Турция -->
+            <div class="slider-slide active" style="background-image: url('https://avatars.mds.yandex.net/i?id=b13ce2f28d08d40e4dd94f94f5387d58_l-5266851-images-thumbs&n=13')">
+                <div class="slider-overlay">
+                    <div class="slider-content">
+                        <div class="slider-subtitle">Лучший выбор</div>
+                        <h2 class="slider-title">Турция</h2>
+                        <p class="slider-text">Brokerok - это возможность начать новую жизнь в солнечной стране</p>
+                        <button class="slider-button" onclick="openFormModal()">
+                            <i class="fas fa-rocket"></i> Начать новую жизнь
+                        </button>
+                    </div>
+                </div>
             </div>
+            
+            <!-- Слайд 2: Алания -->
+            <div class="slider-slide" style="background-image: url('https://www.home.com.tr/upload/img/2024/07/04/f3e59f7a-6e98-4fb8-ba8b-ac4632c16dd3.webp')">
+                <div class="slider-overlay">
+                    <div class="slider-content">
+                        <div class="slider-subtitle">Курортный рай</div>
+                        <h2 class="slider-title">Алания</h2>
+                        <p class="slider-text">Brokerok - это возможность жить у моря с видом на вечное лето</p>
+                        <button class="slider-button" onclick="openFormModal()">
+                            <i class="fas fa-sun"></i> Попробовать мечту
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Слайд 3: Дубай -->
+            <div class="slider-slide" style="background-image: url('https://www.shkolazhizni.ru/img/content/i243/243489_or.jpg')">
+                <div class="slider-overlay">
+                    <div class="slider-content">
+                        <div class="slider-subtitle">Город будущего</div>
+                        <h2 class="slider-title">Дубай</h2>
+                        <p class="slider-text">Brokerok - это возможность инвестировать в самый динамичный рынок мира</p>
+                        <button class="slider-button" onclick="openFormModal()">
+                            <i class="fas fa-chart-line"></i> Инвестировать сейчас
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slider-controls">
+            <button class="slider-btn" onclick="prevSlide()">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="slider-btn" onclick="nextSlide()">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <div class="slider-dots" id="sliderDots">
+            <!-- Точки будут созданы скриптом -->
         </div>
     </section>
 
@@ -1980,43 +2084,6 @@
             </div>
         </section>
 
-        <!-- Карты городов -->
-        <section class="cities-section" id="cities">
-            <h2 class="section-title">Популярные города</h2>
-            <p style="text-align: center; color: var(--gray-color); font-size: 18px; max-width: 800px; margin: 0 auto 50px;">
-                Работаем по всем популярным городам Турции
-            </p>
-            
-            <div class="cities-grid">
-                <div class="city-card">
-                    <img src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-                         alt="Алания" class="city-image">
-                    <div class="city-overlay">
-                        <h3 class="city-name">Алания</h3>
-                        <p class="city-description">Курортный город на побережье Средиземного моря</p>
-                    </div>
-                </div>
-                
-                <div class="city-card">
-                    <img src="https://images.unsplash.com/photo-1527838832700-5059252407fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-                         alt="Анталия" class="city-image">
-                    <div class="city-overlay">
-                        <h3 class="city-name">Анталия</h3>
-                        <p class="city-description">Столица туризма Турции с международным аэропортом</p>
-                    </div>
-                </div>
-                
-                <div class="city-card">
-                    <img src="https://images.unsplash.com/photo-1527838832700-5059252407fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-                         alt="Стамбул" class="city-image">
-                    <div class="city-overlay">
-                        <h3 class="city-name">Стамбул</h3>
-                        <p class="city-description">Крупнейший город Турции с богатой историей</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Быстрая консультация -->
         <section class="consultation-section" id="consultation">
             <h2 class="consultation-title" id="consultationTitle">Нужна срочная консультация?</h2>
@@ -2028,42 +2095,6 @@
                 <i class="fab fa-whatsapp"></i> <span id="consultationButtonText">Бесплатная консультация</span>
             </button>
         </section>
-
-        <!-- О компании -->
-        <section class="about-section" id="about">
-            <h2 class="section-title" id="aboutTitle">О компании</h2>
-            <div class="about-grid">
-                <div class="about-card">
-                    <div class="about-image">
-                        <i class="fas fa-history"></i>
-                    </div>
-                    <div class="about-content">
-                        <h3 class="about-card-title" id="about1">9 лет опыта</h3>
-                        <p class="about-card-text" id="aboutText1">Более 9 лет успешной работы на рынке недвижимости Турции</p>
-                    </div>
-                </div>
-                
-                <div class="about-card">
-                    <div class="about-image">
-                        <i class="fas fa-user-check"></i>
-                    </div>
-                    <div class="about-content">
-                        <h3 class="about-card-title" id="about2">1200+ клиентов</h3>
-                        <p class="about-card-text" id="aboutText2">Более 1200 довольных клиентов из разных стран</p>
-                    </div>
-                </div>
-                
-                <div class="about-card">
-                    <div class="about-image">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <div class="about-content">
-                        <h3 class="about-card-title" id="about3">500+ объектов</h3>
-                        <p class="about-card-text" id="aboutText3">В нашем каталоге более 500 проверенных объектов</p>
-                    </div>
-                </div>
-            </div>
-        </section>
     </div>
 
     <!-- Футер -->
@@ -2073,7 +2104,7 @@
                 <div class="footer-column">
                     <h3 id="footerAbout">О компании</h3>
                     <ul class="footer-links">
-                        <li><a href="#about" id="footerLink1">О нас</a></li>
+                        <li><a href="#slider" id="footerLink1">Главная</a></li>
                         <li><a href="#services" id="footerLink2">Услуги</a></li>
                         <li><a href="#transfer" id="footerLink3">Трансфер</a></li>
                         <li><a href="#contacts" id="footerLink4">Контакты</a></li>
@@ -2183,19 +2214,12 @@
         const translations = {
             ru: {
                 // Шапка
+                navSlider: "Главная",
                 navServices: "Услуги",
                 navTransfer: "Трансфер",
-                navCities: "Города",
-                navAbout: "О компании",
                 navConsultation: "Консультация",
-                navReviews: "Отзывы",
                 navContacts: "Контакты",
                 ctaButton: "Связаться",
-                
-                // Герой баннер
-                heroTitle: "Профессиональные услуги по недвижимости",
-                heroSubtitle: "Помогаем клиентам находить идеальную недвижимость в Турции с 2015 года. Трансфер, авто, юридические услуги и открытие компаний",
-                heroButton: "Получить консультацию",
                 
                 // Инфо карта
                 infoTitle: "Почему выбирают нас",
@@ -2234,18 +2258,9 @@
                 consultationText: "Наши эксперты готовы ответить на все ваши вопросы прямо сейчас. Получите бесплатную консультацию по телефону или в мессенджере.",
                 consultationButtonText: "Бесплатная консультация",
                 
-                // О компании
-                aboutTitle: "О компании",
-                about1: "9 лет опыта",
-                aboutText1: "Более 9 лет успешной работы на рынке недвижимости Турции",
-                about2: "1200+ клиентов",
-                aboutText2: "Более 1200 довольных клиентов из разных стран",
-                about3: "500+ объектов",
-                aboutText3: "В нашем каталоге более 500 проверенных объектов",
-                
                 // Футер
                 footerAbout: "О компании",
-                footerLink1: "О нас",
+                footerLink1: "Главная",
                 footerLink2: "Услуги",
                 footerLink3: "Трансфер",
                 footerLink4: "Контакты",
@@ -2261,27 +2276,15 @@
                 footerSubscribe: "Подписка",
                 footerSubscribeText: "Подпишитесь на новости и получайте актуальные предложения",
                 footerCopyright: "© 2023-2026 Brokerok. Все права защищены.",
-                
-                // Модальные окна
-                modalConsultationTitle: "Заказать звонок",
-                modalConsultationText: "Оставьте ваши контакты и наш специалист свяжется с вами в течение 15 минут",
-                modalButtonText: "Заказать звонок"
             },
             en: {
                 // Header
+                navSlider: "Home",
                 navServices: "Services",
                 navTransfer: "Transfer",
-                navCities: "Cities",
-                navAbout: "About",
                 navConsultation: "Consultation",
-                navReviews: "Reviews",
                 navContacts: "Contacts",
                 ctaButton: "Contact us",
-                
-                // Hero banner
-                heroTitle: "Professional Real Estate Services",
-                heroSubtitle: "Helping clients find perfect properties in Turkey since 2015. Transfer, auto, legal services and company registration",
-                heroButton: "Get Consultation",
                 
                 // Info card
                 infoTitle: "Why Choose Us",
@@ -2320,18 +2323,9 @@
                 consultationText: "Our experts are ready to answer all your questions right now. Get free consultation by phone or messenger.",
                 consultationButtonText: "Free Consultation",
                 
-                // About
-                aboutTitle: "About Company",
-                about1: "9 Years Experience",
-                aboutText1: "Over 9 years of successful work in Turkish real estate market",
-                about2: "1200+ Clients",
-                aboutText2: "More than 1200 satisfied clients from different countries",
-                about3: "500+ Properties",
-                aboutText3: "More than 500 verified properties in our catalog",
-                
                 // Footer
                 footerAbout: "About",
-                footerLink1: "About Us",
+                footerLink1: "Home",
                 footerLink2: "Services",
                 footerLink3: "Transfer",
                 footerLink4: "Contacts",
@@ -2347,30 +2341,97 @@
                 footerSubscribe: "Subscribe",
                 footerSubscribeText: "Subscribe to news and get relevant offers",
                 footerCopyright: "© 2023-2026 Brokerok. All rights reserved.",
-                
-                // Modals
-                modalConsultationTitle: "Request a Call",
-                modalConsultationText: "Leave your contacts and our specialist will contact you within 15 minutes",
-                modalButtonText: "Request a Call"
             }
         };
 
+        // Переменные для слайдера
         let currentLanguage = 'ru';
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider-slide');
+        const totalSlides = slides.length;
+        let slideInterval;
         let formData = {};
         let currentStep = 1;
         let currentCategory = '';
         let formStructure = {};
         let lastScrollPosition = 0;
 
+        // Инициализация слайдера
+        function initSlider() {
+            // Создаем точки для слайдера
+            const dotsContainer = document.getElementById('sliderDots');
+            dotsContainer.innerHTML = '';
+            
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'slider-dot';
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+            
+            // Автоматическое переключение слайдов
+            startSlideInterval();
+            
+            // Останавливаем автоматическое переключение при наведении
+            const sliderSection = document.querySelector('.slider-section');
+            sliderSection.addEventListener('mouseenter', stopSlideInterval);
+            sliderSection.addEventListener('mouseleave', startSlideInterval);
+        }
+
+        // Перейти к конкретному слайду
+        function goToSlide(index) {
+            // Скрываем текущий слайд
+            slides[currentSlide].classList.remove('active');
+            
+            // Обновляем точки
+            document.querySelectorAll('.slider-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            
+            // Показываем новый слайд
+            currentSlide = index;
+            slides[currentSlide].classList.add('active');
+            
+            // Перезапускаем интервал
+            restartSlideInterval();
+        }
+
+        // Следующий слайд
+        function nextSlide() {
+            const nextIndex = (currentSlide + 1) % totalSlides;
+            goToSlide(nextIndex);
+        }
+
+        // Предыдущий слайд
+        function prevSlide() {
+            const prevIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+            goToSlide(prevIndex);
+        }
+
+        // Запуск автоматического переключения
+        function startSlideInterval() {
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        // Остановка автоматического переключения
+        function stopSlideInterval() {
+            clearInterval(slideInterval);
+        }
+
+        // Перезапуск интервала
+        function restartSlideInterval() {
+            stopSlideInterval();
+            startSlideInterval();
+        }
+
         // Переключение языка
         function switchLanguage(lang) {
             currentLanguage = lang;
             
-            // Обновляем активную кнопку языка
             document.getElementById('langRu').classList.toggle('active', lang === 'ru');
             document.getElementById('langEn').classList.toggle('active', lang === 'en');
             
-            // Обновляем все тексты
             updateAllTexts();
         }
 
@@ -2378,7 +2439,6 @@
         function updateAllTexts() {
             const texts = translations[currentLanguage];
             
-            // Обновляем все элементы с id
             for (const [key, value] of Object.entries(texts)) {
                 const element = document.getElementById(key);
                 if (element) {
@@ -2490,25 +2550,18 @@
 
         // Выбор категории
         function selectCategory(category, element) {
-            // Удаляем выбранный класс у всех опций
             const allOptions = element.parentElement.querySelectorAll('.form-option');
             allOptions.forEach(opt => opt.classList.remove('selected'));
             
-            // Добавляем выбранный класс текущему элементу
             element.classList.add('selected');
-            
-            // Анимация выбора
             element.style.animation = 'pulse 0.5s';
             setTimeout(() => element.style.animation = '', 500);
             
-            // Сохраняем выбранную категорию
             currentCategory = category;
             formData.category = category;
             
-            // Активируем кнопку "Далее"
             document.getElementById('nextStep1').disabled = false;
             
-            // Устанавливаем структуру формы в зависимости от категории
             setFormStructure(category);
         }
 
@@ -2648,16 +2701,14 @@
             };
             
             formStructure = structures[category];
-            // Добавляем шаг контактов в конце
             formStructure.steps.push({
                 title: "Контактная информация",
                 isContacts: true
             });
         }
 
-        // Генерация опций бюджета в зависимости от локации
+        // Генерация опций бюджета
         function generateBudgetOptions() {
-            const location = formData.location || 'alanya';
             const currency = '€';
             
             return [
@@ -2672,7 +2723,6 @@
         function goToStep(step) {
             currentStep = step;
             
-            // Обновляем прогресс бар
             const totalSteps = formStructure ? formStructure.steps.length + 1 : 3;
             const progress = (step / totalSteps) * 100;
             document.getElementById('progressFill').style.width = `${progress}%`;
@@ -2698,7 +2748,6 @@
             
             const currentStepData = formStructure.steps[stepIndex];
             
-            // Если это шаг бюджета для недвижимости, генерируем опции
             if (currentStepData.isBudget && currentCategory === 'realty') {
                 currentStepData.options = generateBudgetOptions();
             }
@@ -2797,26 +2846,21 @@
 
         // Выбор опции
         function selectOption(id, value, element) {
-            // Удаляем выбранный класс у всех опций
             const allOptions = element.parentElement.querySelectorAll('.form-option');
             allOptions.forEach(opt => opt.classList.remove('selected'));
             
-            // Добавляем выбранный класс текущему элементу
             element.classList.add('selected');
             element.style.animation = 'pulse 0.5s';
             setTimeout(() => element.style.animation = '', 500);
             
-            // Сохраняем данные
             const stepIndex = currentStep - 2;
             const stepName = formStructure.steps[stepIndex].title.toLowerCase().replace(/ /g, '_');
             formData[stepName] = { id, value };
             
-            // Сохраняем локацию для генерации бюджета
             if (stepName === 'локация') {
                 formData.location = id;
             }
             
-            // Активируем кнопку "Далее"
             const nextButton = document.getElementById(`nextStep${currentStep}`);
             if (nextButton) {
                 nextButton.disabled = false;
@@ -2832,12 +2876,10 @@
 
         // Отправка формы
         function submitForm() {
-            // Собираем контактные данные
             formData.name = document.getElementById('userName').value;
             formData.phone = document.getElementById('userPhone').value;
             formData.email = document.getElementById('userEmail').value;
             
-            // Валидация
             if (!formData.name || !formData.phone) {
                 alert(currentLanguage === 'ru' 
                     ? 'Пожалуйста, заполните обязательные поля: Имя и Телефон' 
@@ -2845,10 +2887,8 @@
                 return;
             }
             
-            // Здесь должен быть код для отправки данных на сервер
             console.log('Form data:', formData);
             
-            // Показываем сообщение об успехе с анимацией
             const successMessage = currentLanguage === 'ru' 
                 ? 'Спасибо за заявку! Мы свяжемся с вами в ближайшее время.' 
                 : 'Thank you for your application! We will contact you soon.';
@@ -2867,7 +2907,6 @@
                 </div>
             `;
             
-            // Сбрасываем данные формы через 3 секунды
             setTimeout(() => {
                 closeModal('formModal');
                 formData = {};
@@ -2893,19 +2932,16 @@
             
             console.log('Transfer form data:', data);
             
-            // Показываем сообщение об успехе
             alert('Трансфер успешно заказан! Мы свяжемся с вами для подтверждения.');
             
-            // Сбрасываем форму
             this.reset();
         });
 
         // Инициализация
         document.addEventListener('DOMContentLoaded', function() {
-            // Устанавливаем русский язык по умолчанию
+            initSlider();
             switchLanguage('ru');
             
-            // Анимация появления элементов при скролле
             const animateOnScroll = () => {
                 const elements = document.querySelectorAll('.animate-on-scroll');
                 elements.forEach(element => {
@@ -2918,20 +2954,17 @@
                 });
             };
             
-            // Прокрутка шапки
             const handleScroll = () => {
                 const currentScroll = window.pageYOffset;
                 const header = document.getElementById('header');
                 const scrollTop = document.querySelector('.scroll-top');
                 
-                // Показать/скрыть шапку
                 if (currentScroll > lastScrollPosition && currentScroll > 100) {
                     header.classList.add('hidden');
                 } else {
                     header.classList.remove('hidden');
                 }
                 
-                // Показать кнопку наверх
                 if (currentScroll > 500) {
                     scrollTop.classList.add('visible');
                 } else {
@@ -2943,9 +2976,8 @@
             };
             
             window.addEventListener('scroll', handleScroll);
-            handleScroll(); // Инициализация при загрузке
+            handleScroll();
             
-            // Закрытие модальных окон по клику вне окна
             document.querySelectorAll('.modal').forEach(modal => {
                 modal.addEventListener('click', function(e) {
                     if (e.target === this) {
@@ -2954,7 +2986,6 @@
                 });
             });
             
-            // Плавная прокрутка для якорных ссылок
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -2971,8 +3002,7 @@
                 });
             });
             
-            // Анимация при наведении на элементы
-            document.querySelectorAll('.info-item, .service-card, .about-card, .city-card').forEach(item => {
+            document.querySelectorAll('.info-item, .service-card').forEach(item => {
                 item.addEventListener('mouseenter', function() {
                     this.style.transform = this.style.transform || '';
                 });
@@ -2984,8 +3014,7 @@
                 });
             });
             
-            // Добавляем классы для анимации
-            document.querySelectorAll('.info-item, .service-card, .about-card, .transfer-card, .city-card').forEach(el => {
+            document.querySelectorAll('.info-item, .service-card').forEach(el => {
                 el.classList.add('animate-on-scroll');
             });
         });
