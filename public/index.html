@@ -855,6 +855,36 @@
             margin-bottom: 20px;
         }
 
+        /* Информация об автомобиле */
+        .car-info-group {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+            background: rgba(16, 185, 129, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1.5px solid #10B981;
+        }
+
+        .car-info-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #10B981;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .car-info-note {
+            font-size: 13px;
+            color: #aaa;
+            margin-top: -10px;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
         /* Анимация появления */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -867,8 +897,8 @@
 
         /* Медиа-запросы */
         @media (min-width: 480px) {
-            .passport-group, .flight-info-group {
-                grid-template-columns: 1fr 1fr;
+            .passport-group, .flight-info-group, .car-info-group {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1696,16 +1726,46 @@
             </div>
         </div>
 
-        <!-- ЭКРАН: Сообщение для Авто -->
+        <!-- ЭКРАН: Сообщение для Авто с информацией об автомобиле -->
         <div class="screen hidden" id="screenAutoMessage">
             <div class="content-card">
-                <h1 class="title" id="autoMessageTitle">Сообщение</h1>
+                <h1 class="title" id="autoMessageTitle">Информация об автомобиле</h1>
                 
                 <p class="description" id="autoMessageDescription">
-                    Оставьте сообщение или комментарий к вашей заявке
+                    Заполните информацию об автомобиле (необязательно) и оставьте сообщение
                 </p>
 
-                <textarea class="message-textarea" id="autoMessage" placeholder="Ваше сообщение, комментарии, пожелания..."></textarea>
+                <!-- Блок информации об автомобиле -->
+                <div class="car-info-group">
+                    <div class="car-info-title">
+                        <i class="fas fa-car"></i> Информация об автомобиле
+                    </div>
+                    
+                    <div class="car-info-note" id="carInfoNote">
+                        Эта информация поможет нам быстрее обработать вашу заявку
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" id="carLinkLabel">Ссылка на автомобиль</label>
+                        <input type="text" class="form-input" id="carLink" placeholder="https://example.com/car-link">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" id="carNameLabel">Название автомобиля</label>
+                        <input type="text" class="form-input" id="carName" placeholder="Например: Mercedes-Benz GLC 2022">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" id="carDescriptionLabel">Описание автомобиля</label>
+                        <textarea class="form-input" id="carDescription" placeholder="Описание, характеристики, особенности..." rows="3"></textarea>
+                    </div>
+                </div>
+
+                <!-- Сообщение -->
+                <div class="form-group" style="margin-top: 24px;">
+                    <label class="form-label" id="autoMessageLabel">Ваше сообщение</label>
+                    <textarea class="message-textarea" id="autoMessage" placeholder="Ваши комментарии, пожелания, вопросы..."></textarea>
+                </div>
 
                 <div class="button-container">
                     <button class="button button-back" onclick="goToAutoContactMethod()">
@@ -2172,11 +2232,17 @@
                 autoContactDescription: "Оставьте свои контактные данные",
                 autoNameLabel: "Ваше имя",
                 autoPhoneLabel: "Телефон",
+                // Информация об автомобиле
+                carLinkLabel: "Ссылка на автомобиль",
+                carNameLabel: "Название автомобиля",
+                carDescriptionLabel: "Описание автомобиля",
+                carInfoNote: "Эта информация поможет нам быстрее обработать вашу заявку",
+                autoMessageLabel: "Ваше сообщение",
                 autoContactMethodTitle: "Способ связи",
                 autoContactMethodDescription: "Выберите предпочтительный способ связи",
                 contactMethodPhone: "Телефонный звонок",
-                autoMessageTitle: "Сообщение",
-                autoMessageDescription: "Оставьте сообщение или комментарий к вашей заявке",
+                autoMessageTitle: "Информация об автомобиле",
+                autoMessageDescription: "Заполните информацию об автомобиле (необязательно) и оставьте сообщение",
                 // Недвижимость
                 propertyTypeTitle: "Тип недвижимости",
                 propertyTypeDescription: "Выберите тип недвижимости",
@@ -2341,11 +2407,17 @@
                 autoContactDescription: "Leave your contact details",
                 autoNameLabel: "Your Name",
                 autoPhoneLabel: "Phone",
+                // Информация об автомобиле
+                carLinkLabel: "Car Link",
+                carNameLabel: "Car Name",
+                carDescriptionLabel: "Car Description",
+                carInfoNote: "This information will help us process your request faster",
+                autoMessageLabel: "Your Message",
                 autoContactMethodTitle: "Contact Method",
                 autoContactMethodDescription: "Select preferred contact method",
                 contactMethodPhone: "Phone Call",
-                autoMessageTitle: "Message",
-                autoMessageDescription: "Leave a message or comment for your application",
+                autoMessageTitle: "Car Information",
+                autoMessageDescription: "Fill in car information (optional) and leave a message",
                 // Недвижимость
                 propertyTypeTitle: "Property Type",
                 propertyTypeDescription: "Select property type",
@@ -2488,7 +2560,7 @@
             document.getElementById('autoName').placeholder = currentLanguage === 'ru' ? 'Иван Иванов' : 'John Smith';
             document.getElementById('transferName').placeholder = currentLanguage === 'ru' ? 'Иван Иванов' : 'John Smith';
             document.getElementById('userComment').placeholder = currentLanguage === 'ru' ? 'Ваш комментарий...' : 'Your comment...';
-            document.getElementById('autoMessage').placeholder = currentLanguage === 'ru' ? 'Ваше сообщение, комментарии, пожелания...' : 'Your message, comments, wishes...';
+            document.getElementById('autoMessage').placeholder = currentLanguage === 'ru' ? 'Ваши комментарии, пожелания, вопросы...' : 'Your comments, wishes, questions...';
             document.getElementById('transferMessage').placeholder = currentLanguage === 'ru' ? 'Ваше сообщение, комментарии, пожелания...' : 'Your message, comments, wishes...';
             document.getElementById('companyMessage').placeholder = currentLanguage === 'ru' ? 'Ваше сообщение, комментарии, пожелания...' : 'Your message, comments, wishes...';
             document.getElementById('expertMessage').placeholder = currentLanguage === 'ru' ? 'Ваше сообщение, комментарии, пожелания...' : 'Your message, comments, wishes...';
@@ -2497,6 +2569,9 @@
             document.getElementById('transferEmail').placeholder = 'email@example.com';
             document.getElementById('transferPassport').placeholder = currentLanguage === 'ru' ? 'AB1234567' : 'AB1234567';
             document.getElementById('transferFlightNumber').placeholder = currentLanguage === 'ru' ? 'TK1234' : 'TK1234';
+            document.getElementById('carLink').placeholder = currentLanguage === 'ru' ? 'https://example.com/car-link' : 'https://example.com/car-link';
+            document.getElementById('carName').placeholder = currentLanguage === 'ru' ? 'Например: Mercedes-Benz GLC 2022' : 'Example: Mercedes-Benz GLC 2022';
+            document.getElementById('carDescription').placeholder = currentLanguage === 'ru' ? 'Описание, характеристики, особенности...' : 'Description, specifications, features...';
             
             // Обновляем телефонные плейсхолдеры
             updatePhonePlaceholder();
@@ -3456,12 +3531,15 @@
             }
         }
 
-        // Отправка заявки на авто
+        // Отправка заявки на авто (с новой информацией об автомобиле)
         async function submitAutoApplication() {
             if (isSubmitting) return;
             
             const name = document.getElementById('autoName').value.trim();
             const phone = document.getElementById('autoPhone').value.trim();
+            const carLink = document.getElementById('carLink').value.trim();
+            const carName = document.getElementById('carName').value.trim();
+            const carDescription = document.getElementById('carDescription').value.trim();
             const message = document.getElementById('autoMessage').value.trim();
             
             if (!name || !phone) {
@@ -3481,14 +3559,23 @@
             
             const formattedPhone = currentAutoRegion + ' ' + phone.replace(/\D/g, '');
             
-            const autoMessage = `- *ЗАЯВКА НА АВТО УСЛУГУ*
+            // Формируем информацию об автомобиле
+            let carInfo = '';
+            if (carLink || carName || carDescription) {
+                carInfo = `\n\n🚗 *ИНФОРМАЦИЯ ОБ АВТОМОБИЛЕ:*`;
+                if (carLink) carInfo += `\n🔗 *Ссылка:* ${carLink}`;
+                if (carName) carInfo += `\n🏷️ *Название:* ${carName}`;
+                if (carDescription) carInfo += `\n📝 *Описание:* ${carDescription}`;
+            }
+            
+            const autoMessage = `🚗 *ЗАЯВКА НА УСЛУГУ АВТО*
 
 👤 *Клиент:* ${name}
 📞 *Телефон:* ${formattedPhone}
 📍 *Регион:* ${currentAutoRegion}
 
-🛠 *Тип услуги:* ${selectedAutoService}
-📱 *Способ связи:* ${selectedAutoContactMethod}
+🛠️ *Тип услуги:* ${selectedAutoService}
+📱 *Способ связи:* ${selectedAutoContactMethod}${carInfo}
 
 💬 *Сообщение клиента:* ${message || (currentLanguage === 'ru' ? 'Без сообщения' : 'No message')}
 
@@ -3694,6 +3781,9 @@ message += `
             
             document.getElementById('autoName').value = '';
             document.getElementById('autoPhone').value = '';
+            document.getElementById('carLink').value = '';
+            document.getElementById('carName').value = '';
+            document.getElementById('carDescription').value = '';
             document.getElementById('autoMessage').value = '';
             document.getElementById('nextAutoService').disabled = true;
             document.getElementById('nextAutoContactMethod').disabled = true;
