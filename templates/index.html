@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brokerok - Real Estate in Turkey</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-brand">
+                    <h1>Brokerok</h1>
+                </div>
+                <div class="navbar-menu">
+                    <a href="#" class="nav-link">Home</a>
+                    <a href="#properties" class="nav-link">Properties</a>
+                    <a href="#" class="nav-link">About</a>
+                    <a href="#" class="nav-link auth-btn">Login</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section with Search -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Find Your Dream Property in Turkey</h2>
+                <p>Discover the finest real estate opportunities across Turkish cities</p>
+                
+                <div class="search-container">
+                    <div class="search-box">
+                        <div class="search-field">
+                            <label>City</label>
+                            <select id="cityFilter" class="filter-select">
+                                <option value="">All Cities</option>
+                            </select>
+                        </div>
+                        <div class="search-field">
+                            <label>District</label>
+                            <select id="districtFilter" class="filter-select">
+                                <option value="">All Districts</option>
+                            </select>
+                        </div>
+                        <div class="search-field">
+                            <label>Type</label>
+                            <select id="typeFilter" class="filter-select">
+                                <option value="">All Types</option>
+                                <option value="apartment">Apartment</option>
+                                <option value="villa">Villa</option>
+                                <option value="house">House</option>
+                                <option value="land">Land</option>
+                            </select>
+                        </div>
+                        <button class="search-btn" onclick="applyFilters()">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+
+                <div class="quick-filters">
+                    <button class="quick-filter-btn active" onclick="filterByType('apartment')">
+                        <i class="fas fa-building"></i> Apartments
+                    </button>
+                    <button class="quick-filter-btn" onclick="filterByType('villa')">
+                        <i class="fas fa-home"></i> Villas
+                    </button>
+                    <button class="quick-filter-btn" onclick="filterByType('house')">
+                        <i class="fas fa-house"></i> Houses
+                    </button>
+                    <button class="quick-filter-btn" onclick="filterByType('land')">
+                        <i class="fas fa-tree"></i> Land
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Filters -->
+        <section class="filters-section">
+            <div class="container">
+                <h3>Advanced Filters</h3>
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label>Price Range (USD)</label>
+                        <div class="price-range">
+                            <input type="number" id="minPrice" placeholder="Min" class="filter-input">
+                            <input type="number" id="maxPrice" placeholder="Max" class="filter-input">
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label>Area (m²)</label>
+                        <div class="area-range">
+                            <input type="number" id="minArea" placeholder="Min" class="filter-input">
+                            <input type="number" id="maxArea" placeholder="Max" class="filter-input">
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label>Rooms</label>
+                        <select id="roomsFilter" class="filter-select">
+                            <option value="">Any</option>
+                            <option value="1">1 Room</option>
+                            <option value="2">2 Rooms</option>
+                            <option value="3">3 Rooms</option>
+                            <option value="4">4+ Rooms</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <button class="apply-filters-btn" onclick="applyAdvancedFilters()">Apply Filters</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Properties Grid -->
+        <section class="properties-section" id="properties">
+            <div class="container">
+                <h2>Featured Properties</h2>
+                <div class="properties-grid" id="propertiesGrid">
+                    <!-- Properties will be loaded here -->
+                </div>
+                <div class="pagination" id="pagination">
+                    <!-- Pagination will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Property Detail Modal -->
+        <div class="modal" id="propertyModal">
+            <div class="modal-content">
+                <span class="close" onclick="closePropertyModal()">&times;</span>
+                <div class="property-detail" id="propertyDetail">
+                    <!-- Property details will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2026 Brokerok. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
