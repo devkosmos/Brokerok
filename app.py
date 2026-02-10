@@ -9,6 +9,7 @@ import json
 from translations import get_translation
 from crypto_payment import CryptoPayment, PaymentProcessor
 from seed_data import seed_database
+from auth import AuthManager, login_required, admin_required
 
 load_dotenv()
 
@@ -47,6 +48,11 @@ def index():
 def admin_panel():
     """Admin panel"""
     return render_template('admin.html')
+
+@app.route('/auth')
+def auth_page():
+    """Authentication page"""
+    return render_template('auth.html')
 
 @app.route('/property/<int:property_id>')
 def property_detail(property_id):
@@ -454,6 +460,55 @@ def confirm_payment():
     except ValueError as e:
         return jsonify({'error': str(e)}), 400
 
+# ==================== AUTHENTICATION ROUTES ====================
+
+@app.route('/api/auth/register', methods=['POST'])
+def register():
+    """Register new user"""
+    data = request.json
+    email = data.get('email')
+    password = data.get('password')
+    name = data.get('name')
+    
+    if not email or not password:
+        return jsonify({'error': 'Email and password required'}), 400
+    
+    result, status = AuthManager.register(email, password, name)
+    return jsonify(result), status
+
+@app.route('/api/auth/login', methods=['POST'])
+def login():
+    """Login user"""
+    data = request.json
+    email = data.get('email')
+    password = data.get('password')
+    
+    if not email or not password:
+        return jsonify({'error': 'Email and password required'}), 400
+    
+    result, status = AuthManager.login(email, password)
+    return jsonify(result), status
+
+@app.route('/api/auth/logout', methods=['POST'])
+def logout():
+    """Logout user"""
+    result, status = AuthManager.logout()
+    return jsonify(result), status
+
+@app.route('/api/auth/me', methods=['GET'])
+def get_current_user():
+    """Get current user info"""
+    user = AuthManager.get_current_user()
+    if not user:
+        return jsonify({'error': 'Not authenticated'}), 401
+    
+    return jsonify({
+        'id': user.id,
+        'email': user.email,
+        'name': user.name,
+        'role': user.role
+    }), 200
+
 # ==================== INITIALIZATION ROUTES ====================
 
 @app.route('/api/init/seed', methods=['POST'])
@@ -477,6 +532,12 @@ if __name__ == '__main__':
     with app.app_context():
         try:
             db.create_all()
+            print('✅ Database tables created')
         except Exception as e:
-            print(f'Warning: Could not create tables: {e}')
+            print(f'⚠️  Warning: Could not create tables: {e}')
+    
+    print('🚀 Starting Brokerok server...')
+    print('📋 Access at http://localhost:5000')
+    print('🔐 Login at http://localhost:5000/auth')
+    print('👑 Admin at http://localhost:5000/admin')
     app.run(debug=False, host='0.0.0.0', port=5000)

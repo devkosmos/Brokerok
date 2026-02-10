@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Details - Brokerok</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/property_detail.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1><i class="fas fa-crown"></i> Brokerok</h1>
+            </div>
+            <div class="nav-items">
+                <select id="languageSelect" onchange="changeLanguage(this.value)" class="lang-select">
+                    <option value="en">English</option>
+                    <option value="ru">Русский</option>
+                    <option value="tr">Türkçe</option>
+                </select>
+                <a href="/" id="backBtn" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
+                <a href="/admin" id="adminBtn" class="btn-admin"><i class="fas fa-crown"></i> Admin</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Property Gallery -->
+        <section class="gallery-section">
+            <div class="main-image">
+                <img id="mainImage" src="https://via.placeholder.com/800x600" alt="Property">
+            </div>
+            <div class="gallery-thumbs">
+                <img src="https://via.placeholder.com/100x100" alt="Thumb 1" onclick="changeMainImage(this.src)">
+                <img src="https://via.placeholder.com/100x100" alt="Thumb 2" onclick="changeMainImage(this.src)">
+                <img src="https://via.placeholder.com/100x100" alt="Thumb 3" onclick="changeMainImage(this.src)">
+                <img src="https://via.placeholder.com/100x100" alt="Thumb 4" onclick="changeMainImage(this.src)">
+            </div>
+        </section>
+
+        <!-- Property Info -->
+        <section class="property-info">
+            <div class="info-main">
+                <div class="header-section">
+                    <h1 id="propertyTitle">{{ property.title }}</h1>
+                    <div class="price-section">
+                        <span class="price" id="propertyPrice">${{ "{:,.0f}".format(property.price) }}</span>
+                        <button class="btn-favorite" onclick="toggleFavorite()">
+                            <i class="far fa-heart"></i> <span id="favoriteText">Add to Favorites</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Location Info -->
+                <div class="location-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <label id="cityLabel">City:</label>
+                            <span id="propertyCity">{{ property.city.name if property.city else 'N/A' }}</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-pin"></i>
+                        <div>
+                            <label id="districtLabel">District:</label>
+                            <span id="propertyDistrict">{{ property.district.name if property.district else 'N/A' }}</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-road"></i>
+                        <div>
+                            <label id="streetLabel">Street:</label>
+                            <span id="propertyStreet">{{ property.street_address }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="description-section">
+                    <h2 id="descriptionTitle">Description</h2>
+                    <p id="propertyDescription">{{ property.description }}</p>
+                </div>
+
+                <!-- Features Grid -->
+                <div class="features-section">
+                    <h2 id="featuresTitle">Features</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-ruler-combined"></i>
+                            <div>
+                                <label id="areaLabel">Area</label>
+                                <span>{{ property.area }} m²</span>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-door-open"></i>
+                            <div>
+                                <label id="roomsLabel">Rooms</label>
+                                <span>{{ property.rooms if property.rooms else 'N/A' }}</span>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-bath"></i>
+                            <div>
+                                <label id="bathroomsLabel">Bathrooms</label>
+                                <span>{{ property.bathrooms if property.bathrooms else 'N/A' }}</span>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-layer-group"></i>
+                            <div>
+                                <label id="floorLabel">Floor</label>
+                                <span>{{ property.floor if property.floor else 'N/A' }}</span>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-home"></i>
+                            <div>
+                                <label id="typeLabel">Type</label>
+                                <span id="propertyType">{{ property.property_type.title() }}</span>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <label id="statusLabel">Status</label>
+                                <span id="propertyStatus">Available</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Features -->
+                <div class="additional-features">
+                    <h2 id="amenitiesTitle">Amenities</h2>
+                    <div class="amenities-list" id="amenitiesList">
+                        <div class="amenity"><i class="fas fa-check"></i> Air Conditioning</div>
+                        <div class="amenity"><i class="fas fa-check"></i> Parking</div>
+                        <div class="amenity"><i class="fas fa-check"></i> Balcony</div>
+                        <div class="amenity"><i class="fas fa-check"></i> Security 24/7</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="info-sidebar">
+                <!-- Contact Card -->
+                <div class="card contact-card">
+                    <h3 id="contactTitle">Contact Manager</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone"></i> +90 212 123 4567</p>
+                        <p><i class="fas fa-envelope"></i> info@brokerok.com</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="contactManager()" id="contactBtn">
+                        <i class="fas fa-comments"></i> Send Message
+                    </button>
+                </div>
+
+                <!-- Payment Card -->
+                <div class="card payment-card">
+                    <h3 id="purchaseTitle">Purchase Property</h3>
+                    <div class="payment-info">
+                        <p id="paymentLabel">Payment Method:</p>
+                        <select id="cryptoSelect" class="form-select">
+                            <option value="">Select Crypto</option>
+                            <option value="BTC">Bitcoin (BTC)</option>
+                            <option value="ETH">Ethereum (ETH)</option>
+                            <option value="USDT">Tether (USDT)</option>
+                            <option value="USDC">USD Coin (USDC)</option>
+                            <option value="BNB">Binance Coin (BNB)</option>
+                        </select>
+                        <div id="cryptoAmount" style="display:none; margin-top: 15px;">
+                            <p id="amountLabel">Amount:</p>
+                            <p id="cryptoAmountValue" class="crypto-amount">0 BTC</p>
+                            <p id="walletLabel">Wallet Address:</p>
+                            <div class="wallet-address">
+                                <input type="text" id="walletAddress" readonly>
+                                <button onclick="copyWallet()" class="btn-copy">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="initiatePurchase()" id="purchaseBtn">
+                        <i class="fas fa-credit-card"></i> Buy Now
+                    </button>
+                </div>
+
+                <!-- Share Card -->
+                <div class="card share-card">
+                    <h3 id="shareTitle">Share Property</h3>
+                    <div class="share-buttons">
+                        <button onclick="shareProperty('facebook')" class="share-btn facebook">
+                            <i class="fab fa-facebook"></i>
+                        </button>
+                        <button onclick="shareProperty('twitter')" class="share-btn twitter">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                        <button onclick="shareProperty('whatsapp')" class="share-btn whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
+                        <button onclick="shareProperty('copy')" class="share-btn copy">
+                            <i class="fas fa-link"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="map-section">
+            <h2 id="mapTitle">Location on Map</h2>
+            <div id="map" class="map-container"></div>
+        </section>
+
+        <!-- Similar Properties -->
+        <section class="similar-section">
+            <h2 id="similarTitle">Similar Properties</h2>
+            <div class="properties-grid" id="similarProperties">
+                <!-- Similar properties will be loaded here -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closePaymentModal()">&times;</span>
+            <h2 id="paymentModalTitle">Complete Payment</h2>
+            
+            <div class="payment-steps">
+                <div class="step active">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 id="step1Title">Send Payment</h3>
+                        <p id="step1Desc">Send exactly this amount to the wallet address below</p>
+                        <div class="payment-details">
+                            <p><strong id="paymentAmountLabel">Amount:</strong> <span id="paymentAmount">0 BTC</span></p>
+                            <p><strong id="walletAddressLabel">Wallet:</strong></p>
+                            <div class="wallet-box">
+                                <input type="text" id="walletAddressModal" readonly>
+                                <button onclick="copyWalletModal()" class="btn-copy">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            <div id="qrCode" class="qr-code">
+                                <img src="https://via.placeholder.com/200x200" alt="QR Code">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 id="step2Title">Confirm Transaction</h3>
+                        <p id="step2Desc">Enter your transaction hash</p>
+                        <input type="text" id="txHash" placeholder="Transaction Hash (0x...)" class="form-input">
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 id="step3Title">Verification</h3>
+                        <p id="step3Desc">We'll verify your payment on the blockchain</p>
+                        <div id="verificationStatus" style="display:none;">
+                            <p id="verificationMessage">Verifying...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closePaymentModal()" id="cancelBtn">Cancel</button>
+                <button class="btn btn-primary" onclick="submitPayment()" id="submitPaymentBtn">Submit Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeContactModal()">&times;</span>
+            <h2 id="contactModalTitle">Send Message to Manager</h2>
+            
+            <form onsubmit="sendMessage(event)">
+                <div class="form-group">
+                    <label id="nameLabel">Name:</label>
+                    <input type="text" id="contactName" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label id="emailLabel">Email:</label>
+                    <input type="email" id="contactEmail" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label id="phoneLabel">Phone:</label>
+                    <input type="tel" id="contactPhone" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label id="messageLabel">Message:</label>
+                    <textarea id="contactMessage" class="form-textarea" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" id="sendMessageBtn">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDummyKey"></script>
+    <script src="{{ url_for('static', filename='js/property_detail.js') }}"></script>
+</body>
+</html>

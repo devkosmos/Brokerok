@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Brokerok</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #3498db;
+            --success: #2ecc71;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --white: #ffffff;
+            --text: #34495e;
+            --border: #bdc3c7;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, #1a252f 100%);
+            color: var(--text);
+        }
+
+        .auth-container {
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .auth-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-header h1 {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .auth-header p {
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .form-checkbox input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .form-checkbox label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 400;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background-color: var(--light);
+            color: var(--primary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: var(--border);
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: var(--border);
+        }
+
+        .divider span {
+            padding: 0 15px;
+            font-size: 12px;
+        }
+
+        .social-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .social-btn {
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background-color: var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .social-btn:hover {
+            background-color: var(--light);
+        }
+
+        .social-btn.google {
+            color: #db4437;
+        }
+
+        .social-btn.github {
+            color: #333;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .auth-footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid var(--border);
+            background-color: var(--white);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background-color: var(--accent);
+            color: var(--white);
+            border-color: var(--accent);
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .error-message {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .success-message {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .lang-select {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            background-color: var(--white);
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <select id="languageSelect" class="lang-select" onchange="changeLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+        <option value="tr">Türkçe</option>
+    </select>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1><i class="fas fa-crown"></i> Brokerok</h1>
+                <p id="authSubtitle">Real Estate Platform</p>
+            </div>
+
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="switchTab('login')" id="loginTabBtn">
+                    <i class="fas fa-sign-in-alt"></i> <span id="loginTabText">Login</span>
+                </button>
+                <button class="tab-btn" onclick="switchTab('register')" id="registerTabBtn">
+                    <i class="fas fa-user-plus"></i> <span id="registerTabText">Register</span>
+                </button>
+            </div>
+
+            <!-- Login Form -->
+            <div class="form-section active" id="loginForm">
+                <div class="error-message" id="loginError"></div>
+                <div class="success-message" id="loginSuccess"></div>
+
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label id="emailLabel">Email Address</label>
+                        <input type="email" id="loginEmail" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="passwordLabel">Password</label>
+                        <input type="password" id="loginPassword" class="form-input" required>
+                    </div>
+
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe" id="rememberLabel">Remember me</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i> <span id="loginBtnText">Login</span>
+                    </button>
+                </form>
+
+                <div class="divider"><span id="orText">OR</span></div>
+
+                <div class="social-buttons">
+                    <button class="social-btn google" onclick="loginWithGoogle()">
+                        <i class="fab fa-google"></i> <span id="googleText">Google</span>
+                    </button>
+                    <button class="social-btn github" onclick="loginWithGithub()">
+                        <i class="fab fa-github"></i> <span id="githubText">GitHub</span>
+                    </button>
+                </div>
+
+                <div class="auth-footer">
+                    <span id="noAccountText">Don't have an account?</span>
+                    <a href="#" onclick="switchTab('register'); return false;" id="registerLinkText">Register here</a>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div class="form-section" id="registerForm">
+                <div class="error-message" id="registerError"></div>
+                <div class="success-message" id="registerSuccess"></div>
+
+                <form onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label id="nameLabel">Full Name</label>
+                        <input type="text" id="registerName" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="emailLabel2">Email Address</label>
+                        <input type="email" id="registerEmail" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="passwordLabel2">Password</label>
+                        <input type="password" id="registerPassword" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="confirmPasswordLabel">Confirm Password</label>
+                        <input type="password" id="registerConfirmPassword" class="form-input" required>
+                    </div>
+
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <label for="agreeTerms" id="agreeTermsLabel">I agree to the Terms & Conditions</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="registerBtn">
+                        <i class="fas fa-user-plus"></i> <span id="registerBtnText">Create Account</span>
+                    </button>
+                </form>
+
+                <div class="divider"><span id="orText2">OR</span></div>
+
+                <div class="social-buttons">
+                    <button class="social-btn google" onclick="registerWithGoogle()">
+                        <i class="fab fa-google"></i> <span id="googleText2">Google</span>
+                    </button>
+                    <button class="social-btn github" onclick="registerWithGithub()">
+                        <i class="fab fa-github"></i> <span id="githubText2">GitHub</span>
+                    </button>
+                </div>
+
+                <div class="auth-footer">
+                    <span id="haveAccountText">Already have an account?</span>
+                    <a href="#" onclick="switchTab('login'); return false;" id="loginLinkText">Login here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            'en': {
+                'authSubtitle': 'Real Estate Platform',
+                'loginTabText': 'Login',
+                'registerTabText': 'Register',
+                'emailLabel': 'Email Address',
+                'passwordLabel': 'Password',
+                'rememberLabel': 'Remember me',
+                'loginBtnText': 'Login',
+                'orText': 'OR',
+                'googleText': 'Google',
+                'githubText': 'GitHub',
+                'noAccountText': "Don't have an account?",
+                'registerLinkText': 'Register here',
+                'nameLabel': 'Full Name',
+                'confirmPasswordLabel': 'Confirm Password',
+                'agreeTermsLabel': 'I agree to the Terms & Conditions',
+                'registerBtnText': 'Create Account',
+                'haveAccountText': 'Already have an account?',
+                'loginLinkText': 'Login here',
+                'emailLabel2': 'Email Address',
+                'passwordLabel2': 'Password',
+                'orText2': 'OR',
+                'googleText2': 'Google',
+                'githubText2': 'GitHub'
+            },
+            'ru': {
+                'authSubtitle': 'Платформа недвижимости',
+                'loginTabText': 'Вход',
+                'registerTabText': 'Регистрация',
+                'emailLabel': 'Email адрес',
+                'passwordLabel': 'Пароль',
+                'rememberLabel': 'Запомнить меня',
+                'loginBtnText': 'Войти',
+                'orText': 'ИЛИ',
+                'googleText': 'Google',
+                'githubText': 'GitHub',
+                'noAccountText': 'Нет аккаунта?',
+                'registerLinkText': 'Зарегистрируйтесь здесь',
+                'nameLabel': 'Полное имя',
+                'confirmPasswordLabel': 'Подтвердите пароль',
+                'agreeTermsLabel': 'Я согласен с Условиями использования',
+                'registerBtnText': 'Создать аккаунт',
+                'haveAccountText': 'Уже есть аккаунт?',
+                'loginLinkText': 'Войдите здесь',
+                'emailLabel2': 'Email адрес',
+                'passwordLabel2': 'Пароль',
+                'orText2': 'ИЛИ',
+                'googleText2': 'Google',
+                'githubText2': 'GitHub'
+            },
+            'tr': {
+                'authSubtitle': 'Gayrimenkul Platformu',
+                'loginTabText': 'Giriş',
+                'registerTabText': 'Kayıt',
+                'emailLabel': 'Email Adresi',
+                'passwordLabel': 'Şifre',
+                'rememberLabel': 'Beni hatırla',
+                'loginBtnText': 'Giriş Yap',
+                'orText': 'VEYA',
+                'googleText': 'Google',
+                'githubText': 'GitHub',
+                'noAccountText': 'Hesabınız yok mu?',
+                'registerLinkText': 'Buradan kayıt olun',
+                'nameLabel': 'Tam Ad',
+                'confirmPasswordLabel': 'Şifreyi Onayla',
+                'agreeTermsLabel': 'Şartlar ve Koşulları kabul ediyorum',
+                'registerBtnText': 'Hesap Oluştur',
+                'haveAccountText': 'Zaten hesabınız var mı?',
+                'loginLinkText': 'Buradan giriş yapın',
+                'emailLabel2': 'Email Adresi',
+                'passwordLabel2': 'Şifre',
+                'orText2': 'VEYA',
+                'googleText2': 'Google',
+                'githubText2': 'GitHub'
+            }
+        };
+
+        let currentLanguage = 'en';
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('authLanguage', lang);
+            updatePageLanguage();
+        }
+
+        function updatePageLanguage() {
+            const trans = translations[currentLanguage] || translations['en'];
+            Object.keys(trans).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = trans[key];
+                }
+            });
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.form-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(tab + 'Form').classList.add('active');
+            document.getElementById(tab + 'TabBtn').classList.add('active');
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.error) {
+                    showError('loginError', data.error);
+                } else {
+                    localStorage.setItem('user', JSON.stringify(data));
+                    window.location.href = '/';
+                }
+            });
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                showError('registerError', 'Passwords do not match');
+                return;
+            }
+            
+            fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.error) {
+                    showError('registerError', data.error);
+                } else {
+                    showSuccess('registerSuccess', 'Account created! Please login.');
+                    setTimeout(() => switchTab('login'), 2000);
+                }
+            });
+        }
+
+        function showError(elementId, message) {
+            const el = document.getElementById(elementId);
+            el.textContent = message;
+            el.style.display = 'block';
+        }
+
+        function showSuccess(elementId, message) {
+            const el = document.getElementById(elementId);
+            el.textContent = message;
+            el.style.display = 'block';
+        }
+
+        function loginWithGoogle() {
+            alert('Google login coming soon!');
+        }
+
+        function loginWithGithub() {
+            alert('GitHub login coming soon!');
+        }
+
+        function registerWithGoogle() {
+            alert('Google registration coming soon!');
+        }
+
+        function registerWithGithub() {
+            alert('GitHub registration coming soon!');
+        }
+
+        // Load language preference
+        window.addEventListener('load', function() {
+            const savedLang = localStorage.getItem('authLanguage') || 'en';
+            document.getElementById('languageSelect').value = savedLang;
+            changeLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>
