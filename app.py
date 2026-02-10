@@ -1,11 +1,14 @@
 import os
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, session
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from dotenv import load_dotenv
 from models import db, User, City, District, Property, Favorite, Transaction, ActivityLog
 from datetime import datetime
 import json
+from translations import get_translation
+from crypto_payment import CryptoPayment, PaymentProcessor
+from seed_data import seed_database
 
 load_dotenv()
 
@@ -37,7 +40,21 @@ except Exception as e:
 @app.route('/')
 def index():
     """Main page"""
-    return render_template('index.html')
+    lang = request.args.get('lang', 'en')
+    return render_template('index.html', lang=lang)
+
+@app.route('/admin')
+def admin_panel():
+    """Admin panel"""
+    return render_template('admin.html')
+
+@app.route('/property/<int:property_id>')
+def property_detail(property_id):
+    """Property detail page"""
+    prop = Property.query.get(property_id)
+    if not prop:
+        return jsonify({'error': 'Property not found'}), 404
+    return render_template('property_detail.html', property=prop)
 
 @app.route('/api/cities', methods=['GET'])
 def get_cities():
@@ -371,6 +388,83 @@ def init_districts():
     db.session.commit()
     return jsonify({'message': 'Districts initialized'})
 
+# ==================== CRYPTO PAYMENT ROUTES ====================
+
+@app.route('/api/crypto/supported', methods=['GET'])
+def get_supported_cryptos():
+    """Get supported cryptocurrencies"""
+    return jsonify(CryptoPayment.get_supported_cryptos())
+
+@app.route('/api/crypto/convert', methods=['POST'])
+def convert_currency():
+    """Convert USD to cryptocurrency"""
+    data = request.json
+    usd_amount = data.get('usd_amount')
+    crypto_type = data.get('crypto_type')
+    
+    if not usd_amount or not crypto_type:
+        return jsonify({'error': 'Missing parameters'}), 400
+    
+    try:
+        crypto_amount = CryptoPayment.convert_usd_to_crypto(usd_amount, crypto_type)
+        merchant_address = CryptoPayment.get_merchant_address(crypto_type)
+        
+        return jsonify({
+            'usd_amount': usd_amount,
+            'crypto_type': crypto_type,
+            'crypto_amount': crypto_amount,
+            'merchant_address': merchant_address
+        })
+    except ValueError as e:
+        return jsonify({'error': str(e)}), 400
+
+@app.route('/api/payment/request', methods=['POST'])
+def create_payment_request():
+    """Create a payment request"""
+    data = request.json
+    user_id = data.get('user_id')
+    property_id = data.get('property_id')
+    amount_usd = data.get('amount_usd')
+    crypto_type = data.get('crypto_type')
+    
+    if not all([user_id, property_id, amount_usd, crypto_type]):
+        return jsonify({'error': 'Missing parameters'}), 400
+    
+    try:
+        processor = PaymentProcessor(db)
+        payment_info = processor.create_payment_request(property_id, user_id, amount_usd, crypto_type)
+        return jsonify(payment_info)
+    except ValueError as e:
+        return jsonify({'error': str(e)}), 400
+
+@app.route('/api/payment/confirm', methods=['POST'])
+def confirm_payment():
+    """Confirm a payment"""
+    data = request.json
+    transaction_id = data.get('transaction_id')
+    tx_hash = data.get('tx_hash')
+    
+    if not transaction_id or not tx_hash:
+        return jsonify({'error': 'Missing parameters'}), 400
+    
+    try:
+        processor = PaymentProcessor(db)
+        result = processor.confirm_payment(transaction_id, tx_hash)
+        return jsonify(result)
+    except ValueError as e:
+        return jsonify({'error': str(e)}), 400
+
+# ==================== INITIALIZATION ROUTES ====================
+
+@app.route('/api/init/seed', methods=['POST'])
+def init_seed_data():
+    """Seed database with sample data"""
+    try:
+        seed_database()
+        return jsonify({'message': 'Database seeded successfully'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 @app.errorhandler(404)
 def not_found(error):
     return jsonify({'error': 'Not found'}), 404
@@ -385,4 +479,4 @@ if __name__ == '__main__':
             db.create_all()
         except Exception as e:
             print(f'Warning: Could not create tables: {e}')
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=False, host='0.0.0.0', port=5000)
